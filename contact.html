@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact • MelloraX</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+    --black:#0B0B0B;
+    --gold:#D4AF37;
+    --amber:#E8B23C;
+    --ivory:#F9F7F2;
+    --grey:#9a9a9a;
+    --card:#151515;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left, rgba(212,175,55,.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(232,178,60,.08), transparent 34%),
+        var(--black);
+    color:var(--ivory);
+    font-family:'Poppins',sans-serif;
+}
+
+.header{
+    padding:22px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(212,175,55,.14);
+    background:rgba(11,11,11,.78);
+    backdrop-filter:blur(14px);
+}
+
+.logo{
+    font-family:'Playfair Display',serif;
+    color:var(--gold);
+    font-size:28px;
+}
+
+.back{
+    color:var(--black);
+    background:linear-gradient(135deg,var(--gold),var(--amber));
+    padding:10px 18px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+}
+
+.main{
+    max-width:1120px;
+    margin:auto;
+    padding:72px 22px 90px;
+}
+
+.badge{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding:8px 14px;
+    border:1px solid rgba(212,175,55,.22);
+    border-radius:999px;
+    color:var(--gold);
+    font-size:13px;
+    margin-bottom:24px;
+}
+
+.badge svg{
+    width:16px;
+    height:16px;
+    fill:var(--gold);
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:58px;
+    line-height:1.06;
+    max-width:780px;
+    margin-bottom:18px;
+}
+
+.intro{
+    color:#c7c7c7;
+    max-width:760px;
+    line-height:1.9;
+    font-size:15px;
+}
+
+.contact-grid{
+    margin-top:48px;
+    display:grid;
+    gap:22px;
+}
+
+.contact-card{
+    position:relative;
+    padding:30px;
+    border-radius:30px;
+    background:
+        radial-gradient(circle at top left, rgba(212,175,55,.10), transparent 38%),
+        var(--card);
+    border:1px solid rgba(212,175,55,.14);
+    overflow:hidden;
+    transition:.35s ease;
+}
+
+.contact-card::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:linear-gradient(120deg, transparent, rgba(212,175,55,.13), transparent);
+    transform:translateX(-110%);
+    transition:.7s ease;
+}
+
+.contact-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(212,175,55,.28);
+    box-shadow:
+        0 32px 85px rgba(0,0,0,.55),
+        0 0 35px rgba(212,175,55,.09);
+}
+
+.contact-card:hover::before{
+    transform:translateX(110%);
+}
+
+.card-icon{
+    width:58px;
+    height:58px;
+    border-radius:18px;
+    background:rgba(212,175,55,.08);
+    border:1px solid rgba(212,175,55,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:22px;
+}
+
+.card-icon svg{
+    width:28px;
+    height:28px;
+    fill:var(--gold);
+}
+
+.contact-card h2{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.contact-card p{
+    color:#aaa;
+    line-height:1.8;
+    font-size:14px;
+    margin-bottom:22px;
+}
+
+.contact-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.contact-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    transition:.3s ease;
+}
+
+.primary{
+    background:linear-gradient(135deg,var(--gold),var(--amber));
+    color:var(--black);
+}
+
+.secondary{
+    border:1px solid rgba(212,175,55,.22);
+    color:var(--gold);
+    background:rgba(30,30,30,.45);
+}
+
+.contact-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 40px rgba(212,175,55,.13);
+}
+
+.contact-btn svg{
+    width:15px;
+    height:15px;
+    fill:currentColor;
+}
+
+.info-strip{
+    margin-top:38px;
+    padding:24px;
+    border-radius:26px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.info-strip h3{
+    color:var(--gold);
+    margin-bottom:12px;
+    font-size:18px;
+}
+
+.info-strip p{
+    color:#999;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.footer-note{
+    margin-top:42px;
+    color:#666;
+    font-size:12px;
+    text-align:center;
+}
+
+@media(min-width:850px){
+    .contact-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:849px){
+    .header{padding:18px 20px}
+    .logo{font-size:22px}
+    .main{padding:56px 20px 76px}
+    h1{font-size:38px}
+    .contact-card{padding:24px}
+}.logo sup,
+.lux-logo sup,
+.portal-brand sup{
+    font-size:10px;
+
+    opacity:.72;
+
+    position:relative;
+
+    top:-0.18em;
+
+    margin-left:-3px;
+
+    vertical-align:top;
+}/* PREMIUM CARD REFLECTION */
+.policy-card,
+.contact-card,
+.product-card,
+.premium-review-card,
+.flow-card,
+.sat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.policy-card::before,
+.contact-card::before,
+.product-card::before,
+.premium-review-card::before,
+.flow-card::before,
+.sat-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(212,175,55,0.13),
+        transparent
+    );
+    transform: translateX(-140%);
+    transition: transform 1.8s cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+}
+
+.policy-card:hover::before,
+.contact-card:hover::before,
+.product-card:hover::before,
+.premium-review-card:hover::before,
+.flow-card:hover::before,
+.sat-card:hover::before {
+    transform: translateX(140%);
+}.policy-card:active::before,
+.contact-card:active::before,
+.product-card:active::before,
+.premium-review-card:active::before,
+.flow-card:active::before,
+.sat-card:active::before {
+    transform: translateX(140%);
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">MelloraX <sup>TM</sup></div>
+    <a href="index.html" class="back">Back Home</a>
+</header>
+
+<main class="main">
+
+    <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 3v2h12V7H6zm0 4v2h12v-2H6zm0 4v2h8v-2H6z"/></svg>
+        Contact MelloraX
+    </div>
+
+    <h1>Connect with the right team.</h1>
+
+    <p class="intro">
+        Whether you are a customer, retailer, or business partner, choose the most relevant contact option below so your enquiry reaches the right place.
+    </p>
+
+    <section class="contact-grid">
+
+        <div class="contact-card">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.9 14.6L2 22l5.6-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3.3.9.9-3.2-.2-.3A8 8 0 1 1 12 20z"/></svg>
+            </div>
+
+            <h2>Customer Support</h2>
+
+            <p>
+                For order enquiries, delivery questions, product information, or post-purchase support.
+            </p>
+
+            <div class="contact-actions">
+                <a href="mailto:support@mellorax.com" class="contact-btn primary">
+                    Email Support
+                </a>
+
+                <a href="tel:+919690181875" class="contact-btn secondary">
+                    Call
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm1 6h14l-1 10H6L5 10zm4 2v6h2v-6H9zm4 0v6h2v-6h-2z"/></svg>
+            </div>
+
+            <h2>Retail & Bulk</h2>
+
+            <p>
+                For shops, retailers, gifting enquiries, or bulk purchase discussions.
+            </p>
+
+            <div class="contact-actions">
+                <a href="mailto:business@mellorax.com" class="contact-btn primary">
+                    Retail Enquiry
+                </a>
+
+                <a href="#founder-contact" class="contact-btn secondary">
+                    Business Note
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-card" id="founder-contact">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg>
+            </div>
+
+            <h2>Founder & Partnerships</h2>
+
+            <p>
+                For partnerships, collaboration, investment conversations, or strategic opportunities related to Rana Global Ventures.
+            </p>
+
+            <div class="contact-actions">
+                <a href="mailto:founder@mellorax.com" class="contact-btn primary">
+                    Contact Founder
+                </a>
+
+               <a href="index.html#founder" class="contact-btn secondary">
+    Founder Profile
+</a>
+ <a href="tel:+917248101054" class="contact-btn secondary">
+                    Call
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="info-strip">
+        <h3>Response note</h3>
+        <p>
+            MelloraX is currently in an early launch phase. Response times may vary, but serious customer, retail, and partnership enquiries will be reviewed carefully.
+        </p>
+    </section>
+
+    <p class="footer-note">
+        MelloraX™ is a brand by Rana Global Ventures.
+    </p>
+
+</main>
+
+</body>
+</html>
