@@ -3025,4 +3025,27 @@ body{
     animation:luxShine 3.5s linear infinite;
 
     pointer-events:none;
+}/* MOBILE STRIP FIX */
+
+@media (max-width: 768px) {
+
+    .strip-track {
+        width: max-content !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 28px !important;
+
+        animation-duration: 14s !important;
+    }
+
+    .strip-track span {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        font-size: 12px !important;
+    }
+
+    .preorder-alert {
+        color: #f5c76b !important;
+        font-weight: 700 !important;
+    }
 }
