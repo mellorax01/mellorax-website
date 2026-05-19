@@ -2909,7 +2909,7 @@ body{
 
     animation:luxGlow 2.8s ease-in-out infinite;
 
-    overflow:hidden;
+   
 }
 
 .preorder-alert::after{
@@ -2971,4 +2971,14 @@ body{
         left:140%;
     }
 
+}/* PREORDER TEXT CUT FIX */
+
+.preorder-alert{
+    display:inline-block;
+    overflow:visible !important;
+    white-space:nowrap;
+}
+
+.preorder-alert::after{
+    pointer-events:none;
 }
