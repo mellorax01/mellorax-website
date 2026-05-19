@@ -2846,4 +2846,31 @@ div{
 .order-section,
 .footer-business{
     transform:translateZ(0);
+}/* MOBILE HEADER TOP GAP FIX */
+
+html,
+body{
+    margin:0 !important;
+    padding:0 !important;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+.site-header{
+    top:0 !important;
+    margin-top:0 !important;
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+
+    body{
+        padding-top:0 !important;
+    }
+
+    .site-header{
+        padding-top:0 !important;
+    }
+
 }
