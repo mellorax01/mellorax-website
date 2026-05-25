@@ -150,15 +150,155 @@ function buyNowProduct(){
             <span class="batch-pill">Live</span>
         </div>
 
-        <div class="mx-media-dots">
-            <button class="active" scroll="goMedia(0)"></button>
-            <button one="goMedia(1)"></button>
-            <button onclick="goMedia(2)"></button>
-            <button onclick="goMedia(3)"></button>
-            <button onclick="goMedia(4)"></button>
-            <button onclick="goMedia(5)"></button>
-            <button onclick="goMedia(6)"></button>
-        </div>
+<!-- LEFT RIGHT ARROWS -->
+
+<button class="mx-media-arrow left"
+onclick="mxSlideMedia(-1)">
+    ‹
+</button>
+
+<button class="mx-media-arrow right"
+onclick="mxSlideMedia(1)">
+    ›
+</button>
+
+<style>
+
+.mx-media-arrow{
+
+    position:absolute;
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    z-index:20;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+    outline:none;
+
+    border-radius:999px;
+
+    background:
+    rgba(10,10,10,.72);
+
+    backdrop-filter:
+    blur(10px);
+
+    border:
+    1px solid rgba(212,175,55,.16);
+
+    color:#D4AF37;
+
+    font-size:28px;
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:
+    transform .35s ease,
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.mx-media-arrow.left{
+
+    left:18px;
+}
+
+.mx-media-arrow.right{
+
+    right:18px;
+}
+
+.mx-media-arrow:hover{
+
+    transform:
+    translateY(-50%)
+    scale(1.06);
+
+    background:
+    rgba(18,18,18,.94);
+
+    border-color:
+    rgba(212,175,55,.38);
+
+    box-shadow:
+    0 14px 34px rgba(212,175,55,.12);
+}
+
+.mx-media-arrow:active{
+
+    transform:
+    translateY(-50%)
+    scale(.96);
+}
+
+</style>
+
+<script>
+
+let mxCurrentSlide = 0;
+
+function mxSlideMedia(direction){
+
+    const track =
+    document.getElementById(
+    "mediaTrack"
+    );
+
+    const dots =
+    document.querySelectorAll(
+    ".mx-dot"
+    );
+
+    if(!track) return;
+
+    const totalSlides = 6;
+
+    mxCurrentSlide += direction;
+
+    if(mxCurrentSlide < 0){
+
+        mxCurrentSlide =
+        totalSlides - 1;
+    }
+
+    if(mxCurrentSlide >= totalSlides){
+
+        mxCurrentSlide = 0;
+    }
+
+    track.scrollTo({
+
+        left:
+        track.clientWidth *
+        mxCurrentSlide,
+
+        behavior:"smooth"
+    });
+
+    dots.forEach(dot => {
+
+        dot.classList.remove(
+        "active"
+        );
+    });
+
+    if(dots[mxCurrentSlide]){
+
+        dots[mxCurrentSlide]
+        .classList.add(
+        "active"
+        );
+    }
+}
+
+</script>
 
     </div>
        
