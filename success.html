@@ -177,27 +177,33 @@ body{
 </head>
 
 <script>
-async function sendOrderToBackend(){
+async function saveOrderToBackend(){
     const order = JSON.parse(localStorage.getItem("melloraxOrder") || "null");
 
     if(!order || !order.orderId){
+        console.log("No order found to save.");
         return;
     }
 
     try{
-        await fetch("http://localhost:5000/save-order",{
+        const response = await fetch("http://localhost:5000/save-order",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
             },
             body:JSON.stringify(order)
         });
+
+        const data = await response.json();
+
+        console.log("Order save response:", data);
+
     }catch(error){
-        console.log("Order backend save failed", error);
+        console.error("Order save failed:", error);
     }
 }
 
-sendOrderToBackend();
+saveOrderToBackend();
 </script>
 
 <body>
