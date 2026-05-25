@@ -150,15 +150,131 @@ function buyNowProduct(){
             <span class="batch-pill">Live</span>
         </div>
 
-        <div class="mx-media-dots">
-            <button class="active" scroll="goMedia(0)"></button>
-            <button scroll="goMedia(1)"></button>
-            <button onclick="goMedia(2)"></button>
-            <button onclick="goMedia(3)"></button>
-            <button onclick="goMedia(4)"></button>
-            <button onclick="goMedia(5)"></button>
-            <button onclick="goMedia(6)"></button>
-        </div>
+     <!-- MEDIA DOTS -->
+
+<div class="mx-media-dots">
+
+    <button class="mx-dot active"
+        onclick="mxScrollMedia(0,this)">
+    </button>
+
+    <button class="mx-dot"
+        onclick="mxScrollMedia(1,this)">
+    </button>
+
+    <button class="mx-dot"
+        onclick="mxScrollMedia(2,this)">
+    </button>
+
+    <button class="mx-dot"
+        onclick="mxScrollMedia(3,this)">
+    </button>
+
+    <button class="mx-dot"
+        onclick="mxScrollMedia(4,this)">
+    </button>
+
+    <button class="mx-dot"
+        onclick="mxScrollMedia(5,this)">
+    </button>
+
+</div>
+
+<style>
+
+.mx-media-dots{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.mx-dot{
+
+    width:10px;
+    height:10px;
+
+    border:none;
+    outline:none;
+
+    border-radius:999px;
+
+    background:
+    rgba(212,175,55,.24);
+
+    cursor:pointer;
+
+    transition:
+    width .35s ease,
+    transform .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.mx-dot.active{
+
+    width:34px;
+
+    background:#D4AF37;
+
+    box-shadow:
+    0 0 18px rgba(212,175,55,.35);
+}
+
+.mx-dot:hover{
+
+    transform:
+    translateY(-2px);
+
+    background:
+    rgba(212,175,55,.52);
+}
+
+</style>
+
+<script>
+
+function mxScrollMedia(index,el){
+
+    const track =
+    document.querySelector(
+    '.mx-media-track'
+    );
+
+    const dots =
+    document.querySelectorAll(
+    '.mx-dot'
+    );
+
+    if(!track) return;
+
+    const scrollAmount =
+    track.clientWidth * index;
+
+    track.scrollTo({
+
+        left:scrollAmount,
+
+        behavior:'smooth'
+    });
+
+    dots.forEach(dot => {
+
+        dot.classList.remove(
+        'active'
+        );
+    });
+
+    el.classList.add(
+    'active'
+    );
+}
+
+</script>   
 
     </div>
        
