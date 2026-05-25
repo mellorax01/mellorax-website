@@ -177,7 +177,7 @@ body{
 </head>
 
 <script>
-async function saveOrderToGoogleSheet(){
+function saveOrderToGoogleSheet(){
     const order = JSON.parse(localStorage.getItem("melloraxOrder") || "null");
 
     if(!order || !order.orderId){
@@ -185,21 +185,16 @@ async function saveOrderToGoogleSheet(){
         return;
     }
 
-    try{
-        await fetch("https://script.google.com/macros/library/d/1x_8PeakLW_xn43DYnw4Fk7_o4pOvZgPttz5a9iN-bp5zCf6zAe2LLfJj/1",{
-            method:"POST",
-            mode:"no-cors",
-            headers:{
-                "Content-Type":"text/plain"
-            },
-            body:JSON.stringify(order)
-        });
+    fetch("https://script.google.com/macros/s/AKfycbxwBf66Z9QufIaCi1LMXvzsthMRXszvig24guHVfqtlwRCWlvVSbp3dtPOYG5KXfmUv/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "payload=" + encodeURIComponent(JSON.stringify(order))
+    });
 
-        console.log("Order sent to Google Sheet.");
-
-    }catch(error){
-        console.log("Google Sheet save failed:", error);
-    }
+    console.log("Order sent to Google Sheet");
 }
 
 saveOrderToGoogleSheet();
