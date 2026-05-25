@@ -140,9 +140,37 @@ function buyNowProduct(){
                 </div>
 
                 <div class="mx-media-slide video-slide">
-                      <video play="assets/product-video.mp4">
-            <source src="assets/product-video.mp4" type="video/mp4">
-        </video>
+             <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    class="mx-product-video"
+>
+
+    <source
+        src="assets/product-video.mp4"
+        type="video/mp4"
+    >
+
+</video>
+
+<style>
+
+.mx-product-video{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:28px;
+
+    display:block;
+}
+
+</style>
                 </div>
 
             </div>
