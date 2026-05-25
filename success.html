@@ -186,19 +186,19 @@ async function saveOrderToGoogleSheet(){
     }
 
     try{
-        await fetch("https://script.google.com/macros/s/AKfycbxwBf66Z9QufIaCi1LMXvzsthMRXszvig24guHVfqtlwRCWlvVSbp3dtPOYG5KXfmUv/exec", {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
+        await fetch("https://script.google.com/macros/library/d/1x_8PeakLW_xn43DYnw4Fk7_o4pOvZgPttz5a9iN-bp5zCf6zAe2LLfJj/1",{
+            method:"POST",
+            mode:"no-cors",
+            headers:{
+                "Content-Type":"text/plain"
             },
-            body: JSON.stringify(order)
+            body:JSON.stringify(order)
         });
 
-        console.log("Order sent to Google Sheet");
+        console.log("Order sent to Google Sheet.");
 
     }catch(error){
-        console.log("Google Sheet save failed", error);
+        console.log("Google Sheet save failed:", error);
     }
 }
 
