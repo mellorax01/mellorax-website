@@ -14,6 +14,7 @@ function getCart(){
 
 function saveCart(cart){
     localStorage.setItem("melloraxCart", JSON.stringify(cart));
+    showCartToast();
 }
 
 function updateStickyCart(){
@@ -109,6 +110,24 @@ function buyNowProduct(){
 }
 </script>
 
+<div class="mx-cart-toast" id="mxCartToast">
+    <span>Added to cart</span>
+    <a href="cart.html">View Cart</a>
+</div>
+
+<script>
+function showCartToast(){
+    const toast = document.getElementById("mxCartToast");
+
+    if(!toast) return;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 4500);
+}
+</script>
 
 <body>
 
