@@ -177,37 +177,35 @@ body{
 </head>
 
 <script>
-async function saveOrderToBackend(){
+async function saveOrderToGoogleSheet(){
     const order = JSON.parse(localStorage.getItem("melloraxOrder") || "null");
 
     if(!order || !order.orderId){
-        console.log("No order found to save.");
+        console.log("No order found.");
         return;
     }
 
     try{
-        const response = await fetch("https://mellorax-backend.onrender.com/save-order",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
+        await fetch("https://script.google.com/macros/s/AKfycbxwBf66Z9QufIaCi1LMXvzsthMRXszvig24guHVfqtlwRCWlvVSbp3dtPOYG5KXfmUv/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify(order)
+            body: JSON.stringify(order)
         });
 
-        const data = await response.json();
-
-        console.log("Order save response:", data);
+        console.log("Order sent to Google Sheet");
 
     }catch(error){
-        console.error("Order save failed:", error);
+        console.log("Google Sheet save failed", error);
     }
 }
 
-saveOrderToBackend();
+saveOrderToGoogleSheet();
 </script>
 
 <body>
-
 <main class="success-page">
 
 <section class="success-card">
