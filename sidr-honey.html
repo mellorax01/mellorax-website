@@ -109,17 +109,6 @@ function buyNowProduct(){
 }
 </script>
 
-<script>
-function shopifyBuyNow(){
-    const qty = document.getElementById("qtyInput")?.value || 1;
-
-    const variantId = "10235539357972";
-    const storeUrl = "https://mellorax.myshopify.com/";
-
-    window.location.href = `${storeUrl}/cart/${variantId}:${qty}`;
-}
-</script>
-
 <body>
 
 <a href="products.html" class="mx-back-home">← Products</a>
@@ -189,7 +178,7 @@ function shopifyBuyNow(){
         </div>
 
         <div class="mx-media-dots">
-              <button onclick scroll="goMedia(1)"></button>
+              <button onclick scrolll="goMedia(1)"></button>
             <button onclick="goMedia(1)"></button>
             <button onclick="goMedia(2)"></button>
             <button onclick="goMedia(3)"></button>
@@ -231,23 +220,14 @@ function shopifyBuyNow(){
         </div>
 
         <div class="mx-actions">
-       <button type="button" class="mx-cart-btn" onclick="shopifyAddToCart()">
+        <button type="button" class="mx-cart-btn" onclick="addToCart()">
     Add to Cart
 </button>
-<button type="button" class="mx-buy-btn" onclick="shopifyBuyNow()">
+            <button type="button" class="mx-buy-btn" onclick="buyNowProduct()">
     Buy Now
 </button>
         </div>
-<script>
-function shopifyAddToCart(){
-    const qty = document.getElementById("qtyInput")?.value || 1;
 
-    const variantId = "10235539357972";
-    const storeUrl = "https://mellorax.myshopify.com/";
-
-    window.location.href = `${storeUrl}/cart/${variantId}:${qty}`;
-}
-</script>
         <p class="mx-ship-note">
             Shipping begins after the official batch launch on <strong>13 June 2026</strong>.
         </p>
