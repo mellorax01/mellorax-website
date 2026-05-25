@@ -109,6 +109,17 @@ function buyNowProduct(){
 }
 </script>
 
+<script>
+function shopifyBuyNow(){
+    const qty = document.getElementById("qtyInput")?.value || 1;
+
+    const variantId = "10235539357972";
+    const storeUrl = "https://mellorax.myshopify.com/";
+
+    window.location.href = `${storeUrl}/cart/${variantId}:${qty}`;
+}
+</script>
+
 <body>
 
 <a href="products.html" class="mx-back-home">← Products</a>
@@ -220,14 +231,23 @@ function buyNowProduct(){
         </div>
 
         <div class="mx-actions">
-        <button type="button" class="mx-cart-btn" onclick="addToCart()">
+       <button type="button" class="mx-cart-btn" onclick="shopifyAddToCart()">
     Add to Cart
 </button>
-            <button type="button" class="mx-buy-btn" onclick="buyNowProduct()">
+<button type="button" class="mx-buy-btn" onclick="shopifyBuyNow()">
     Buy Now
 </button>
         </div>
+<script>
+function shopifyAddToCart(){
+    const qty = document.getElementById("qtyInput")?.value || 1;
 
+    const variantId = "10235539357972";
+    const storeUrl = "https://mellorax.myshopify.com/";
+
+    window.location.href = `${storeUrl}/cart/${variantId}:${qty}`;
+}
+</script>
         <p class="mx-ship-note">
             Shipping begins after the official batch launch on <strong>13 June 2026</strong>.
         </p>
