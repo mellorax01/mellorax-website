@@ -675,7 +675,7 @@ button:hover{
             <button onclick="verifyBatch()">View Batch Details</button>
         </div>
 
-        <p class="hint">Example for testing: MX001</p>
+        <p class="hint">Example for testing: MX-XX-001</p>
 
         <div class="not-found" id="notFound">
             No batch reference found. Please check the printed batch number and try again.
@@ -739,21 +739,21 @@ button:hover{
 
 <script>
 const reports = {
-    "MX001": {
+    "MX-SD-001": {
     title: "MelloraX • First Batch",
-    batch: "MX001",
+    batch: "MX-SD-001",
     variant: "Sidr Honey • 500g",
     packed: "Batch I • 2026",
     category: "Reference Batch",
-    pdf: "reports/mx001.pdf"
+    pdf: "reports/MX-SD-001.pdf"
 
-},    "MX002": {
+},    "MX-AC-002": {
         title: "MelloraX Honey",
-        batch: "MX002",
+        batch: "MX-AC-002",
         variant: "Honey",
         packed: "Second Batch Reference",
         category: "Honey Batch",
-        pdf: "reports/mx002.pdf"
+        pdf: "reports/MX-AC-002.pdf"
     }
 };
 
@@ -797,6 +797,7 @@ window.addEventListener("load", () => {
 });
 
 </script>
+<script src="search.js"></script>
 
 </body>
 

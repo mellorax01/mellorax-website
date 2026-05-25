@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout • MelloraX</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
+.mx-back-home{position:absolute;top:28px;left:28px;padding:12px 18px;border-radius:999px;background:rgba(15,15,15,.75);border:1px solid rgba(212,175,55,.18);color:#F5F1E8;text-decoration:none;font-size:13px}
+.mx-checkout-page{min-height:100vh;padding:110px 6% 90px}
+.checkout-head span,.checkout-kicker{color:#D4AF37;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.checkout-head h1{font-family:serif;font-size:clamp(48px,7vw,86px);line-height:1;margin:14px 0 18px}
+.checkout-head p{color:#B8B0A3;line-height:1.8}
+.checkout-layout{display:grid;grid-template-columns:1.12fr .88fr;gap:36px;margin-top:55px;align-items:start}
+.checkout-form,.checkout-summary{padding:34px;border-radius:34px;background:linear-gradient(180deg,#151515,#0E0E0E);border:1px solid rgba(212,175,55,.15)}
+.checkout-form{display:grid;gap:16px}
+.checkout-form h2,.checkout-summary h2{font-family:serif;font-size:32px;margin:0 0 10px}
+.checkout-form input,.checkout-form textarea,.checkout-form select{width:100%;padding:17px 20px;border-radius:20px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2;outline:none;font-size:15px}
+.checkout-form textarea{min-height:118px;resize:none}
+.checkout-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.delivery-box{display:none;padding:15px 18px;border-radius:18px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.16);color:#E6D49B;font-size:14px}
+.payment-options{display:grid;gap:12px}
+.payment-option{display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;border-radius:24px;border:1px solid rgba(212,175,55,.16);background:#0B0B0B;min-height:104px;cursor:pointer;transition:.35s}
+.payment-option.active{border-color:rgba(212,175,55,.52);background:rgba(212,175,55,.06)}
+.payment-option:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.38)}
+.payment-option span{font-size:18px;font-weight:700}
+.payment-option small{display:block;color:#AFA79A;margin-top:8px;line-height:1.6}
+.payment-option input{display:none}
+.payment-option.disabled{opacity:.42;cursor:not-allowed}
+.coupon-box{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
+.coupon-box input{padding:16px 18px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2}
+.coupon-box button{padding:0 22px;border-radius:18px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer}
+.coupon-message{margin-top:-6px;margin-bottom:16px;font-size:13px;color:#D4AF37;min-height:18px}
+.pay-btn{padding:18px 24px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s}
+.pay-btn:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
+.checkout-summary{position:sticky;top:28px}
+.checkout-item{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid rgba(212,175,55,.11)}
+.checkout-item img{width:72px;height:72px;object-fit:contain;border-radius:16px;background:#080808}
+.checkout-item strong,.checkout-item small,.checkout-item span{display:block}
+.checkout-item small,.checkout-item span{color:#AFA79A;font-size:13px;margin-top:3px}
+.checkout-item b{color:#F9F7F2}
+.summary-lines p,.checkout-total{display:flex;justify-content:space-between;gap:20px;color:#BEB6A8;line-height:1.7}
+.checkout-summary hr{border:0;border-top:1px solid rgba(212,175,55,.14);margin:24px 0}
+.gold,.checkout-total strong{color:#D4AF37!important}
+.checkout-total strong{font-size:28px}
+.empty-checkout{color:#AFA79A;line-height:1.8}
+.secure-strip{margin-top:22px;color:#AFA79A;font-size:13px;line-height:1.6}
+@media(max-width:900px){
+.mx-checkout-page{padding:92px 18px 60px}
+.checkout-layout,.checkout-row{grid-template-columns:1fr}
+.checkout-summary{position:static}
+.checkout-form,.checkout-summary{padding:24px;border-radius:28px}
+.coupon-box{grid-template-columns:1fr}
+.coupon-box button{min-height:52px}
+}
+</style>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+
+<a href="cart.html" class="mx-back-home">← Cart</a>
+
+<main class="mx-checkout-page">
+
+<section class="checkout-head">
+<span>Secure Checkout</span>
+<h1>Complete Your Order</h1>
+<p>Review your details carefully before continuing to payment.</p>
+</section>
+
+<section class="checkout-layout">
+
+<form class="checkout-form" id="checkoutForm">
+<span class="checkout-kicker">Step 01</span>
+<h2>Shipping Details</h2>
+
+<input type="text" id="fullName" placeholder="Full Name" required>
+<input type="tel" id="phone" placeholder="Mobile Number" required>
+<input type="email" id="email" placeholder="Email Address" required>
+<textarea id="address" placeholder="Complete Shipping Address" required></textarea>
+
+<div class="checkout-row">
+<input type="text" id="city" placeholder="City" required>
+<input type="text" id="pincode" placeholder="Pincode" maxlength="6" inputmode="numeric" oninput="checkDelivery()" required>
+</div>
+
+<select id="state" required>
+<option value="">Select State / Union Territory</option>
+<option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
+<option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
+<option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+<option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+<option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+<option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+<option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+<option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
+<option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
+<option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
+</select>
+
+<div class="delivery-box" id="deliveryEstimate"></div>
+
+<span class="checkout-kicker">Step 02</span>
+<h2>Payment Method</h2>
+
+<div class="payment-options">
+<label class="payment-option active" onclick="selectPayment(this,'online')">
+<div>
+<span>Online Payment</span>
+<small>UPI, card, wallet and net banking supported.</small>
+</div>
+<input type="radio" checked>
+</label>
+
+<label class="payment-option disabled">
+<div>
+<span>Cash on Delivery</span>
+<small>Currently unavailable.</small>
+</div>
+<input type="radio" disabled>
+</label>
+</div>
+
+<button type="button" class="pay-btn" onclick="startPayment()">Continue to Payment</button>
+</form>
+
+<aside class="checkout-summary">
+<span class="checkout-kicker">Order Summary</span>
+<h2>Your Selection</h2>
+
+<div class="coupon-box">
+<input type="text" id="couponInput" placeholder="Enter coupon code">
+<button type="button" onclick="applyCoupon()">Apply</button>
+</div>
+<div class="coupon-message" id="couponMessage"></div>
+
+<div id="checkoutItems"></div>
+
+<div class="summary-lines">
+<p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
+<p><span>Shipping</span><strong class="gold">Free</strong></p>
+<p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
+</div>
+
+<hr>
+
+<p class="checkout-total">
+<span>Total</span>
+<strong id="checkoutTotal">₹0</strong>
+</p>
+
+<div class="secure-strip">
+<span>Secure payment experience.</span><br>
+<span>Premium packaging and careful order handling.</span>
+</div>
+</aside>
+
+</section>
+</main>
+
+<script>
+const BACKEND_URL = "http://localhost:5000";
+let selectedPayment = "online";
+let couponDiscount = 0;
+
+const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
+
+let checkout = checkoutSession && Array.isArray(checkoutSession.items)
+    ? checkoutSession.items
+    : [];
+
+function getTotals(){
+    const subtotal = checkout.reduce((sum,item)=>sum + Number(item.price) * Number(item.qty),0);
+    const mrpTotal = checkout.reduce((sum,item)=>sum + Number(item.mrp || item.price) * Number(item.qty),0);
+    const originalSavings = mrpTotal - subtotal;
+    const finalTotal = Math.max(subtotal - couponDiscount,0);
+    const totalSavings = originalSavings + couponDiscount;
+    const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
+
+    return {subtotal,mrpTotal,finalTotal,totalSavings,discountPercent};
+}
+
+function renderCheckout(){
+    const box = document.getElementById("checkoutItems");
+
+    if(!checkout.length){
+        box.innerHTML = `<div class="empty-checkout">Your checkout is empty. Please add products from the product page or cart.</div>`;
+        document.getElementById("checkoutSubtotal").innerText = "₹0";
+        document.getElementById("checkoutSavings").innerText = "₹0 (0% OFF)";
+        document.getElementById("checkoutTotal").innerText = "₹0";
+        return;
+    }
+
+    box.innerHTML = checkout.map(item => `
+        <div class="checkout-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+                <strong>${item.name}</strong>
+                <small>${item.variant || ""}</small>
+                <span>Quantity: ${item.qty}</span>
+            </div>
+            <b>₹${Number(item.price) * Number(item.qty)}</b>
+        </div>
+    `).join("");
+
+    const totals = getTotals();
+
+    document.getElementById("checkoutSubtotal").innerText = `₹${totals.subtotal}`;
+    document.getElementById("checkoutSavings").innerText = `₹${totals.totalSavings} (${totals.discountPercent}% OFF)`;
+    document.getElementById("checkoutTotal").innerText = `₹${totals.finalTotal}`;
+}
+
+function checkDelivery(){
+    const pin = document.getElementById("pincode").value.trim();
+    const box = document.getElementById("deliveryEstimate");
+
+    if(pin.length === 6){
+        let estimate = "3–7 business days";
+        const firstDigit = pin.charAt(0);
+
+        if(["1","2","3"].includes(firstDigit)) estimate = "3–5 business days";
+        if(["4","5","6","7","8"].includes(firstDigit)) estimate = "5–7 business days";
+
+        box.style.display = "block";
+        box.innerHTML = `Estimated delivery: <strong>${estimate}</strong>.`;
+    }else{
+        box.style.display = "none";
+        box.innerHTML = "";
+    }
+}
+
+function selectPayment(el,method){
+    if(el.classList.contains("disabled")) return;
+    selectedPayment = method;
+    document.querySelectorAll(".payment-option").forEach(x=>x.classList.remove("active"));
+    el.classList.add("active");
+}
+
+function applyCoupon(){
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    const msg = document.getElementById("couponMessage");
+
+    couponDiscount = 0;
+
+    if(!code){
+        msg.innerText = "Enter a coupon code.";
+    }else if(code === "MELLORA20"){
+        msg.innerText = "Launch offer is already applied.";
+    }else{
+        msg.innerText = "Invalid coupon code.";
+    }
+
+    renderCheckout();
+}
+
+function makeOrderId(){
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    const day = String(d.getDate()).padStart(2,"0");
+    const r = Math.floor(1000 + Math.random()*9000);
+    return `MX-${y}-${m}${day}-${r}`;
+}
+
+function collectOrderData(status,paymentId){
+    const totals = getTotals();
+
+    return {
+        orderId: makeOrderId(),
+        customer:{
+            name:document.getElementById("fullName").value.trim(),
+            phone:document.getElementById("phone").value.trim(),
+            email:document.getElementById("email").value.trim(),
+            address:document.getElementById("address").value.trim(),
+            city:document.getElementById("city").value.trim(),
+            pincode:document.getElementById("pincode").value.trim(),
+            state:document.getElementById("state").value
+        },
+        items:checkout,
+        subtotal:totals.subtotal,
+        savings:totals.totalSavings,
+        shipping:"Free",
+        total:totals.finalTotal,
+        payment:selectedPayment,
+        paymentId:paymentId || "",
+        status:status
+    };
+}
+
+async function startPayment(){
+    alert("Payment button clicked");
+    const form = document.getElementById("checkoutForm");
+
+    if(!checkout.length){
+        alert("Your checkout is empty.");
+        return;
+    }
+
+    if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+    }
+
+    const totals = getTotals();
+
+    const customer = {
+        name:document.getElementById("fullName").value.trim(),
+        phone:document.getElementById("phone").value.trim(),
+        email:document.getElementById("email").value.trim()
+    };
+
+    try{
+        const response = await fetch(`${BACKEND_URL}/create-order`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({
+                amount:totals.finalTotal,
+                items:checkout,
+                customer
+            })
+        });
+
+        const data = await response.json();
+
+        if(!data.success){
+            alert("Unable to create payment order.");
+            return;
+        }
+
+        const options = {
+            key:data.key,
+            amount:data.order.amount,
+            currency:data.order.currency,
+            name:"MelloraX",
+            description:"Secure Payment",
+            order_id:data.order.id,
+            image:"assets/social-preview.jpg",
+            prefill:{
+                name:customer.name,
+                email:customer.email,
+                contact:customer.phone
+            },
+            theme:{color:"#D4AF37"},
+            handler:async function(paymentResponse){
+                const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`,{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({
+                        razorpay_order_id:paymentResponse.razorpay_order_id,
+                        razorpay_payment_id:paymentResponse.razorpay_payment_id,
+                        razorpay_signature:paymentResponse.razorpay_signature,
+                        orderData:collectOrderData("Paid",paymentResponse.razorpay_payment_id)
+                    })
+                });
+
+                const verifyData = await verifyRes.json();
+
+                if(verifyData.success){
+                    localStorage.setItem("melloraxOrder",JSON.stringify(verifyData.order));
+                    localStorage.removeItem("melloraxCheckout");
+                    localStorage.removeItem("melloraxCart");
+                    window.location.href = "success.html";
+                }else{
+                    alert("Payment verification failed.");
+                }
+            }
+        };
+
+        new Razorpay(options).open();
+
+    }catch(error){
+        alert("Something went wrong.");
+        console.error(error);
+    }
+}
+
+renderCheckout();
+</script>
+<script>
+const BACKEND_URL = "http://localhost:5000";
+</script>
+<script>
+function startPayment(){
+
+    const form = document.getElementById("checkoutForm");
+
+    if(!checkout || checkout.length === 0){
+        alert("Your checkout is empty.");
+        return;
+    }
+
+    if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+    }
+
+    const totals = getTotals();
+
+    const options = {
+        key: "rzp_test_StISvVaTHfZdpK",
+
+        amount: totals.finalTotal * 100,
+        currency: "INR",
+
+        name: "MelloraX",
+        description: "Secure Order Payment",
+
+        image: "assets/social-preview.jpg",
+
+        prefill: {
+            name: document.getElementById("fullName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            contact: document.getElementById("phone").value.trim()
+        },
+
+        theme: {
+            color: "#D4AF37"
+        },
+
+        handler: function(response){
+
+            const orderData = collectOrderData(
+                "Paid",
+                response.razorpay_payment_id
+            );
+
+            localStorage.setItem(
+                "melloraxOrder",
+                JSON.stringify(orderData)
+            );
+
+            localStorage.removeItem("melloraxCheckout");
+            localStorage.removeItem("melloraxCart");
+
+            window.location.href = "success.html";
+        },
+
+        modal: {
+            ondismiss: function(){
+                console.log("Payment popup closed");
+            }
+        }
+    };
+
+    const razorpay = new Razorpay(options);
+    razorpay.open();
+}
+</script>
+</body>
+</html>>

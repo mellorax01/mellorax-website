@@ -43,7 +43,186 @@ gtag('js', new Date());
 
 gtag('config', 'G-FY2K9BN9D5');
 </script>
-    
+
+
+<style>
+.mx-search-open{
+    position:relative;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    height:42px;
+
+    padding:0 22px;
+
+    margin-left:18px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(212,175,55,.28);
+
+    background:rgba(255,255,255,.03);
+
+    color:#F5F1E8;
+
+    font-size:14px;
+    font-family:inherit;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    top:-1px;
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+    .mx-search-open{
+
+        height:38px;
+
+        padding:0 18px;
+
+        margin-left:auto;
+        margin-right:14px;
+
+        font-size:13px;
+
+        top:0;
+    }
+}
+
+.mx-search-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    z-index:999999;
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:90px 18px;
+}
+
+.mx-search-overlay.active{
+    display:flex;
+}
+
+.mx-search-panel{
+    width:min(780px,100%);
+    background:linear-gradient(180deg,#151515,#090909);
+    border:1px solid rgba(212,175,55,.22);
+    border-radius:34px;
+    padding:34px;
+    box-shadow:0 40px 120px rgba(0,0,0,.7);
+    position:relative;
+}
+
+.mx-search-close{
+    position:absolute;
+    top:18px;
+    right:22px;
+    border:0;
+    background:transparent;
+    color:#D4AF37;
+    font-size:34px;
+    cursor:pointer;
+}
+
+.mx-search-kicker{
+    color:#D4AF37;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+#mxSearchInput{
+    width:100%;
+    box-sizing:border-box;
+    margin-top:18px;
+    padding:20px 22px;
+    border-radius:999px;
+    border:1px solid rgba(212,175,55,.25);
+    background:#070707;
+    color:#F9F7F2;
+    font-size:16px;
+    outline:none;
+}
+
+.mx-search-results{
+    margin-top:26px;
+    display:grid;
+    gap:14px;
+}
+
+.mx-search-result{
+    display:grid;
+    grid-template-columns:74px 1fr;
+    gap:16px;
+    align-items:center;
+    padding:16px;
+    border-radius:22px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(212,175,55,.12);
+    text-decoration:none;
+    color:#F9F7F2;
+    transition:.3s ease;
+}
+
+.mx-search-result:hover{
+    transform:translateY(-3px);
+    border-color:rgba(212,175,55,.38);
+}
+
+.mx-search-result img{
+    width:74px;
+    height:74px;
+    object-fit:contain;
+    border-radius:16px;
+    background:#050505;
+}
+
+.mx-search-result small{
+    color:#D4AF37;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:11px;
+}
+
+.mx-search-result h3{
+    margin:4px 0;
+    font-family:serif;
+    font-size:22px;
+}
+
+.mx-search-result p{
+    margin:0;
+    color:#AFA79A;
+    font-size:13px;
+}
+
+.mx-search-empty{
+    color:#AFA79A;
+    padding:18px;
+}.mx-search-icon{
+    width:74px;
+    height:74px;
+    border-radius:16px;
+    background:rgba(212,175,55,.08);
+    color:#D4AF37;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+}
+</style>
+
+
 </head>
 
 <script>
@@ -67,6 +246,85 @@ window.addEventListener("load", () => {
     }
 });
 </script>
+
+<script>
+const mxProducts = [
+    {
+        name: "Sidr Honey",
+        category: "First Batch",
+        url: "sidr-honey.html"
+    }
+];
+
+const input = document.getElementById("mxSearchInput");
+const results = document.getElementById("mxSearchResults");
+
+input.addEventListener("input", function(){
+    const value = this.value.toLowerCase().trim();
+
+    if(!value){
+        results.style.display = "none";
+        results.innerHTML = "";
+        return;
+    }
+
+    const matched = mxProducts.filter(product =>
+        product.name.toLowerCase().includes(value) ||
+        product.category.toLowerCase().includes(value)
+    );
+
+    results.innerHTML = matched.length
+        ? matched.map(product => `
+            <a href="${product.url}">
+                ${product.name}
+                <small>${product.category}</small>
+            </a>
+        `).join("")
+        : `<a href="products.html">No exact match <small>View all products</small></a>`;
+
+    results.style.display = "block";
+});
+</script>
+
+<script>
+function quickCheckout(){
+
+    const product = {
+
+        id:"MX-SIDR-500",
+
+        name:"Sidr Honey",
+
+        brand:"MelloraX",
+
+        variant:"500g • Batch MX-SD-001",
+
+        price:599,
+
+        mrp:749,
+
+        qty:1,
+
+        image:"assets/product-1.jpg"
+    };
+
+    localStorage.setItem(
+    "melloraxCheckout",
+
+    JSON.stringify({
+
+        source:"homepage",
+
+        createdAt:Date.now(),
+
+        items:[product]
+    }));
+
+    window.location.href =
+    "checkout.html";
+}
+</script>
+
 <body>
 
 <!-- HEADER -->
@@ -82,6 +340,63 @@ window.addEventListener("load", () => {
             <a href="#trust">Trust</a>
             <a href="contact.html">Contact</a>
         </nav>
+                 <button class="mx-search-open" onclick="openMxSearch()" type="button">
+    Search
+</button>
+
+<a href="cart.html" aria-label="Cart" style="
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,.32);
+    background:rgba(255,255,255,.03);
+    color:#D4AF37;
+    text-decoration:none;
+    margin-left:8px;
+    margin-right:12px;
+    flex-shrink:0;
+    vertical-align:middle;
+">
+
+    <svg viewBox="0 0 24 24" style="
+        width:21px;
+        height:21px;
+        display:block;
+    ">
+        <path d="M3 5H5L7 15H18L20 7H8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+        <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
+        <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
+    </svg>
+
+    <span id="cartCount" style="
+        position:absolute;
+        top:-6px;
+        right:-6px;
+        min-width:18px;
+        height:18px;
+        padding:0 5px;
+        border-radius:999px;
+        background:#D4AF37;
+        color:#0B0B0B;
+        font-size:11px;
+        font-weight:700;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-decoration:none;
+        line-height:18px;
+    ">0</span>
+
+</a>
 
         <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
             ☰
@@ -103,7 +418,7 @@ window.addEventListener("load", () => {
         <span>3-7 Days Delivery</span>
         <span>Secure Payment</span>
       <span class="preorder-alert">
-Pre-Orders Open • Shipping Begins 15 june 2026
+Pre-Orders Open • Shipping Begins 13 june 2026
 </span>
         <span>Verified Batch</span>
 
@@ -112,7 +427,7 @@ Pre-Orders Open • Shipping Begins 15 june 2026
         <span>3-7 Days Delivery</span>
         <span>Secure Payment</span>
         <span class="preorder-alert">
-Pre-Orders Open • Shipping Begins 15 june 2026
+Pre-Orders Open • Shipping Begins 13 june 2026
 </span>
         <span>Verified Batch</span>
 
@@ -142,9 +457,9 @@ Pre-Orders Open • Shipping Begins 15 june 2026
     <span class="discount-badge">20% OFF</span>
 </div>
 
-            <a href="#order" class="hero-btn">
-                Order Now on WhatsApp
-            </a>
+            <a href="sidr-honey.html" class="hero-btn">
+    Explore Sidr Honey
+</a>
 <p class="hero-trust">
     Packed & marketed by Rana Global Ventures
 </p>
@@ -443,7 +758,7 @@ Pre-Orders Open • Shipping Begins 15 june 2026
     <p class="section-label">Order</p>
 
     <h2 class="section-title">
-        MelloraX Honey — 500g
+        Sidr Honey — 500g
     </h2>
 
     <div class="order-price">
@@ -456,9 +771,38 @@ Pre-Orders Open • Shipping Begins 15 june 2026
         Limited first batch • Delivery in 3-7 days
     </p>
 
-    <a href="https://wa.me/919690181875?text=Hi%2C%20I%20want%20to%20order%20MelloraX%20Honey" class="order-main-btn">
-        Order Now on WhatsApp
-    </a>
+<button onclick="quickCheckout()" style="
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 30px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #D4AF37, #B9901F);
+    color: #0B0B0B;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    cursor: pointer;
+    box-shadow: 0 14px 34px rgba(212,175,55,.22);
+    transition: transform .35s ease, box-shadow .35s ease;
+"
+onmouseover="
+    this.style.transform='translateY(-4px)';
+    this.style.boxShadow='0 22px 46px rgba(212,175,55,.30)';
+"
+onmouseout="
+    this.style.transform='translateY(0px)';
+    this.style.boxShadow='0 14px 34px rgba(212,175,55,.22)';
+"
+onmousedown="
+    this.style.transform='scale(.98)';
+"
+onmouseup="
+    this.style.transform='translateY(-4px)';
+">
+    Order now
+</button>
 
 </section>
 
@@ -590,13 +934,13 @@ window.addEventListener("load", () => {
 <!-- FLOATING WHATSAPP SUPPORT -->
 
 <a
-   Hello%20MelloraX%20Support,%20I%20need%20assistance%20regarding%20your%20products,%20availability,%20or%20order%20process.
-    class="wa-float"
-    target="_blank"
-    aria-label="MelloraX Support"
+href="https://wa.me/919690181875 text=Hello%20MelloraX%20Support,%20I%20need%20assistance%20regarding%20your%20products,%20availability,%20or%20order%20process."
+class="wa-float"
+target="_blank"
+aria-label="MelloraX Support">
 >
     <span class="wa-tooltip">Need Help?</span>
-
+    <i class="fab fa-whatsapp"></i>
     <svg viewBox="0 0 32 32" fill="currentColor">
         <path d="M19.11 17.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.35-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.13-.13.27-.34.41-.5.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.02-.22-.53-.44-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.98 2.64 1.12 2.82.14.18 1.92 2.93 4.65 4.1.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.53-.08 1.6-.65 1.82-1.27.23-.61.23-1.14.16-1.25-.07-.11-.25-.18-.52-.32z"/>
         <path d="M16.01 3C8.83 3 3 8.82 3 16c0 2.54.74 5.01 2.14 7.12L3 29l6.06-2.11A12.94 12.94 0 0 0 16.01 29C23.18 29 29 23.18 29 16S23.18 3 16.01 3zm0 23.64c-2.15 0-4.25-.58-6.08-1.69l-.44-.26-3.6 1.25 1.18-3.5-.29-.45A10.62 10.62 0 1 1 16.01 26.64z"/>
@@ -631,6 +975,32 @@ mobileBtn.addEventListener("click", () => {
 });
 
 </script>
+<script src="search.js"></script>
+
+
+<div class="mx-search-overlay" id="mxSearchOverlay">
+    <div class="mx-search-panel">
+
+        <button class="mx-search-close" onclick="closeMxSearch()" type="button">×</button>
+
+        <span class="mx-search-kicker">MelloraX Search</span>
+
+        <input 
+            type="text" 
+            id="mxSearchInput" 
+            placeholder="Search products, collections, support..."
+            autocomplete="off"
+        >
+
+        <div class="mx-search-results" id="mxSearchResults">
+            <div class="mx-search-empty">
+                Start typing to search Sidr Honey, collections, lab report, support.
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 </body>
 

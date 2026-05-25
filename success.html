@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Order Confirmed • MelloraX</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#0B0B0B;
+    color:#F9F7F2;
+    font-family:Arial,sans-serif;
+}
+
+.success-page{
+    min-height:100vh;
+    padding:90px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.success-card{
+    width:min(980px,100%);
+    padding:44px;
+    border-radius:38px;
+    background:linear-gradient(180deg,#151515,#0E0E0E);
+    border:1px solid rgba(212,175,55,.16);
+    box-shadow:0 40px 120px rgba(0,0,0,.55);
+}
+
+.success-kicker{
+    color:#D4AF37;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.success-card h1{
+    font-family:serif;
+    font-size:clamp(44px,7vw,82px);
+    line-height:1;
+    margin:18px 0;
+}
+
+.success-card p{
+    color:#B8B0A3;
+    line-height:1.8;
+}
+
+.success-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:26px;
+    margin-top:34px;
+}
+
+.success-box{
+    padding:24px;
+    border-radius:26px;
+    background:#0B0B0B;
+    border:1px solid rgba(212,175,55,.12);
+}
+
+.success-box h3{
+    margin-top:0;
+    font-family:serif;
+    font-size:26px;
+}
+
+.success-line{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:13px 0;
+    border-bottom:1px solid rgba(212,175,55,.1);
+    color:#BEB6A8;
+}
+
+.success-line strong{
+    color:#F9F7F2;
+    text-align:right;
+}
+
+.order-items{
+    display:grid;
+    gap:14px;
+}
+
+.order-item{
+    display:grid;
+    grid-template-columns:64px 1fr auto;
+    gap:14px;
+    align-items:center;
+}
+
+.order-item img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    border-radius:14px;
+    background:#080808;
+}
+
+.order-item strong,
+.order-item small,
+.order-item span{
+    display:block;
+}
+
+.order-item small,
+.order-item span{
+    color:#AFA79A;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.order-item b{
+    color:#D4AF37;
+}
+
+.success-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:34px;
+}
+
+.success-actions a{
+    padding:15px 22px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:700;
+    transition:.35s ease;
+}
+
+.primary-action{
+    background:#D4AF37;
+    color:#0B0B0B;
+}
+
+.secondary-action{
+    border:1px solid rgba(212,175,55,.22);
+    color:#D4AF37;
+}
+
+.success-actions a:hover{
+    transform:translateY(-4px);
+}
+
+@media(max-width:800px){
+    .success-page{
+        padding:70px 18px;
+    }
+
+    .success-card{
+        padding:28px;
+        border-radius:30px;
+    }
+
+    .success-grid{
+        grid-template-columns:1fr;
+    }
+
+    .order-item{
+        grid-template-columns:56px 1fr;
+    }
+
+    .order-item b{
+        grid-column:2;
+    }
+}
+</style>
+</head>
+
+<script>
+async function sendOrderToBackend(){
+    const order = JSON.parse(localStorage.getItem("melloraxOrder") || "null");
+
+    if(!order || !order.orderId){
+        return;
+    }
+
+    try{
+        await fetch("http://localhost:5000/save-order",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(order)
+        });
+    }catch(error){
+        console.log("Order backend save failed", error);
+    }
+}
+
+sendOrderToBackend();
+</script>
+
+<body>
+
+<main class="success-page">
+
+<section class="success-card">
+
+<span class="success-kicker">MelloraX Order</span>
+<h1>Order Received.</h1>
+<p id="successMessage">
+    Thank you for choosing MelloraX. Your order details have been saved successfully.
+</p>
+
+<div class="success-grid">
+
+    <div class="success-box">
+        <h3>Order Details</h3>
+
+        <div class="success-line">
+            <span>Order ID</span>
+            <strong id="orderId">MX-000000</strong>
+        </div>
+
+        <div class="success-line">
+            <span>Customer</span>
+            <strong id="customerName">—</strong>
+        </div>
+
+        <div class="success-line">
+            <span>Payment Status</span>
+            <strong id="paymentStatus">—</strong>
+        </div>
+
+        <div class="success-line">
+            <span>Total Paid</span>
+            <strong id="orderTotal">₹0</strong>
+        </div>
+    </div>
+
+    <div class="success-box">
+        <h3>Your Selection</h3>
+        <div class="order-items" id="orderItems"></div>
+    </div>
+
+</div>
+
+<div class="success-actions">
+
+    <a href="products.html" class="primary-action">
+        Continue Shopping
+    </a>
+
+    <a href="https://wa.me/919690181875?text=Hello%20MelloraX%20Support,%20I%20need%20help%20with%20my%20order."
+       class="secondary-action"
+       target="_blank">
+        Contact Support
+    </a>
+
+</div>
+
+</section>
+
+</main>
+
+<script>
+const order =
+JSON.parse(localStorage.getItem("melloraxOrder") || "null");
+
+function makeOrderId(){
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+
+    const month = String(now.getMonth() + 1).padStart(2,"0");
+
+    const day = String(now.getDate()).padStart(2,"0");
+
+    const random = Math.floor(1000 + Math.random() * 9000);
+
+    return `MX-${year}-${month}${day}-${random}`;
+}
+
+
+if(order){
+    const generatedOrderId =
+    order.orderId || makeOrderId();
+
+    order.orderId = generatedOrderId;
+    localStorage.setItem("melloraxOrder", JSON.stringify(order));
+
+    document.getElementById("orderId").innerText = generatedOrderId;
+    document.getElementById("customerName").innerText = order.customer?.name || "Customer";
+    document.getElementById("paymentStatus").innerText = order.status || "Order Received";
+    document.getElementById("orderTotal").innerText = "₹" + (order.total || 0);
+
+    document.getElementById("orderItems").innerHTML =
+    (order.items || []).map(item => `
+        <div class="order-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+                <strong>${item.name}</strong>
+                <small>${item.variant || ""}</small>
+                <span>Quantity: ${item.qty}</span>
+            </div>
+            <b>₹${item.price * item.qty}</b>
+        </div>
+    `).join("");
+
+    if(order.status === "Paid"){
+        document.getElementById("successMessage").innerText =
+        "Thank you for choosing MelloraX. Your payment has been received successfully.";
+    }
+}else{
+    document.getElementById("successMessage").innerText =
+    "No recent order found. Please return to products and place an order.";
+
+    document.getElementById("orderItems").innerHTML =
+    "<p>No order items found.</p>";
+}
+</script>
+
+</body>
+</html>
