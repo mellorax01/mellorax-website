@@ -159,47 +159,6 @@ function buyNowProduct(){
   <button class="mx-dot" onclick="scrollProductMedia(5)"></button>
 </div>
 
-<style>
-.mx-media-dots{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:18px;
-}
-.mx-dot{
-  width:10px;
-  height:10px;
-  border:0;
-  border-radius:999px;
-  background:rgba(212,175,55,.28);
-  cursor:pointer;
-}
-.mx-dot.active{
-  width:32px;
-  background:#D4AF37;
-}
-</style>
-
-<script>
-function scrollProductMedia(index){
-  const track = document.getElementById("mediaTrack");
-  const dots = document.querySelectorAll(".mx-dot");
-
-  if(!track){
-    alert("mediaTrack id missing");
-    return;
-  }
-
-  track.scrollTo({
-    left: track.clientWidth * index,
-    behavior: "smooth"
-  });
-
-  dots.forEach(dot => dot.classList.remove("active"));
-  dots[index].classList.add("active");
-}
-</script>
-
     </div>
        
     <div class="mx-product-info">
