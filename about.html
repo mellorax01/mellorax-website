@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About MelloraX</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#0B0B0B;
+    color:#F9F7F2;
+    font-family:Arial,sans-serif;
+}
+
+.mx-about-page{
+    min-height:100vh;
+    overflow:hidden;
+}
+
+.mx-back-home{
+    position:fixed;
+    top:24px;
+    left:24px;
+    z-index:99;
+
+    padding:13px 20px;
+    border-radius:999px;
+
+    background:rgba(12,12,12,.72);
+    border:1px solid rgba(212,175,55,.18);
+
+    color:#F9F7F2;
+    text-decoration:none;
+    font-size:14px;
+
+    backdrop-filter:blur(12px);
+    transition:.35s ease;
+}
+
+.mx-back-home:hover{
+    transform:translateY(-3px);
+    border-color:rgba(212,175,55,.42);
+    box-shadow:0 14px 34px rgba(212,175,55,.12);
+}
+
+.mx-about-hero{
+    min-height:100vh;
+    padding:130px 7% 90px;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at 70% 20%,rgba(212,175,55,.14),transparent 34%),
+    linear-gradient(180deg,#0B0B0B,#111);
+}
+
+.mx-kicker{
+    color:#D4AF37;
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.mx-about-hero h1{
+    font-family:serif;
+    font-size:clamp(54px,8vw,110px);
+    line-height:.92;
+    margin:20px 0 26px;
+}
+
+.mx-about-hero p{
+    color:#BEB6A8;
+    font-size:18px;
+    line-height:1.9;
+    max-width:620px;
+}
+
+.mx-hero-card{
+    padding:34px;
+    border-radius:36px;
+    background:linear-gradient(180deg,#171717,#0D0D0D);
+    border:1px solid rgba(212,175,55,.16);
+    box-shadow:0 40px 120px rgba(0,0,0,.52);
+
+    animation:floatCard 5s ease-in-out infinite;
+}
+
+.mx-hero-card img{
+    width:100%;
+    display:block;
+    border-radius:28px;
+    object-fit:cover;
+    background:#090909;
+}
+
+.mx-card-note{
+    margin-top:22px;
+    color:#D8C99A;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.mx-about-section{
+    padding:100px 7%;
+    border-top:1px solid rgba(212,175,55,.08);
+}
+
+.mx-section-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:56px;
+    align-items:start;
+}
+
+.mx-about-section h2{
+    font-family:serif;
+    font-size:clamp(38px,5vw,70px);
+    line-height:1;
+    margin:0;
+}
+
+.mx-about-section p{
+    color:#BEB6A8;
+    font-size:17px;
+    line-height:1.9;
+    margin-top:0;
+}
+
+.mx-values{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+    margin-top:38px;
+}
+
+.mx-value-card{
+    padding:28px;
+    border-radius:28px;
+    background:#101010;
+    border:1px solid rgba(212,175,55,.12);
+
+    transition:.35s ease;
+}
+
+.mx-value-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(212,175,55,.38);
+    box-shadow:0 24px 70px rgba(212,175,55,.10);
+}
+
+.mx-value-card span{
+    color:#D4AF37;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+.mx-value-card h3{
+    font-family:serif;
+    font-size:28px;
+    margin:16px 0 10px;
+}
+
+.mx-value-card p{
+    font-size:14px;
+    line-height:1.7;
+}
+
+.mx-process{
+    display:grid;
+    gap:18px;
+}
+
+.mx-process-item{
+    padding:24px 26px;
+    border-radius:24px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(212,175,55,.10);
+
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:18px;
+    align-items:center;
+
+    transition:.35s ease;
+}
+
+.mx-process-item:hover{
+    transform:translateX(8px);
+    border-color:rgba(212,175,55,.32);
+}
+
+.mx-process-item b{
+    color:#D4AF37;
+    font-size:14px;
+    letter-spacing:2px;
+}
+
+.mx-process-item h3{
+    margin:0 0 8px;
+    font-family:serif;
+    font-size:26px;
+}
+
+.mx-process-item p{
+    margin:0;
+    font-size:14px;
+}
+
+.mx-founder{
+    padding:110px 7%;
+    background:
+    radial-gradient(circle at 20% 30%,rgba(212,175,55,.10),transparent 34%),
+    #0B0B0B;
+}
+
+.mx-founder-card{
+    max-width:980px;
+    margin:auto;
+    padding:46px;
+    border-radius:40px;
+    background:linear-gradient(180deg,#171717,#0E0E0E);
+    border:1px solid rgba(212,175,55,.16);
+    text-align:center;
+}
+
+.mx-founder-card h2{
+    font-family:serif;
+    font-size:clamp(42px,6vw,80px);
+    line-height:1;
+    margin:18px 0;
+}
+
+.mx-founder-card p{
+    color:#BEB6A8;
+    line-height:1.9;
+    font-size:17px;
+    max-width:720px;
+    margin:0 auto;
+}
+
+.mx-about-cta{
+    margin-top:34px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px 30px;
+    border-radius:999px;
+
+    background:linear-gradient(180deg,#D4AF37,#B9901F);
+    color:#0B0B0B;
+    text-decoration:none;
+
+    font-weight:800;
+    transition:.35s ease;
+}
+
+.mx-about-cta:hover{
+    transform:translateY(-4px);
+    box-shadow:0 22px 48px rgba(212,175,55,.28);
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(34px);
+    animation:revealUp .9s ease forwards;
+}
+
+.delay-1{animation-delay:.15s}
+.delay-2{animation-delay:.3s}
+.delay-3{animation-delay:.45s}
+
+@keyframes revealUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes floatCard{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+@media(max-width:900px){
+    .mx-about-hero,
+    .mx-section-grid,
+    .mx-values{
+        grid-template-columns:1fr;
+    }
+
+    .mx-about-hero{
+        padding:110px 22px 70px;
+    }
+
+    .mx-about-section,
+    .mx-founder{
+        padding:70px 22px;
+    }
+
+    .mx-hero-card,
+    .mx-founder-card{
+        padding:24px;
+        border-radius:30px;
+    }
+
+    .mx-process-item{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="mx-about-page">
+
+<a href="index.html" class="mx-back-home">← Home</a>
+
+<section class="mx-about-hero">
+
+    <div class="reveal">
+        <span class="mx-kicker">About MelloraX</span>
+        <h1>Built Without Shortcuts.</h1>
+        <p>
+            MelloraX is a premium honey brand shaped around purity, patience, and quiet confidence.
+            We believe honey should feel trustworthy before it ever reaches the table.
+        </p>
+    </div>
+
+    <div class="mx-hero-card reveal delay-1">
+        <img src="assets/product-1.jpg" alt="MelloraX Honey">
+        <div class="mx-card-note">
+            Small-batch thinking. Clean presentation. A brand built for people who value what they consume.
+        </div>
+    </div>
+
+</section>
+
+<section class="mx-about-section">
+
+    <div class="mx-section-grid">
+        <div>
+            <span class="mx-kicker">Our Philosophy</span>
+            <h2>Purity takes time.</h2>
+        </div>
+
+        <div>
+            <p>
+                MelloraX was created with a simple belief: premium food should never feel rushed.
+                Every detail — from sourcing to packaging — is designed to reflect calm quality, not loud marketing.
+            </p>
+
+            <p>
+                We are not here to make honey complicated. We are here to make it feel honest, refined,
+                and worth trusting.
+            </p>
+        </div>
+    </div>
+
+    <div class="mx-values">
+        <div class="mx-value-card">
+            <span>01</span>
+            <h3>Pure</h3>
+            <p>Focused on clean, carefully selected honey with no unnecessary noise.</p>
+        </div>
+
+        <div class="mx-value-card">
+            <span>02</span>
+            <h3>Patient</h3>
+            <p>We believe good products should not be rushed into existence.</p>
+        </div>
+
+        <div class="mx-value-card">
+            <span>03</span>
+            <h3>Precise</h3>
+            <p>Every batch, label, and detail is handled with intention.</p>
+        </div>
+    </div>
+
+</section>
+
+<section class="mx-about-section">
+
+    <div class="mx-section-grid">
+        <div>
+            <span class="mx-kicker">How We Think</span>
+            <h2>From batch to box.</h2>
+        </div>
+
+        <div class="mx-process">
+
+            <div class="mx-process-item">
+                <b>01</b>
+                <div>
+                    <h3>Source Carefully</h3>
+                    <p>We begin with honey that fits the brand’s standard of purity and character.</p>
+                </div>
+            </div>
+
+            <div class="mx-process-item">
+                <b>02</b>
+                <div>
+                    <h3>Prepare Thoughtfully</h3>
+                    <p>Each product is handled with a focus on cleanliness, consistency, and presentation.</p>
+                </div>
+            </div>
+
+            <div class="mx-process-item">
+                <b>03</b>
+                <div>
+                    <h3>Deliver Cleanly</h3>
+                    <p>The final experience should feel premium, calm, and reliable.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="mx-founder">
+
+    <div class="mx-founder-card reveal">
+        <span class="mx-kicker">The Promise</span>
+        <h2>A quieter kind of premium.</h2>
+        <p>
+            MelloraX is built for customers who do not need noise to recognize quality.
+            Our promise is simple: better sourcing, better presentation, and a better everyday honey experience.
+        </p>
+
+        <a href="sidr-honey.html" class="mx-about-cta">
+            Explore Sidr Honey
+        </a>
+    </div>
+
+</section>
+
+</main>
+
+</body>
+</html>
