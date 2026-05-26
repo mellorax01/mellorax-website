@@ -409,6 +409,20 @@ function startPayment(){
     }
 
     if(!form.checkValidity()){
+        const selectedInput = document.querySelector('input[name="payment"]:checked');
+
+selectedPayment = selectedInput ? selectedInput.value : selectedPayment;
+
+if(selectedPayment === "COD"){
+    const orderData = collectOrderData("COD Pending","");
+
+    localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+    localStorage.removeItem("melloraxCheckout");
+    localStorage.removeItem("melloraxCart");
+
+    window.location.href = "success.html";
+    return;
+}
         form.reportValidity();
         return;
     }
