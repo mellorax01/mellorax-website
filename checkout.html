@@ -30,7 +30,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .payment-option span{font-size:18px;font-weight:700}
 .payment-option small{display:block;color:#AFA79A;margin-top:8px;line-height:1.6}
 .payment-option input{display:none}
-.payment-option.disabled{opacity:.42;cursor:not-allowed}
 .coupon-box{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
 .coupon-box input{padding:16px 18px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2}
 .coupon-box button{padding:0 22px;border-radius:18px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer}
@@ -58,8 +57,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .coupon-box button{min-height:52px}
 }
 </style>
-
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -110,6 +107,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <h2>Payment Method</h2>
 
 <div class="payment-options">
+
 <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
     <div>
         <span>Online Payment</span>
@@ -125,6 +123,8 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
     </div>
     <input type="radio" name="payment" value="COD">
 </label>
+
+</div>
 
 <button type="button" class="pay-btn" onclick="startPayment()">Continue to Payment</button>
 </form>
@@ -164,8 +164,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 </main>
 
 <script>
-const BACKEND_URL = "http://localhost:5000";
-let selectedPayment = "online payment";
+let selectedPayment = "Online Payment";
 let couponDiscount = 0;
 
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
@@ -234,7 +233,7 @@ function checkDelivery(){
     }
 }
 
-function selectPayment(el,method){
+function selectPayment(el, method){
     selectedPayment = method;
 
     document.querySelectorAll(".payment-option").forEach(item => {
@@ -242,6 +241,12 @@ function selectPayment(el,method){
     });
 
     el.classList.add("active");
+
+    const input = el.querySelector('input[name="payment"]');
+
+    if(input){
+        input.checked = true;
+    }
 }
 
 function applyCoupon(){
@@ -295,8 +300,7 @@ function collectOrderData(status,paymentId){
     };
 }
 
-async function startPayment(){
-    alert("Payment button clicked");
+function startPayment(){
     const form = document.getElementById("checkoutForm");
 
     if(!checkout.length){
@@ -307,137 +311,30 @@ async function startPayment(){
     if(!form.checkValidity()){
         form.reportValidity();
         return;
-    }if(selectedPayment === "COD"){
-    const orderData = collectOrderData("COD Pending","");
-
-    localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-
-    localStorage.removeItem("melloraxCheckout");
-    localStorage.removeItem("melloraxCart");
-
-    window.location.href = "success.html";
-
-    return;
-}
-
-    const totals = getTotals();
-
-    const customer = {
-        name:document.getElementById("fullName").value.trim(),
-        phone:document.getElementById("phone").value.trim(),
-        email:document.getElementById("email").value.trim()
-    };
-
-    try{
-        const response = await fetch(`${BACKEND_URL}/create-order`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({
-                amount:totals.finalTotal,
-                items:checkout,
-                customer
-            })
-        });
-
-        const data = await response.json();
-
-        if(!data.success){
-            alert("Unable to create payment order.");
-            return;
-        }
-
-        const options = {
-            key:data.key,
-            amount:data.order.amount,
-            currency:data.order.currency,
-            name:"MelloraX",
-            description:"Secure Payment",
-            order_id:data.order.id,
-            image:"assets/logoraz.jpg",
-            prefill:{
-                name:customer.name,
-                email:customer.email,
-                contact:customer.phone
-            },
-            theme:{color:"#D4AF37"},
-            handler:async function(paymentResponse){
-                const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`,{
-                    method:"POST",
-                    headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({
-                        razorpay_order_id:paymentResponse.razorpay_order_id,
-                        razorpay_payment_id:paymentResponse.razorpay_payment_id,
-                        razorpay_signature:paymentResponse.razorpay_signature,
-                        orderData:collectOrderData("Paid",paymentResponse.razorpay_payment_id)
-                    })
-                });
-
-                const verifyData = await verifyRes.json();
-
-                if(verifyData.success){
-                    localStorage.setItem("melloraxOrder",JSON.stringify(verifyData.order));
-                    localStorage.removeItem("melloraxCheckout");
-                    localStorage.removeItem("melloraxCart");
-                    window.location.href = "success.html";
-                }else{
-                    alert("Payment verification failed.");
-                }
-            }
-        };
-
-        new Razorpay(options).open();
-
-    }catch(error){
-        alert("Something went wrong.");
-        console.error(error);
-    }
-}
-
-renderCheckout();
-</script>
-<script>
-const BACKEND_URL = "http://localhost:5000";
-</script>
-<script>
-function startPayment(){
-
-    const form = document.getElementById("checkoutForm");
-
-    if(!checkout || checkout.length === 0){
-        alert("Your checkout is empty.");
-        return;
     }
 
-    if(!form.checkValidity()){
-        const selectedInput = document.querySelector('input[name="payment"]:checked');
+    const checkedPayment = document.querySelector('input[name="payment"]:checked');
+    selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
 
-selectedPayment = selectedInput ? selectedInput.value : selectedPayment;
+    if(selectedPayment === "COD"){
+        const orderData = collectOrderData("COD Pending","");
 
-if(selectedPayment === "COD"){
-    const orderData = collectOrderData("COD Pending","");
+        localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+        localStorage.removeItem("melloraxCheckout");
+        localStorage.removeItem("melloraxCart");
 
-    localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-    localStorage.removeItem("melloraxCheckout");
-    localStorage.removeItem("melloraxCart");
-
-    window.location.href = "success.html";
-    return;
-}
-        form.reportValidity();
+        window.location.href = "success.html";
         return;
     }
 
     const totals = getTotals();
 
     const options = {
-       key: "rzp_live_Su6vr3jiAdh5XO",
-
+        key: "rzp_live_Su6vr3jiAdh5XO",
         amount: totals.finalTotal * 100,
         currency: "INR",
-
         name: "MelloraX",
         description: "Secure Order Payment",
-
         image: "assets/logoraz.jpg",
 
         prefill: {
@@ -451,17 +348,12 @@ if(selectedPayment === "COD"){
         },
 
         handler: function(response){
-
             const orderData = collectOrderData(
                 "Paid",
                 response.razorpay_payment_id
             );
 
-            localStorage.setItem(
-                "melloraxOrder",
-                JSON.stringify(orderData)
-            );
-
+            localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
             localStorage.removeItem("melloraxCheckout");
             localStorage.removeItem("melloraxCart");
 
@@ -478,6 +370,9 @@ if(selectedPayment === "COD"){
     const razorpay = new Razorpay(options);
     razorpay.open();
 }
+
+renderCheckout();
 </script>
+
 </body>
-</html>>
+</html>
