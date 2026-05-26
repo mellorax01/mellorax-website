@@ -110,22 +110,21 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <h2>Payment Method</h2>
 
 <div class="payment-options">
-<label class="payment-option active" onclick="selectPayment(this,'online')">
-<div>
-<span>Online Payment</span>
-<small>UPI, card, wallet and net banking supported.</small>
-</div>
-<input type="radio" checked>
+<label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
+    <div>
+        <span>Online Payment</span>
+        <small>UPI, card, wallet and net banking supported.</small>
+    </div>
+    <input type="radio" name="payment" value="Online Payment" checked>
 </label>
 
-<label class="payment-option disabled">
-<div>
-<span>Cash on Delivery</span>
-<small>Currently unavailable.</small>
-</div>
-<input type="radio" disabled>
+<label class="payment-option" onclick="selectPayment(this,'COD')">
+    <div>
+        <span>Cash on Delivery</span>
+        <small>Pay when your order arrives.</small>
+    </div>
+    <input type="radio" name="payment" value="COD">
 </label>
-</div>
 
 <button type="button" class="pay-btn" onclick="startPayment()">Continue to Payment</button>
 </form>
@@ -166,7 +165,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 
 <script>
 const BACKEND_URL = "http://localhost:5000";
-let selectedPayment = "online";
+let selectedPayment = "online payment";
 let couponDiscount = 0;
 
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
@@ -236,9 +235,12 @@ function checkDelivery(){
 }
 
 function selectPayment(el,method){
-    if(el.classList.contains("disabled")) return;
     selectedPayment = method;
-    document.querySelectorAll(".payment-option").forEach(x=>x.classList.remove("active"));
+
+    document.querySelectorAll(".payment-option").forEach(item => {
+        item.classList.remove("active");
+    });
+
     el.classList.add("active");
 }
 
@@ -305,7 +307,18 @@ async function startPayment(){
     if(!form.checkValidity()){
         form.reportValidity();
         return;
-    }
+    }if(selectedPayment === "COD"){
+    const orderData = collectOrderData("COD Pending","");
+
+    localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+
+    localStorage.removeItem("melloraxCheckout");
+    localStorage.removeItem("melloraxCart");
+
+    window.location.href = "success.html";
+
+    return;
+}
 
     const totals = getTotals();
 
@@ -403,7 +416,7 @@ function startPayment(){
     const totals = getTotals();
 
     const options = {
-        key: "rzp_test_StISvVaTHfZdpK",
+       key: "rzp_live_Su6vr3jiAdh5XO",
 
         amount: totals.finalTotal * 100,
         currency: "INR",
