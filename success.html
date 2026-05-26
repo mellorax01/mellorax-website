@@ -185,7 +185,14 @@ function saveOrderToGoogleSheet(){
         return;
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbymQK3UmzFLSHd8WfQdAyK3a9Yc8F9vIcYYb3m2FgrYZReqinWTMdp5YFb4lYRUdIEQ/exec", {
+    const saveKey = "mx_order_saved_" + order.orderId;
+
+    if(localStorage.getItem(saveKey)){
+        console.log("Order already sent. Duplicate blocked.");
+        return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbwHdS_KNJWompgG0khjkF3nX5tA01bishH7fbKr34aJIMp4Yu9lasw9zHNvWN9261Oc/exec", {
         method: "POST",
         mode: "no-cors",
         headers: {
@@ -194,7 +201,9 @@ function saveOrderToGoogleSheet(){
         body: "payload=" + encodeURIComponent(JSON.stringify(order))
     });
 
-    console.log("Order sent to Google Sheet");
+    localStorage.setItem(saveKey, "true");
+
+    console.log("Order sent to Google Sheet.");
 }
 
 saveOrderToGoogleSheet();
@@ -250,12 +259,9 @@ saveOrderToGoogleSheet();
         Continue Shopping
     </a>
 
-    <a href="https://wa.me/919690181875?text=Hello%20MelloraX%20Support,%20I%20need%20help%20with%20my%20order."
-       class="secondary-action"
-       target="_blank">
-        Contact Support
-    </a>
-
+<a href="#" id="whatsappOrderBtn" class="secondary-action" target="_blank">
+    WhatsApp Support
+</a>
 </div>
 
 </section>
@@ -265,6 +271,35 @@ saveOrderToGoogleSheet();
 <script>
 const order =
 JSON.parse(localStorage.getItem("melloraxOrder") || "null");
+function setupWhatsAppOrderButton(){
+    const btn = document.getElementById("whatsappOrderBtn");
+
+    if(!btn || !order){
+        return;
+    }
+
+    const orderId = order.orderId || "Not available";
+    const paymentId = order.paymentId || "Not available";
+    const total = order.total || "0";
+
+    const message =
+`Hello MelloraX Support,
+I need help with my order.
+
+Order ID: ${orderId}
+Payment ID: ${paymentId}
+Total: ₹${total}`;
+
+    const whatsappNumber = "919690181875";
+
+    btn.href =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+}
+
+setupWhatsAppOrderButton();
 
 function makeOrderId(){
 
