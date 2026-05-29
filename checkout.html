@@ -316,7 +316,23 @@ function startPayment(){
     const checkedPayment = document.querySelector('input[name="payment"]:checked');
     selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
 
-    if(selectedPayment === "COD"){
+if(selectedPayment === "COD"){
+
+    const confirmCOD = confirm(
+        "Confirm Cash on Delivery order?\n\nYou will pay when your order arrives."
+    );
+
+    if(!confirmCOD){
+        return;
+    }
+
+    const btn = document.querySelector(".pay-btn");
+    btn.innerText = "Placing COD Order...";
+    btn.disabled = true;
+    btn.style.opacity = ".7";
+    btn.style.cursor = "not-allowed";
+
+    setTimeout(() => {
         const orderData = collectOrderData("COD Pending","");
 
         localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
@@ -324,8 +340,10 @@ function startPayment(){
         localStorage.removeItem("melloraxCart");
 
         window.location.href = "success.html";
-        return;
-    }
+    }, 1200);
+
+    return;
+}
 
     const totals = getTotals();
 
