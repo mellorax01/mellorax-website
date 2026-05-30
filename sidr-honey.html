@@ -357,24 +357,66 @@ const stage = document.getElementById("mediaStage");
 const dots = document.querySelectorAll(".mx-media-dots button");
 
 function goMedia(index){
-    if(!track) return;
 
-    const total = track.children.length;
+    const track =
+    document.getElementById("mediaTrack");
+    track.addEventListener("scroll", () => {
+
+    const slides =
+    document.querySelectorAll(".mx-media-slide");
+
+    let closest = 0;
+    let minDistance = Infinity;
+
+    slides.forEach((slide,index)=>{
+
+        const distance =
+        Math.abs(track.scrollLeft - slide.offsetLeft);
+
+        if(distance < minDistance){
+            minDistance = distance;
+            closest = index;
+        }
+
+    });
+
+    document
+    .querySelectorAll(".mx-media-dots button")
+    .forEach(dot => dot.classList.remove("active"));
+
+    const activeDot =
+    document.querySelectorAll(".mx-media-dots button")[closest];
+
+    if(activeDot){
+        activeDot.classList.add("active");
+    }
+
+});
+
+    const slides =
+    document.querySelectorAll(".mx-media-slide");
+
+    if(!track || !slides.length) return;
 
     if(index < 0) index = 0;
-    if(index >= total) index = total - 1;
+
+    if(index >= slides.length)
+    index = slides.length - 1;
 
     currentMedia = index;
 
-    track.scrollTo({
-        left:track.clientWidth * index,
-        behavior:"smooth"
-    });
+    track.scrollLeft =
+    slides[index].offsetLeft;
 
-    dots.forEach(dot => dot.classList.remove("active"));
+    document
+    .querySelectorAll(".mx-media-dots button")
+    .forEach(dot => dot.classList.remove("active"));
 
-    if(dots[index]){
-        dots[index].classList.add("active");
+    const activeDot =
+    document.querySelectorAll(".mx-media-dots button")[index];
+
+    if(activeDot){
+        activeDot.classList.add("active");
     }
 }
 
