@@ -3,40 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sidr Honey</title>
+<title>Sidr Honey • MelloraX</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
+<body>
+
+<a href="products.html" class="mx-back-home">← Products</a>
+
+<main class="mx-product-single">
+
+<section class="mx-product-hero">
+
+<div class="mx-media-gallery">
+
+    <div class="mx-media-stage" id="mediaStage">
+        <div class="mx-media-track" id="mediaTrack">
+
+            <div class="mx-media-slide">
+                <img src="assets/product-1.jpg" alt="MelloraX Sidr Honey">
+            </div>
+
+            <div class="mx-media-slide">
+                <img src="assets/product-2.jpg" alt="MelloraX Product Preview">
+            </div>
+
+            <div class="mx-media-slide">
+                <img src="assets/product-3.jpg" alt="MelloraX Product Preview">
+            </div>
+
+            <div class="mx-media-slide">
+                <img src="assets/product-4.jpg" alt="MelloraX Product Preview">
+            </div>
+
+            <div class="mx-media-slide video-slide">
+                <video autoplay muted loop playsinline preload="auto" class="mx-product-video">
+                    <source src="assets/product-video.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+
+        <span class="batch-pill">Live</span>
+    </div>
+
+    <div class="mx-media-dots">
+        <button type="button" class="active" onclick="goMedia(0)"></button>
+        <button type="button" onclick="goMedia(1)"></button>
+        <button type="button" onclick="goMedia(2)"></button>
+        <button type="button" onclick="goMedia(3)"></button>
+        <button type="button" onclick="goMedia(4)"></button>
+    </div>
+
+</div>
+
+<div class="mx-product-info">
+
+    <span class="mx-kicker">First Batch Release</span>
+
+    <h1>Sidr Honey</h1>
+
+    <p class="mx-short-desc">
+        A refined Sidr Honey release crafted for premium everyday use, careful presentation, and a slower, more trusted honey experience.
+    </p>
+
+    <div class="mx-rating">
+        <span>★★★★★</span>
+        <small>Customer review system active</small>
+    </div>
+
+    <div class="mx-price">
+        <strong>₹599</strong>
+        <del>₹749</del>
+        <span>20% OFF</span>
+    </div>
+
+    <div class="mx-qty">
+        <label>Quantity</label>
+        <div>
+            <button type="button" onclick="updateQty(-1)">−</button>
+            <input id="qtyInput" value="1" readonly>
+            <button type="button" onclick="updateQty(1)">+</button>
+        </div>
+    </div>
+
+    <div class="mx-actions">
+        <button type="button" class="mx-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button type="button" class="mx-buy-btn" onclick="buyNowProduct()">Buy Now</button>
+    </div>
+
+    <p class="mx-ship-note">
+        Shipping begins after the official batch launch on <strong>13 June 2026</strong>.
+    </p>
+
+    <div class="mx-service-line">
+
+        <span>
+            <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6z"></path></svg>
+            Secure Payment
+        </span>
+
+        <span>
+            <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3zM6 10h12v4H6z"></path></svg>
+            Premium Packing
+        </span>
+
+        <a href="labreport.html">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10v20H7zM9 6h6M9 10h6M9 14h4"></path></svg>
+            Batch Verified
+        </a>
+
+        <a href="https://wa.me/919690181875?text=Hello%20MelloraX%20Support,%20I%20need%20assistance%20regarding%20your%20products,%20availability,%20or%20order%20process." target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"></path></svg>
+            WhatsApp Support
+        </a>
+
+    </div>
+
+</div>
+
+</section>
+
+<section class="mx-product-story">
+
+<div>
+    <span class="mx-kicker">Product Story</span>
+    <h2>Built Without Shortcuts.</h2>
+    <p>
+        MelloraX Sidr Honey begins our first batch release with a focus on purity, patience, and premium handling. The experience is designed to feel calm, refined, and trustworthy from discovery to delivery.
+    </p>
+    <p>
+        Every detail — from presentation to batch communication — is built to support a more intentional honey experience.
+    </p>
+</div>
+
+<div class="mx-points">
+    <p>First MelloraX curated batch</p>
+    <p>Premium 500g jar presentation</p>
+    <p>Batch verification supported</p>
+    <p>Customer support enabled</p>
+    <p>Secure payment flow ready</p>
+    <p>Review collection active</p>
+</div>
+
+</section>
+
+<section class="mx-product-details">
+
+<span class="mx-kicker">Details</span>
+<h2>Product Information</h2>
+
+<div class="mx-detail-table">
+    <p><strong>Product</strong><span>Sidr Honey</span></p>
+    <p><strong>Net Weight</strong><span>500g</span></p>
+    <p><strong>Batch Code</strong><span>MX-SD-001</span></p>
+    <p><strong>Release</strong><span>First Batch</span></p>
+    <p><strong>Order Status</strong><span>Available</span></p>
+    <p><strong>Support</strong><span>WhatsApp Assistance</span></p>
+</div>
+
+</section>
+
+<section class="mx-delivery-info">
+
+<span class="mx-kicker">Delivery</span>
+<h2>Shipping & Order Notes</h2>
+
+<ul>
+    <li><strong>Shipping:</strong> Dispatch begins after the official batch launch on 13 June 2026.</li>
+    <li><strong>Payment:</strong> Secure payment flow is prepared for online transactions.</li>
+    <li><strong>Support:</strong> Product and availability help is available through MelloraX Support.</li>
+    <li><strong>Batch:</strong> Batch details can be verified from the lab report / QR section.</li>
+</ul>
+
+</section>
+
+<section class="mx-review-section">
+
+<div class="section-title">
+    <span>Customer Reviews</span>
+    <h2>Share Your Experience</h2>
+    <p>Verified customers can submit their MelloraX Sidr Honey experience here.</p>
+</div>
+
+<div class="mx-review-layout">
+
+    <div class="mx-review-score">
+        <strong>5.0</strong>
+        <span>★★★★★</span>
+        <small>Review collection active</small>
+    </div>
+
+    <form class="mx-review-form">
+        <input type="text" placeholder="Your Name">
+        <select>
+            <option>5 Stars</option>
+            <option>4 Stars</option>
+            <option>3 Stars</option>
+        </select>
+        <textarea placeholder="Write your review"></textarea>
+        <button type="button">Submit Review</button>
+    </form>
+
+</div>
+
+</section>
+
+<section class="mx-related-section">
+
+<div class="section-title">
+    <span>MelloraX Collections</span>
+    <h2>Explore More</h2>
+</div>
+
+<div class="mx-related-products">
+
+    <a href="products.html" class="mx-related-item">
+        <small>Current Release</small>
+        <h3>First Batch</h3>
+        <p>Explore the current MelloraX release and product collection.</p>
+        <b>View Collection</b>
+    </a>
+
+    <a href="products.html" class="mx-related-item">
+        <small>Product Page</small>
+        <h3>MelloraX Range</h3>
+        <p>Return to the main product page and browse available collections.</p>
+        <b>Open Products</b>
+    </a>
+
+    <a href="products.html" class="mx-related-item">
+        <small>Collection View</small>
+        <h3>Product House</h3>
+        <p>See the complete MelloraX product structure in one place.</p>
+        <b>Explore</b>
+    </a>
+
+</div>
+
+</section>
+
+</main>
+
+<style>
+.mx-product-video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:28px;
+    display:block;
+}
+
+.mx-cart-btn.added{
+    background:linear-gradient(180deg,#D4AF37,#B9901F);
+    color:#0B0B0B;
+}
+</style>
+
 <script>
 function getCart(){
-    return JSON.parse(localStorage.getItem("melloraxCart")) || [];
+    return JSON.parse(localStorage.getItem("melloraxCart") || "[]");
 }
 
 function saveCart(cart){
     localStorage.setItem("melloraxCart", JSON.stringify(cart));
 }
 
-function updateStickyCart(){
-    const cart = getCart();
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-
-    const sticky = document.getElementById("viewCartSticky");
-    const countBox = document.getElementById("stickyCartCount");
-
-    if(countBox){
-        countBox.innerText = count;
+function updateHeaderCount(){
+    if(typeof updateHeaderCartCount === "function"){
+        updateHeaderCartCount();
     }
+}
 
-    if(sticky){
-        sticky.classList.toggle("show", count > 0);
-    }
+function setCartButtonToView(){
+    const btn = document.querySelector(".mx-cart-btn");
+
+    if(!btn) return;
+
+    btn.innerText = "View Cart";
+    btn.classList.add("added");
+
+    btn.onclick = function(){
+        window.location.href = "cart.html";
+    };
 }
 
 function addToCart(){
     const qty = parseInt(document.getElementById("qtyInput")?.value || "1");
 
     const product = {
-        id:"MX-SIDR-500"
+        id:"MX-SIDR-500",
         name:"Sidr Honey",
         brand:"MelloraX",
         variant:"500g • Batch MX-SD-001",
@@ -56,35 +312,10 @@ function addToCart(){
     }
 
     saveCart(cart);
-    updateStickyCart();
-
-    const btn = document.querySelector(".mx-cart-btn");
-    if(btn){
-        btn.innerText = "Added to Cart";
-        setTimeout(() => {
-            btn.innerText = "Add to Cart";
-        }, 1400);
-    }
-}saveCart(cart);
-updateStickyCart();
-
-if(typeof updateHeaderCartCount === "function"){
-    updateHeaderCartCount();
+    updateHeaderCount();
+    setCartButtonToView();
 }
 
-const cartBtn = document.querySelector(".mx-cart-btn");
-
-if(cartBtn){
-    cartBtn.innerText = "Added • View Cart";
-    cartBtn.onclick = function(){
-        window.location.href = "cart.html";
-    };
-}
-
-document.addEventListener("DOMContentLoaded", updateStickyCart);
-</script>
-
-<script>
 function buyNowProduct(){
     const qty = parseInt(document.getElementById("qtyInput")?.value || "1");
 
@@ -107,310 +338,6 @@ function buyNowProduct(){
 
     window.location.href = "checkout.html";
 }
-</script>
-
-<body>
-
-<a href="products.html" class="mx-back-home">← Products</a>
-
-<main class="mx-product-single">
-
-<section class="mx-product-hero">
-
-    <div class="mx-media-gallery">
-
-        <div class="mx-media-stage" id="mediaStage">
-            <div class="mx-media-track" id="mediaTrack">
-
-                <div class="mx-media-slide">
-                    <img src="assets/product-1.jpg" alt="MelloraX Sidr Honey">
-                </div>
-
-                <div class="mx-media-slide">
-                    <img src="assets/product-2.jpg" alt="MelloraX Product Preview">
-                </div>
-                
-                <div class="mx-media-slide">
-                    <img src="assets/product-3.jpg" alt="MelloraX Product Preview">
-                </div>
-
-                 <div class="mx-media-slide">
-                    <img src="assets/product-4.jpg" alt="MelloraX Product Preview">
-                </div>
-
-                <div class="mx-media-slide video-slide">
-             <video
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    class="mx-product-video"
->
-
-    <source
-        src="assets/product-video.mp4"
-        type="video/mp4"
-    >
-
-</video>
-
-<style>
-
-.mx-product-video{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    border-radius:28px;
-
-    display:block;
-}
-
-</style>
-                </div>
-
-            </div>
-
-            <span class="batch-pill">Live</span>
-        </div>
-
-        <div class="mx-media-dots">
-              <button onclick scrolll="goMedia(1)"></button>
-            <button onclick="goMedia(1)"></button>
-            <button onclick="goMedia(2)"></button>
-            <button onclick="goMedia(3)"></button>
-            <button onclick="goMedia(4)"></button>
-            <button onclick="goMedia(5)"></button>
-            <button onclick="goMedia(6)"></button>
-        </div>
-
-    </div>
-       
-    <div class="mx-product-info">
-
-        <span class="mx-kicker">First Batch Release</span>
-
-        <h1>Sidr Honey</h1>
-
-        <p class="mx-short-desc">
-            A refined Sidr Honey release crafted for premium everyday use, careful presentation, and a slower, more trusted honey experience.
-        </p>
-
-        <div class="mx-rating">
-            <span>★★★★★</span>
-            <small>Customer review system active</small>
-        </div>
-
-        <div class="mx-price">
-            <strong>₹599</strong>
-            <del>₹749</del>
-            <span>20% OFF</span>
-        </div>
-
-        <div class="mx-qty">
-            <label>Quantity</label>
-            <div>
-                <button type="button" onclick="updateQty(-1)">−</button>
-                <input id="qtyInput" value="1" readonly>
-                <button type="button" onclick="updateQty(1)">+</button>
-            </div>
-        </div>
-
-        <div class="mx-actions">
-        <button type="button" class="mx-cart-btn" onclick="addToCart()">
-    Add to Cart
-</button>
-            <button type="button" class="mx-buy-btn" onclick="buyNowProduct()">
-    Buy Now
-</button>
-        </div>
-
-        <p class="mx-ship-note">
-            Shipping begins after the official batch launch on <strong>13 June 2026</strong>.
-        </p>
-
-        <div class="mx-service-line">
-
-            <span>
-                <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6z"></path></svg>
-                Secure Payment
-            </span>
-
-            <span>
-                <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3zM6 10h12v4H6z"></path></svg>
-                Premium Packing
-            </span>
-
-            <a href="labreport.html">
-                <svg viewBox="0 0 24 24"><path d="M7 2h10v20H7zM9 6h6M9 10h6M9 14h4"></path></svg>
-                Batch Verified
-            </a>
-
-            <a href="https://wa.me/919690181875?text=Hello%20MelloraX%20Support,%20I%20need%20assistance%20regarding%20your%20products,%20availability,%20or%20order%20process." target="_blank">
-                <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"></path></svg>
-                WhatsApp Support
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="mx-product-story">
-
-    <div>
-        <span class="mx-kicker">Product Story</span>
-        <h2>Built Without Shortcuts.</h2>
-        <p>
-            MelloraX Sidr Honey begins our first batch release with a focus on purity, patience, and premium handling. The experience is designed to feel calm, refined, and trustworthy from discovery to delivery.
-        </p>
-        <p>
-            Every detail — from presentation to batch communication — is built to support a more intentional honey experience.
-        </p>
-    </div>
-
-    <div class="mx-points">
-        <p>First MelloraX curated batch</p>
-        <p>Premium 500g jar presentation</p>
-        <p>Batch verification supported</p>
-        <p>Customer support enabled</p>
-        <p>Secure payment flow ready</p>
-        <p>Review collection active</p>
-    </div>
-
-</section>
-
-<section class="mx-product-details">
-
-    <span class="mx-kicker">Details</span>
-    <h2>Product Information</h2>
-
-    <div class="mx-detail-table">
-        <p><strong>Product</strong><span>Sidr Honey</span></p>
-        <p><strong>Net Weight</strong><span>500g</span></p>
-        <p><strong>Batch Code</strong><span>MX-SD-001</span></p>
-        <p><strong>Release</strong><span>First Batch</span></p>
-        <p><strong>Order Status</strong><span>Buy Now </span></p>
-        <p><strong>Support</strong><span>WhatsApp Assistance</span></p>
-    </div>
-
-</section>
-
-<section class="mx-delivery-info">
-
-    <span class="mx-kicker">Delivery</span>
-    <h2>Shipping & Order Notes</h2>
-
-    <ul>
-        <li><strong>Shipping:</strong> Dispatch begins after the official batch launch on 13 June 2026.</li>
-        <li><strong>Payment:</strong> Secure payment flow is prepared for online transactions.</li>
-        <li><strong>Support:</strong> Product and availability help is available through MelloraX Support.</li>
-        <li><strong>Batch:</strong> Batch details can be verified from the lab report / QR section.</li>
-    </ul>
-
-</section>
-
-<section class="mx-review-section">
-
-    <div class="section-title">
-        <span>Customer Reviews</span>
-        <h2>Share Your Experience</h2>
-        <p>Verified customers can submit their MelloraX Sidr Honey experience here.</p>
-    </div>
-
-    <div class="mx-review-layout">
-
-        <div class="mx-review-score">
-            <strong>5.0</strong>
-            <span>★★★★★</span>
-            <small>Review collection active</small>
-        </div>
-
-        <form class="mx-review-form">
-            <input type="text" placeholder="Your Name">
-            <select>
-                <option>5 Stars</option>
-                <option>4 Stars</option>
-                <option>3 Stars</option>
-            </select>
-            <textarea placeholder="Write your review"></textarea>
-            <button type="button">Submit Review</button>
-        </form>
-
-    </div>
-
-</section>
-
-<section class="mx-related-section">
-
-    <div class="section-title">
-        <span>MelloraX Collections</span>
-        <h2>Explore More</h2>
-    </div>
-
-    <div class="mx-related-products">
-
-        <a href="products.html" class="mx-related-item">
-            <small>Current Release</small>
-            <h3>First Batch</h3>
-            <p>Explore the current MelloraX release and product collection.</p>
-            <b>View Collection</b>
-        </a>
-
-        <a href="products.html" class="mx-related-item">
-            <small>Product Page</small>
-            <h3>MelloraX Range</h3>
-            <p>Return to the main product page and browse available collections.</p>
-            <b>Open Products</b>
-        </a>
-
-        <a href="products.html" class="mx-related-item">
-            <small>Collection View</small>
-            <h3>Product House</h3>
-            <p>See the complete MelloraX product structure in one place.</p>
-            <b>Explore</b>
-        </a>
-
-    </div>
-
-</section>
-
-</main>
-
-<script>
-let currentMedia = 0;
-const track = document.getElementById("mediaTrack");
-const dots = document.querySelectorAll(".mx-media-dots button");
-
-function goMedia(index){
-    currentMedia = index;
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    dots.forEach(dot => dot.classList.remove("active"));
-    dots[index].classList.add("active");
-}
-
-let startX = 0;
-
-document.getElementById("mediaStage").addEventListener("pointerdown", e => {
-    startX = e.clientX;
-});
-
-document.getElementById("mediaStage").addEventListener("pointerup", e => {
-    const diff = e.clientX - startX;
-
-    if(diff < -40 && currentMedia < dots.length - 1){
-        goMedia(currentMedia + 1);
-    }
-
-    if(diff > 40 && currentMedia > 0){
-        goMedia(currentMedia - 1);
-    }
-});
 
 function updateQty(change){
     const input = document.getElementById("qtyInput");
@@ -422,60 +349,80 @@ function updateQty(change){
 
     input.value = value;
 }
-</script>
-<script>
+
 let currentMedia = 0;
 
+const track = document.getElementById("mediaTrack");
+const stage = document.getElementById("mediaStage");
+const dots = document.querySelectorAll(".mx-media-dots button");
+
 function goMedia(index){
-    // slider code
-}
-</script>
+    if(!track) return;
 
-<!-- YE YAHA LAGANA HE -->
+    const total = track.children.length;
 
+    if(index < 0) index = 0;
+    if(index >= total) index = total - 1;
 
-<script src="search.js"></script>
+    currentMedia = index;
 
-<script>
-const mediaSlider =
-document.getElementById("mxMediaSlider");
-
-const sliderDots =
-document.querySelectorAll(".mx-slider-dots button");
-
-/* dot click */
-
-function scrollMedia(index){
-
-    const slideWidth =
-    mediaSlider.clientWidth;
-
-    mediaSlider.scrollTo({
-        left:slideWidth * index,
+    track.scrollTo({
+        left:track.clientWidth * index,
         behavior:"smooth"
+    });
+
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    if(dots[index]){
+        dots[index].classList.add("active");
+    }
+}
+
+if(track){
+    track.addEventListener("scroll", () => {
+        const index = Math.round(track.scrollLeft / track.clientWidth);
+
+        currentMedia = index;
+
+        dots.forEach(dot => dot.classList.remove("active"));
+
+        if(dots[index]){
+            dots[index].classList.add("active");
+        }
     });
 }
 
-/* auto active dots */
+let startX = 0;
 
-mediaSlider.addEventListener("scroll", () => {
+if(stage){
+    stage.addEventListener("pointerdown", e => {
+        startX = e.clientX;
+    });
 
-    const index =
-    Math.round(
-        mediaSlider.scrollLeft /
-        mediaSlider.clientWidth
-    );
+    stage.addEventListener("pointerup", e => {
+        const diff = e.clientX - startX;
 
-    sliderDots.forEach(dot =>
-        dot.classList.remove("active")
-    );
+        if(diff < -40){
+            goMedia(currentMedia + 1);
+        }
 
-    if(sliderDots[index]){
-        sliderDots[index]
-        .classList.add("active");
+        if(diff > 40){
+            goMedia(currentMedia - 1);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cart = getCart();
+    const exists = cart.find(item => item.id === "MX-SIDR-500");
+
+    if(exists){
+        setCartButtonToView();
     }
 });
 </script>
+
+<script src="search.js"></script>
 
 </body>
 </html>
