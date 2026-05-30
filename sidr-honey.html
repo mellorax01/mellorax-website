@@ -351,64 +351,90 @@ function updateQty(change){
 }
 
 <script>
-let currentMedia = 0;
-let startX = 0;
-let isSwiping = false;
+let currentMedia
 
 const track = document.getElementById("mediaTrack");
 const stage = document.getElementById("mediaStage");
 const dots = document.querySelectorAll(".mx-media-dots button");
-const totalSlides = document.querySelectorAll(".mx-media-slide").length;
 
-function updateMedia(){
-    if(!track) return;
+function goMedia(index){
 
-    track.style.transform = `translateX(-${currentMedia * 100}%)`;
+    const track =
+    document.getElementById("mediaTrack");
+    track.addEventListener("scroll", () => {
 
-    dots.forEach(dot => dot.classList.remove("active"));
+    const slides =
+    document.querySelectorAll(".mx-media-slide");
 
-    if(dots[currentMedia]){
-        dots[currentMedia].classList.add("active");
+    let closest = 0;
+    let minDistance = Infinity;
+
+    slides.forEach((slide,index)=>{
+
+        const distance =
+        Math.abs(track.scrollLeft - slide.offsetLeft);
+
+        if(distance < minDistance){
+            minDistance = distance;
+            closest = index;
+        }
+
+    });
+
+    document
+    .querySelectorAll(".mx-media-dots button")
+    .forEach(dot => dot.classList.remove("active"));
+
+    const activeDot =
+    document.querySelectorAll(".mx-media-dots button")[closest];
+
+    if(activeDot){
+        activeDot.classList.add("active");
+    }
+
+});
+
+    const slides =
+    document.querySelectorAll(".mx-media-slide");
+
+    if(!track || !slides.length) return;
+
+    if(index < 0) index = 0;
+
+    if(index >= slides.length)
+    index = slides.length - 1;
+
+    currentMedia = index;
+
+    track.scrollLeft =
+    slides[index].offsetLeft;
+
+    document
+    .querySelectorAll(".mx-media-dots button")
+    .forEach(dot => dot.classList.remove("active"));
+
+    const activeDot =
+    document.querySelectorAll(".mx-media-dots button")[index];
+
+    if(activeDot){
+        activeDot.classList.add("active");
     }
 }
 
-function goMedia(index){
-    if(index < 0) index = 0;
-    if(index >= totalSlides) index = totalSlides - 1;
+if(track){
+    track.addEventListener("scroll", () => {
+        const index = Math.round(track.scrollLeft / track.clientWidth);
 
-    currentMedia = index;
-    updateMedia();
-}
+        currentMedia = index;
 
-if(stage){
-    stage.addEventListener("pointerdown", function(e){
-        startX = e.clientX;
-        isSwiping = true;
-    });
+        dots.forEach(dot => dot.classList.remove("active"));
 
-    stage.addEventListener("pointerup", function(e){
-        if(!isSwiping) return;
-
-        const diff = e.clientX - startX;
-
-        if(Math.abs(diff) > 55){
-            if(diff < 0){
-                goMedia(currentMedia + 1);
-            }else{
-                goMedia(currentMedia - 1);
-            }
+        if(dots[index]){
+            dots[index].classList.add("active");
         }
-
-        isSwiping = false;
-    });
-
-    stage.addEventListener("pointerleave", function(){
-        isSwiping = false;
     });
 }
 
-updateMedia();
-</script>
 
 
 document.addEventListener("DOMContentLoaded", () => {
