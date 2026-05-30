@@ -49,7 +49,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .empty-checkout{color:#AFA79A;line-height:1.8}
 .secure-strip{margin-top:22px;color:#AFA79A;font-size:13px;line-height:1.6}
 
-/* COD PREMIUM LOADER */
+/* COD CONFIRM LOADER */
 .mx-cod-loader{
 position:fixed;inset:0;z-index:999999;
 display:flex;align-items:center;justify-content:center;
@@ -58,7 +58,7 @@ opacity:0;visibility:hidden;transition:.35s ease;
 }
 .mx-cod-loader.show{opacity:1;visibility:visible}
 .mx-cod-loader-card{
-width:min(360px,90%);padding:36px 28px;border-radius:32px;
+width:min(380px,90%);padding:36px 28px;border-radius:32px;
 background:linear-gradient(180deg,#151515,#0C0C0C);
 border:1px solid rgba(212,175,55,.20);
 text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55);
@@ -76,11 +76,27 @@ animation:mxDotPulse 1s infinite ease-in-out;
 }
 .mx-loader-circle span:nth-child(2){animation-delay:.15s}
 .mx-loader-circle span:nth-child(3){animation-delay:.30s}
-.mx-loader-circle.done{background:linear-gradient(180deg,#D4AF37,#B9901F);color:#0B0B0B;font-size:34px;font-weight:800}
+.mx-loader-circle.done{
+background:linear-gradient(180deg,#D4AF37,#B9901F);
+color:#0B0B0B;
+font-size:34px;
+font-weight:800;
+}
 .mx-loader-circle.done span{display:none}
 .mx-loader-circle.done::after{content:"→"}
 .mx-cod-loader-card h3{margin:0 0 10px;font-family:serif;font-size:27px;color:#F9F7F2}
 .mx-cod-loader-card p{margin:0;color:#AFA79A;font-size:14px;line-height:1.6}
+.mx-cod-confirm-btn{
+margin-top:22px;width:100%;padding:15px 22px;border:0;border-radius:999px;
+background:linear-gradient(180deg,#D4AF37,#B9901F);
+color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s ease;
+}
+.mx-cod-confirm-btn:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
+.mx-cod-confirm-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.mx-cod-cancel-btn{
+margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:13px;
+}
+
 @keyframes mxDotPulse{
 0%,80%,100%{opacity:.35;transform:scale(.65)}
 40%{opacity:1;transform:scale(1)}
@@ -203,11 +219,22 @@ animation:mxDotPulse 1s infinite ease-in-out;
 
 <div class="mx-cod-loader" id="mxCodLoader">
 <div class="mx-cod-loader-card">
+
 <div class="mx-loader-circle" id="mxLoaderCircle">
 <span></span><span></span><span></span>
 </div>
-<h3 id="mxLoaderTitle">Placing Order</h3>
-<p id="mxLoaderText">Preparing your Cash on Delivery order.</p>
+
+<h3 id="mxLoaderTitle">Review COD Order</h3>
+<p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
+
+<button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">
+Confirm Order
+</button>
+
+<button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">
+Cancel
+</button>
+
 </div>
 </div>
 
@@ -345,14 +372,29 @@ const loader = document.getElementById("mxCodLoader");
 const circle = document.getElementById("mxLoaderCircle");
 const title = document.getElementById("mxLoaderTitle");
 const text = document.getElementById("mxLoaderText");
+const confirmBtn = document.getElementById("mxCodConfirmBtn");
 
 if(loader) loader.classList.add("show");
 
+if(circle) circle.classList.remove("done");
+if(title) title.innerText = "Review COD Order";
+if(text) text.innerText = "Confirm your Cash on Delivery order to continue.";
+
+confirmBtn.innerText = "Confirm Order";
+confirmBtn.disabled = false;
+confirmBtn.style.opacity = "1";
+
 setTimeout(() => {
 if(circle) circle.classList.add("done");
-if(title) title.innerText = "Order Confirmed";
-if(text) text.innerText = "Redirecting to order confirmation.";
-}, 1000);
+if(title) title.innerText = "Confirm COD Order";
+if(text) text.innerText = "Your order is ready. Tap confirm to place it.";
+confirmBtn.focus();
+}, 900);
+
+confirmBtn.onclick = function(){
+confirmBtn.innerText = "Placing Order...";
+confirmBtn.disabled = true;
+confirmBtn.style.opacity = ".7";
 
 setTimeout(() => {
 const orderData = collectOrderData("COD Pending","");
@@ -360,7 +402,16 @@ localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
 localStorage.removeItem("melloraxCheckout");
 localStorage.removeItem("melloraxCart");
 window.location.href = "success.html";
-}, 1700);
+}, 900);
+};
+}
+
+function closeCODLoader(){
+const loader = document.getElementById("mxCodLoader");
+const circle = document.getElementById("mxLoaderCircle");
+
+if(loader) loader.classList.remove("show");
+if(circle) circle.classList.remove("done");
 }
 
 function startPayment(){
