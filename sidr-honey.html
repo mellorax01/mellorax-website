@@ -350,8 +350,7 @@ function updateQty(change){
     input.value = value;
 }
 
-<script>
-let currentMedia
+let currentMedia = 0;
 
 const track = document.getElementById("mediaTrack");
 const stage = document.getElementById("mediaStage");
@@ -435,7 +434,25 @@ if(track){
     });
 }
 
+let startX = 0;
 
+if(stage){
+    stage.addEventListener("pointerdown", e => {
+        startX = e.clientX;
+    });
+
+    stage.addEventListener("pointerup", e => {
+        const diff = e.clientX - startX;
+
+        if(diff < -40){
+            goMedia(currentMedia + 1);
+        }
+
+        if(diff > 40){
+            goMedia(currentMedia - 1);
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const cart = getCart();
