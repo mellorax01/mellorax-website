@@ -48,6 +48,44 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-total strong{font-size:28px}
 .empty-checkout{color:#AFA79A;line-height:1.8}
 .secure-strip{margin-top:22px;color:#AFA79A;font-size:13px;line-height:1.6}
+
+/* COD PREMIUM LOADER */
+.mx-cod-loader{
+position:fixed;inset:0;z-index:999999;
+display:flex;align-items:center;justify-content:center;
+background:rgba(0,0,0,.84);backdrop-filter:blur(16px);
+opacity:0;visibility:hidden;transition:.35s ease;
+}
+.mx-cod-loader.show{opacity:1;visibility:visible}
+.mx-cod-loader-card{
+width:min(360px,90%);padding:36px 28px;border-radius:32px;
+background:linear-gradient(180deg,#151515,#0C0C0C);
+border:1px solid rgba(212,175,55,.20);
+text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55);
+}
+.mx-loader-circle{
+width:82px;height:82px;margin:0 auto 22px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;gap:7px;
+background:rgba(212,175,55,.08);
+border:1px solid rgba(212,175,55,.25);
+box-shadow:0 18px 44px rgba(212,175,55,.14);
+}
+.mx-loader-circle span{
+width:8px;height:8px;border-radius:50%;background:#D4AF37;
+animation:mxDotPulse 1s infinite ease-in-out;
+}
+.mx-loader-circle span:nth-child(2){animation-delay:.15s}
+.mx-loader-circle span:nth-child(3){animation-delay:.30s}
+.mx-loader-circle.done{background:linear-gradient(180deg,#D4AF37,#B9901F);color:#0B0B0B;font-size:34px;font-weight:800}
+.mx-loader-circle.done span{display:none}
+.mx-loader-circle.done::after{content:"→"}
+.mx-cod-loader-card h3{margin:0 0 10px;font-family:serif;font-size:27px;color:#F9F7F2}
+.mx-cod-loader-card p{margin:0;color:#AFA79A;font-size:14px;line-height:1.6}
+@keyframes mxDotPulse{
+0%,80%,100%{opacity:.35;transform:scale(.65)}
+40%{opacity:1;transform:scale(1)}
+}
+
 @media(max-width:900px){
 .mx-checkout-page{padding:92px 18px 60px}
 .checkout-layout,.checkout-row{grid-template-columns:1fr}
@@ -109,19 +147,19 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <div class="payment-options">
 
 <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
-    <div>
-        <span>Online Payment</span>
-        <small>UPI, card, wallet and net banking supported.</small>
-    </div>
-    <input type="radio" name="payment" value="Online Payment" checked>
+<div>
+<span>Online Payment</span>
+<small>UPI, card, wallet and net banking supported.</small>
+</div>
+<input type="radio" name="payment" value="Online Payment" checked>
 </label>
 
 <label class="payment-option" onclick="selectPayment(this,'COD')">
-    <div>
-        <span>Cash on Delivery</span>
-        <small>Pay when your order arrives.</small>
-    </div>
-    <input type="radio" name="payment" value="COD">
+<div>
+<span>Cash on Delivery</span>
+<small>Pay when your order arrives.</small>
+</div>
+<input type="radio" name="payment" value="COD">
 </label>
 
 </div>
@@ -163,230 +201,235 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 </section>
 </main>
 
+<div class="mx-cod-loader" id="mxCodLoader">
+<div class="mx-cod-loader-card">
+<div class="mx-loader-circle" id="mxLoaderCircle">
+<span></span><span></span><span></span>
+</div>
+<h3 id="mxLoaderTitle">Placing Order</h3>
+<p id="mxLoaderText">Preparing your Cash on Delivery order.</p>
+</div>
+</div>
+
 <script>
 let selectedPayment = "Online Payment";
 let couponDiscount = 0;
 
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
-
-let checkout = checkoutSession && Array.isArray(checkoutSession.items)
-    ? checkoutSession.items
-    : [];
+let checkout = checkoutSession && Array.isArray(checkoutSession.items) ? checkoutSession.items : [];
 
 function getTotals(){
-    const subtotal = checkout.reduce((sum,item)=>sum + Number(item.price) * Number(item.qty),0);
-    const mrpTotal = checkout.reduce((sum,item)=>sum + Number(item.mrp || item.price) * Number(item.qty),0);
-    const originalSavings = mrpTotal - subtotal;
-    const finalTotal = Math.max(subtotal - couponDiscount,0);
-    const totalSavings = originalSavings + couponDiscount;
-    const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
-
-    return {subtotal,mrpTotal,finalTotal,totalSavings,discountPercent};
+const subtotal = checkout.reduce((sum,item)=>sum + Number(item.price) * Number(item.qty),0);
+const mrpTotal = checkout.reduce((sum,item)=>sum + Number(item.mrp || item.price) * Number(item.qty),0);
+const originalSavings = mrpTotal - subtotal;
+const finalTotal = Math.max(subtotal - couponDiscount,0);
+const totalSavings = originalSavings + couponDiscount;
+const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
+return {subtotal,mrpTotal,finalTotal,totalSavings,discountPercent};
 }
 
 function renderCheckout(){
-    const box = document.getElementById("checkoutItems");
+const box = document.getElementById("checkoutItems");
 
-    if(!checkout.length){
-        box.innerHTML = `<div class="empty-checkout">Your checkout is empty. Please add products from the product page or cart.</div>`;
-        document.getElementById("checkoutSubtotal").innerText = "₹0";
-        document.getElementById("checkoutSavings").innerText = "₹0 (0% OFF)";
-        document.getElementById("checkoutTotal").innerText = "₹0";
-        return;
-    }
+if(!checkout.length){
+box.innerHTML = `<div class="empty-checkout">Your checkout is empty. Please add products from the product page or cart.</div>`;
+document.getElementById("checkoutSubtotal").innerText = "₹0";
+document.getElementById("checkoutSavings").innerText = "₹0 (0% OFF)";
+document.getElementById("checkoutTotal").innerText = "₹0";
+return;
+}
 
-    box.innerHTML = checkout.map(item => `
-        <div class="checkout-item">
-            <img src="${item.image}" alt="${item.name}">
-            <div>
-                <strong>${item.name}</strong>
-                <small>${item.variant || ""}</small>
-                <span>Quantity: ${item.qty}</span>
-            </div>
-            <b>₹${Number(item.price) * Number(item.qty)}</b>
-        </div>
-    `).join("");
+box.innerHTML = checkout.map(item => `
+<div class="checkout-item">
+<img src="${item.image}" alt="${item.name}">
+<div>
+<strong>${item.name}</strong>
+<small>${item.variant || ""}</small>
+<span>Quantity: ${item.qty}</span>
+</div>
+<b>₹${Number(item.price) * Number(item.qty)}</b>
+</div>
+`).join("");
 
-    const totals = getTotals();
-
-    document.getElementById("checkoutSubtotal").innerText = `₹${totals.subtotal}`;
-    document.getElementById("checkoutSavings").innerText = `₹${totals.totalSavings} (${totals.discountPercent}% OFF)`;
-    document.getElementById("checkoutTotal").innerText = `₹${totals.finalTotal}`;
+const totals = getTotals();
+document.getElementById("checkoutSubtotal").innerText = `₹${totals.subtotal}`;
+document.getElementById("checkoutSavings").innerText = `₹${totals.totalSavings} (${totals.discountPercent}% OFF)`;
+document.getElementById("checkoutTotal").innerText = `₹${totals.finalTotal}`;
 }
 
 function checkDelivery(){
-    const pin = document.getElementById("pincode").value.trim();
-    const box = document.getElementById("deliveryEstimate");
+const pin = document.getElementById("pincode").value.trim();
+const box = document.getElementById("deliveryEstimate");
 
-    if(pin.length === 6){
-        let estimate = "3–7 business days";
-        const firstDigit = pin.charAt(0);
+if(pin.length === 6){
+let estimate = "3–7 business days";
+const firstDigit = pin.charAt(0);
 
-        if(["1","2","3"].includes(firstDigit)) estimate = "3–5 business days";
-        if(["4","5","6","7","8"].includes(firstDigit)) estimate = "5–7 business days";
+if(["1","2","3"].includes(firstDigit)) estimate = "3–5 business days";
+if(["4","5","6","7","8"].includes(firstDigit)) estimate = "5–7 business days";
 
-        box.style.display = "block";
-        box.innerHTML = `Estimated delivery: <strong>${estimate}</strong>.`;
-    }else{
-        box.style.display = "none";
-        box.innerHTML = "";
-    }
+box.style.display = "block";
+box.innerHTML = `Estimated delivery: <strong>${estimate}</strong>.`;
+}else{
+box.style.display = "none";
+box.innerHTML = "";
+}
 }
 
 function selectPayment(el, method){
-    selectedPayment = method;
+selectedPayment = method;
 
-    document.querySelectorAll(".payment-option").forEach(item => {
-        item.classList.remove("active");
-    });
+document.querySelectorAll(".payment-option").forEach(item => {
+item.classList.remove("active");
+});
 
-    el.classList.add("active");
+el.classList.add("active");
 
-    const input = el.querySelector('input[name="payment"]');
-
-    if(input){
-        input.checked = true;
-    }
+const input = el.querySelector('input[name="payment"]');
+if(input) input.checked = true;
 }
 
 function applyCoupon(){
-    const code = document.getElementById("couponInput").value.trim().toUpperCase();
-    const msg = document.getElementById("couponMessage");
+const code = document.getElementById("couponInput").value.trim().toUpperCase();
+const msg = document.getElementById("couponMessage");
 
-    couponDiscount = 0;
+couponDiscount = 0;
 
-    if(!code){
-        msg.innerText = "Enter a coupon code.";
-    }else if(code === "MELLORA20"){
-        msg.innerText = "Launch offer is already applied.";
-    }else{
-        msg.innerText = "Invalid coupon code.";
-    }
+if(!code){
+msg.innerText = "Enter a coupon code.";
+}else if(code === "MELLORA20"){
+msg.innerText = "Launch offer is already applied.";
+}else{
+msg.innerText = "Invalid coupon code.";
+}
 
-    renderCheckout();
+renderCheckout();
 }
 
 function makeOrderId(){
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth()+1).padStart(2,"0");
-    const day = String(d.getDate()).padStart(2,"0");
-    const r = Math.floor(1000 + Math.random()*9000);
-    return `MX-${y}-${m}${day}-${r}`;
+const d = new Date();
+const y = d.getFullYear();
+const m = String(d.getMonth()+1).padStart(2,"0");
+const day = String(d.getDate()).padStart(2,"0");
+const r = Math.floor(1000 + Math.random()*9000);
+return `MX-${y}-${m}${day}-${r}`;
 }
 
 function collectOrderData(status,paymentId){
-    const totals = getTotals();
+const totals = getTotals();
 
-    return {
-        orderId: makeOrderId(),
-        customer:{
-            name:document.getElementById("fullName").value.trim(),
-            phone:document.getElementById("phone").value.trim(),
-            email:document.getElementById("email").value.trim(),
-            address:document.getElementById("address").value.trim(),
-            city:document.getElementById("city").value.trim(),
-            pincode:document.getElementById("pincode").value.trim(),
-            state:document.getElementById("state").value
-        },
-        items:checkout,
-        subtotal:totals.subtotal,
-        savings:totals.totalSavings,
-        shipping:"Free",
-        total:totals.finalTotal,
-        payment:selectedPayment,
-        paymentId:paymentId || "",
-        status:status
-    };
+return {
+orderId: makeOrderId(),
+customer:{
+name:document.getElementById("fullName").value.trim(),
+phone:document.getElementById("phone").value.trim(),
+email:document.getElementById("email").value.trim(),
+address:document.getElementById("address").value.trim(),
+city:document.getElementById("city").value.trim(),
+pincode:document.getElementById("pincode").value.trim(),
+state:document.getElementById("state").value
+},
+items:checkout,
+subtotal:totals.subtotal,
+savings:totals.totalSavings,
+shipping:"Free",
+total:totals.finalTotal,
+payment:selectedPayment,
+paymentId:paymentId || "",
+status:status
+};
+}
+
+function showCODLoaderAndRedirect(){
+const loader = document.getElementById("mxCodLoader");
+const circle = document.getElementById("mxLoaderCircle");
+const title = document.getElementById("mxLoaderTitle");
+const text = document.getElementById("mxLoaderText");
+
+if(loader) loader.classList.add("show");
+
+setTimeout(() => {
+if(circle) circle.classList.add("done");
+if(title) title.innerText = "Order Confirmed";
+if(text) text.innerText = "Redirecting to order confirmation.";
+}, 1000);
+
+setTimeout(() => {
+const orderData = collectOrderData("COD Pending","");
+localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+localStorage.removeItem("melloraxCheckout");
+localStorage.removeItem("melloraxCart");
+window.location.href = "success.html";
+}, 1700);
 }
 
 function startPayment(){
-    const form = document.getElementById("checkoutForm");
+const form = document.getElementById("checkoutForm");
 
-    if(!checkout.length){
-        alert("Your checkout is empty.");
-        return;
-    }
-
-    if(!form.checkValidity()){
-        form.reportValidity();
-        return;
-    }
-
-    const checkedPayment = document.querySelector('input[name="payment"]:checked');
-    selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
-
-if(selectedPayment === "COD"){
-
-    const confirmCOD = confirm(
-        "Confirm Cash on Delivery order?\n\nYou will pay when your order arrives."
-    );
-
-    if(!confirmCOD){
-        return;
-    }
-
-    const btn = document.querySelector(".pay-btn");
-    btn.innerText = "Placing COD Order...";
-    btn.disabled = true;
-    btn.style.opacity = ".7";
-    btn.style.cursor = "not-allowed";
-
-    setTimeout(() => {
-        const orderData = collectOrderData("COD Pending","");
-
-        localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-        localStorage.removeItem("melloraxCheckout");
-        localStorage.removeItem("melloraxCart");
-
-        window.location.href = "success.html";
-    }, 1200);
-
-    return;
+if(!checkout.length){
+alert("Your checkout is empty.");
+return;
 }
 
-    const totals = getTotals();
+if(!form.checkValidity()){
+form.reportValidity();
+return;
+}
 
-    const options = {
-        key: "rzp_live_Su6vr3jiAdh5XO",
-        amount: totals.finalTotal * 100,
-        currency: "INR",
-        name: "MelloraX",
-        description: "Secure Order Payment",
-        image: "assets/logoraz.jpg",
+const checkedPayment = document.querySelector('input[name="payment"]:checked');
+selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
 
-        prefill: {
-            name: document.getElementById("fullName").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            contact: document.getElementById("phone").value.trim()
-        },
+if(selectedPayment === "COD"){
+showCODLoaderAndRedirect();
+return;
+}
 
-        theme: {
-            color: "#D4AF37"
-        },
+const totals = getTotals();
 
-        handler: function(response){
-            const orderData = collectOrderData(
-                "Paid",
-                response.razorpay_payment_id
-            );
+const options = {
+key: "rzp_live_Su6vr3jiAdh5XO",
+amount: totals.finalTotal * 100,
+currency: "INR",
+name: "MelloraX",
+description: "Secure Order Payment",
+image: "assets/logoraz.jpg",
 
-            localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-            localStorage.removeItem("melloraxCheckout");
-            localStorage.removeItem("melloraxCart");
+prefill: {
+name: document.getElementById("fullName").value.trim(),
+email: document.getElementById("email").value.trim(),
+contact: document.getElementById("phone").value.trim()
+},
 
-            window.location.href = "success.html";
-        },
+theme: {color:"#D4AF37"},
 
-        modal: {
-            ondismiss: function(){
-                console.log("Payment popup closed");
-            }
-        }
-    };
+retry:{
+enabled:true,
+max_count:2
+},
 
-    const razorpay = new Razorpay(options);
-    razorpay.open();
+handler: function(response){
+const orderData = collectOrderData("Paid",response.razorpay_payment_id);
+localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+localStorage.removeItem("melloraxCheckout");
+localStorage.removeItem("melloraxCart");
+window.location.href = "success.html";
+},
+
+modal: {
+ondismiss: function(){
+console.log("Payment popup closed");
+}
+}
+};
+
+const razorpay = new Razorpay(options);
+
+razorpay.on("payment.failed", function(response){
+alert("Payment failed. Please try again or choose Cash on Delivery.");
+console.log("Razorpay failed:", response.error);
+});
+
+razorpay.open();
 }
 
 renderCheckout();
