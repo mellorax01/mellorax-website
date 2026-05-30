@@ -5730,43 +5730,4 @@ button:active,
 
     display:block !important;
     margin:0 auto !important;
-}.mx-media-stage{
-    overflow:hidden !important;
-    position:relative !important;
-}
-
-.mx-media-track{
-    display:flex !important;
-    overflow:hidden !important;
-    scroll-snap-type:none !important;
-    scroll-behavior:auto !important;
-    transform:translateX(0);
-    transition:transform .42s cubic-bezier(.22,.61,.36,1);
-    will-change:transform;
-}
-
-.mx-media-slide{
-    flex:0 0 100% !important;
-    min-width:100% !important;
-    width:100% !important;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-}
-
-.mx-media-slide img,
-.mx-media-slide video{
-    width:100% !important;
-    height:650px !important;
-    object-fit:cover !important;
-    object-position:center !important;
-    display:block !important;
-    border-radius:28px !important;
-}
-
-@media(max-width:768px){
-    .mx-media-slide img,
-    .mx-media-slide video{
-        height:460px !important;
-    }
 }
