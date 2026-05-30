@@ -4135,18 +4135,38 @@ body{
 
 
 .mx-media-slide{
-    min-width:100%;
     flex:0 0 100%;
 
-    scroll-snap-align:start;
+    min-width:100%;
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
 }
 
-.mx-media-slide img{
-    width:82%;
-    height:82%;
-    object-fit:contain;
-    filter:drop-shadow(0 35px 45px rgba(0,0,0,.6));
-    transition:transform .7s ease;
+.mx-media-slide img,
+
+    width:100%;
+    height:650px;
+
+    object-fit:cover;
+    object-position:center;
+
+    display:block;
+
+    border-radius:28px;
+}@media(max-width:768px){
+
+.mx-media-slide img,
+.mx-media-slide video{
+
+    height:460px;
+
+}
+
 }
 
 .mx-media-stage:hover img{
