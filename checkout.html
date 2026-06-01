@@ -34,8 +34,9 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .coupon-box input{padding:16px 18px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2}
 .coupon-box button{padding:0 22px;border-radius:18px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer}
 .coupon-message{margin-top:-6px;margin-bottom:16px;font-size:13px;color:#D4AF37;min-height:18px}
-.pay-btn{padding:18px 24px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s}
+.pay-btn{padding:18px 24px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s;font-size:16px;width:100%}
 .pay-btn:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
+.pay-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
 .checkout-summary{position:sticky;top:28px}
 .checkout-item{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid rgba(212,175,55,.11)}
 .checkout-item img{width:72px;height:72px;object-fit:contain;border-radius:16px;background:#080808}
@@ -51,68 +52,79 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 
 /* COD CONFIRM LOADER */
 .mx-cod-loader{
-position:fixed;inset:0;z-index:999999;
-display:flex;align-items:center;justify-content:center;
-background:rgba(0,0,0,.84);backdrop-filter:blur(16px);
-opacity:0;visibility:hidden;transition:.35s ease;
+  position:fixed;inset:0;z-index:999999;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.84);backdrop-filter:blur(16px);
+  opacity:0;visibility:hidden;transition:.35s ease;
 }
 .mx-cod-loader.show{opacity:1;visibility:visible}
 .mx-cod-loader-card{
-width:min(380px,90%);padding:36px 28px;border-radius:32px;
-background:linear-gradient(180deg,#151515,#0C0C0C);
-border:1px solid rgba(212,175,55,.20);
-text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55);
+  width:min(380px,90%);padding:36px 28px;border-radius:32px;
+  background:linear-gradient(180deg,#151515,#0C0C0C);
+  border:1px solid rgba(212,175,55,.20);
+  text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55);
 }
 .mx-loader-circle{
-width:82px;height:82px;margin:0 auto 22px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;gap:7px;
-background:rgba(212,175,55,.08);
-border:1px solid rgba(212,175,55,.25);
-box-shadow:0 18px 44px rgba(212,175,55,.14);
+  width:82px;height:82px;margin:0 auto 22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  background:rgba(212,175,55,.08);
+  border:1px solid rgba(212,175,55,.25);
+  box-shadow:0 18px 44px rgba(212,175,55,.14);
 }
 .mx-loader-circle span{
-width:8px;height:8px;border-radius:50%;background:#D4AF37;
-animation:mxDotPulse 1s infinite ease-in-out;
+  width:8px;height:8px;border-radius:50%;background:#D4AF37;
+  animation:mxDotPulse 1s infinite ease-in-out;
 }
 .mx-loader-circle span:nth-child(2){animation-delay:.15s}
 .mx-loader-circle span:nth-child(3){animation-delay:.30s}
 .mx-loader-circle.done{
-background:linear-gradient(180deg,#D4AF37,#B9901F);
-color:#0B0B0B;
-font-size:34px;
-font-weight:800;
+  background:linear-gradient(180deg,#D4AF37,#B9901F);
+  color:#0B0B0B;font-size:34px;font-weight:800;
 }
 .mx-loader-circle.done span{display:none}
-.mx-loader-circle.done::after{
-    content:"✓";
-    font-size:34px;
-    font-weight:800;
-}
+.mx-loader-circle.done::after{content:"✓";font-size:34px;font-weight:800;}
 .mx-cod-loader-card h3{margin:0 0 10px;font-family:serif;font-size:27px;color:#F9F7F2}
 .mx-cod-loader-card p{margin:0;color:#AFA79A;font-size:14px;line-height:1.6}
 .mx-cod-confirm-btn{
-margin-top:22px;width:100%;padding:15px 22px;border:0;border-radius:999px;
-background:linear-gradient(180deg,#D4AF37,#B9901F);
-color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s ease;
+  margin-top:22px;width:100%;padding:15px 22px;border:0;border-radius:999px;
+  background:linear-gradient(180deg,#D4AF37,#B9901F);
+  color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s ease;font-size:15px;
 }
 .mx-cod-confirm-btn:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
 .mx-cod-confirm-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
 .mx-cod-cancel-btn{
-margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:13px;
+  margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:13px;
+}
+
+/* PROCESSING OVERLAY */
+.mx-processing{
+  position:fixed;inset:0;z-index:9999999;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;transition:.3s ease;
+}
+.mx-processing.show{opacity:1;visibility:visible}
+.mx-processing p{color:#D4AF37;font-size:16px;font-weight:700;margin-top:16px}
+.mx-processing-inner{text-align:center}
+.mx-spin{
+  width:50px;height:50px;border:3px solid rgba(212,175,55,.2);
+  border-top-color:#D4AF37;border-radius:50%;
+  animation:mxSpin .8s linear infinite;margin:0 auto;
 }
 
 @keyframes mxDotPulse{
-0%,80%,100%{opacity:.35;transform:scale(.65)}
-40%{opacity:1;transform:scale(1)}
+  0%,80%,100%{opacity:.35;transform:scale(.65)}
+  40%{opacity:1;transform:scale(1)}
 }
+@keyframes mxSpin{to{transform:rotate(360deg)}}
 
 @media(max-width:900px){
-.mx-checkout-page{padding:92px 18px 60px}
-.checkout-layout,.checkout-row{grid-template-columns:1fr}
-.checkout-summary{position:static}
-.checkout-form,.checkout-summary{padding:24px;border-radius:28px}
-.coupon-box{grid-template-columns:1fr}
-.coupon-box button{min-height:52px}
+  .mx-checkout-page{padding:92px 18px 60px}
+  .checkout-layout,.checkout-row{grid-template-columns:1fr}
+  .checkout-summary{position:static}
+  .checkout-form,.checkout-summary{padding:24px;border-radius:28px}
+  .coupon-box{grid-template-columns:1fr}
+  .coupon-box button{min-height:52px}
 }
 </style>
 </head>
@@ -123,370 +135,433 @@ margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:
 
 <main class="mx-checkout-page">
 
-<section class="checkout-head">
-<span>Secure Checkout</span>
-<h1>Complete Your Order</h1>
-<p>Review your details carefully before continuing to payment.</p>
-</section>
+  <section class="checkout-head">
+    <span>Secure Checkout</span>
+    <h1>Complete Your Order</h1>
+    <p>Review your details carefully before continuing to payment.</p>
+  </section>
 
-<section class="checkout-layout">
+  <section class="checkout-layout">
 
-<form class="checkout-form" id="checkoutForm">
-<span class="checkout-kicker">Step 01</span>
-<h2>Shipping Details</h2>
+    <form class="checkout-form" id="checkoutForm">
+      <span class="checkout-kicker">Step 01</span>
+      <h2>Shipping Details</h2>
 
-<input type="text" id="fullName" placeholder="Full Name" required>
-<input type="tel" id="phone" placeholder="Mobile Number" required>
-<input type="email" id="email" placeholder="Email Address" required>
-<textarea id="address" placeholder="Complete Shipping Address" required></textarea>
+      <input type="text"  id="fullName" placeholder="Full Name" required>
+      <input type="tel"   id="phone"    placeholder="Mobile Number" required>
+      <input type="email" id="email"    placeholder="Email Address" required>
+      <textarea           id="address"  placeholder="Complete Shipping Address" required></textarea>
 
-<div class="checkout-row">
-<input type="text" id="city" placeholder="City" required>
-<input type="text" id="pincode" placeholder="Pincode" maxlength="6" inputmode="numeric" oninput="checkDelivery()" required>
-</div>
+      <div class="checkout-row">
+        <input type="text" id="city"    placeholder="City" required>
+        <input type="text" id="pincode" placeholder="Pincode" maxlength="6" inputmode="numeric" oninput="checkDelivery()" required>
+      </div>
 
-<select id="state" required>
-<option value="">Select State / Union Territory</option>
-<option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
-<option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
-<option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
-<option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
-<option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
-<option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
-<option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
-<option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
-<option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
-<option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
-</select>
+      <select id="state" required>
+        <option value="">Select State / Union Territory</option>
+        <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
+        <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
+        <option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+        <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+        <option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+        <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+        <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option>
+        <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
+        <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
+        <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
+      </select>
 
-<div class="delivery-box" id="deliveryEstimate"></div>
+      <div class="delivery-box" id="deliveryEstimate"></div>
 
-<span class="checkout-kicker">Step 02</span>
-<h2>Payment Method</h2>
+      <span class="checkout-kicker">Step 02</span>
+      <h2>Payment Method</h2>
 
-<div class="payment-options">
+      <div class="payment-options">
+        <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
+          <div>
+            <span>Online Payment</span>
+            <small>UPI, card, wallet and net banking supported.</small>
+          </div>
+          <input type="radio" name="payment" value="Online Payment" checked>
+        </label>
 
-<label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
-<div>
-<span>Online Payment</span>
-<small>UPI, card, wallet and net banking supported.</small>
-</div>
-<input type="radio" name="payment" value="Online Payment" checked>
-</label>
+        <label class="payment-option" onclick="selectPayment(this,'COD')">
+          <div>
+            <span>Cash on Delivery</span>
+            <small>Pay when your order arrives.</small>
+          </div>
+          <input type="radio" name="payment" value="COD">
+        </label>
+      </div>
 
-<label class="payment-option" onclick="selectPayment(this,'COD')">
-<div>
-<span>Cash on Delivery</span>
-<small>Pay when your order arrives.</small>
-</div>
-<input type="radio" name="payment" value="COD">
-</label>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
+    </form>
 
-</div>
+    <aside class="checkout-summary">
+      <span class="checkout-kicker">Order Summary</span>
+      <h2>Your Selection</h2>
 
-<button type="button" class="pay-btn" onclick="startPayment()">Continue to Payment</button>
-</form>
+      <div class="coupon-box">
+        <input type="text" id="couponInput" placeholder="Enter coupon code">
+        <button type="button" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="coupon-message" id="couponMessage"></div>
 
-<aside class="checkout-summary">
-<span class="checkout-kicker">Order Summary</span>
-<h2>Your Selection</h2>
+      <div id="checkoutItems"></div>
 
-<div class="coupon-box">
-<input type="text" id="couponInput" placeholder="Enter coupon code">
-<button type="button" onclick="applyCoupon()">Apply</button>
-</div>
-<div class="coupon-message" id="couponMessage"></div>
+      <div class="summary-lines">
+        <p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
+        <p><span>Shipping</span><strong class="gold">Free</strong></p>
+        <p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
+      </div>
 
-<div id="checkoutItems"></div>
+      <hr>
 
-<div class="summary-lines">
-<p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
-<p><span>Shipping</span><strong class="gold">Free</strong></p>
-<p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
-</div>
+      <p class="checkout-total">
+        <span>Total</span>
+        <strong id="checkoutTotal">₹0</strong>
+      </p>
 
-<hr>
+      <div class="secure-strip">
+        <span>Secure payment experience.</span><br>
+        <span>Premium packaging and careful order handling.</span>
+      </div>
+    </aside>
 
-<p class="checkout-total">
-<span>Total</span>
-<strong id="checkoutTotal">₹0</strong>
-</p>
-
-<div class="secure-strip">
-<span>Secure payment experience.</span><br>
-<span>Premium packaging and careful order handling.</span>
-</div>
-</aside>
-
-</section>
+  </section>
 </main>
 
+<!-- COD Confirm Modal -->
 <div class="mx-cod-loader" id="mxCodLoader">
-<div class="mx-cod-loader-card">
-
-<div class="mx-loader-circle" id="mxLoaderCircle">
-<span></span><span></span><span></span>
+  <div class="mx-cod-loader-card">
+    <div class="mx-loader-circle" id="mxLoaderCircle">
+      <span></span><span></span><span></span>
+    </div>
+    <h3 id="mxLoaderTitle">Review COD Order</h3>
+    <p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
+    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Order</button>
+    <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
+  </div>
 </div>
 
-<h3 id="mxLoaderTitle">Review COD Order</h3>
-<p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
-
-<button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">
-Confirm Order
-</button>
-
-<button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">
-Cancel
-</button>
-
-</div>
+<!-- Processing Overlay -->
+<div class="mx-processing" id="mxProcessing">
+  <div class="mx-processing-inner">
+    <div class="mx-spin"></div>
+    <p id="mxProcessingText">Processing your order...</p>
+  </div>
 </div>
 
 <script>
+// ─── CONFIG ───────────────────────────────────────────────────
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCDyXPiRZQXMS9i2USi4EIpmapL8ppiaaaO8mVnBY4woYe3Al5yLz4lIm_n9wlN4aE/exec";
+const RAZORPAY_KEY    = "rzp_live_SwIPgmcQO2J6N"; // Sirf tumhari Live Key ID yahan daalo
+// ──────────────────────────────────────────────────────────────
+
 let selectedPayment = "Online Payment";
-let couponDiscount = 0;
+let couponDiscount  = 0;
 
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
 let checkout = checkoutSession && Array.isArray(checkoutSession.items) ? checkoutSession.items : [];
 
-function getTotals(){
-const subtotal = checkout.reduce((sum,item)=>sum + Number(item.price) * Number(item.qty),0);
-const mrpTotal = checkout.reduce((sum,item)=>sum + Number(item.mrp || item.price) * Number(item.qty),0);
-const originalSavings = mrpTotal - subtotal;
-const finalTotal = Math.max(subtotal - couponDiscount,0);
-const totalSavings = originalSavings + couponDiscount;
-const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
-return {subtotal,mrpTotal,finalTotal,totalSavings,discountPercent};
+// ─── Totals ───────────────────────────────────────────────────
+function getTotals() {
+  const subtotal        = checkout.reduce((s, i) => s + Number(i.price) * Number(i.qty), 0);
+  const mrpTotal        = checkout.reduce((s, i) => s + Number(i.mrp || i.price) * Number(i.qty), 0);
+  const originalSavings = mrpTotal - subtotal;
+  const finalTotal      = Math.max(subtotal - couponDiscount, 0);
+  const totalSavings    = originalSavings + couponDiscount;
+  const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
+  return { subtotal, mrpTotal, finalTotal, totalSavings, discountPercent };
 }
 
-function renderCheckout(){
-const box = document.getElementById("checkoutItems");
+// ─── Render ───────────────────────────────────────────────────
+function renderCheckout() {
+  const box = document.getElementById("checkoutItems");
 
-if(!checkout.length){
-box.innerHTML = `<div class="empty-checkout">Your checkout is empty. Please add products from the product page or cart.</div>`;
-document.getElementById("checkoutSubtotal").innerText = "₹0";
-document.getElementById("checkoutSavings").innerText = "₹0 (0% OFF)";
-document.getElementById("checkoutTotal").innerText = "₹0";
-return;
+  if (!checkout.length) {
+    box.innerHTML = `<div class="empty-checkout">Your checkout is empty. Please add products from the product page or cart.</div>`;
+    document.getElementById("checkoutSubtotal").innerText = "₹0";
+    document.getElementById("checkoutSavings").innerText  = "₹0 (0% OFF)";
+    document.getElementById("checkoutTotal").innerText    = "₹0";
+    return;
+  }
+
+  box.innerHTML = checkout.map(item => `
+    <div class="checkout-item">
+      <img src="${item.image}" alt="${item.name}">
+      <div>
+        <strong>${item.name}</strong>
+        <small>${item.variant || ""}</small>
+        <span>Quantity: ${item.qty}</span>
+      </div>
+      <b>₹${Number(item.price) * Number(item.qty)}</b>
+    </div>
+  `).join("");
+
+  const t = getTotals();
+  document.getElementById("checkoutSubtotal").innerText = `₹${t.subtotal}`;
+  document.getElementById("checkoutSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
+  document.getElementById("checkoutTotal").innerText    = `₹${t.finalTotal}`;
 }
 
-box.innerHTML = checkout.map(item => `
-<div class="checkout-item">
-<img src="${item.image}" alt="${item.name}">
-<div>
-<strong>${item.name}</strong>
-<small>${item.variant || ""}</small>
-<span>Quantity: ${item.qty}</span>
-</div>
-<b>₹${Number(item.price) * Number(item.qty)}</b>
-</div>
-`).join("");
-
-const totals = getTotals();
-document.getElementById("checkoutSubtotal").innerText = `₹${totals.subtotal}`;
-document.getElementById("checkoutSavings").innerText = `₹${totals.totalSavings} (${totals.discountPercent}% OFF)`;
-document.getElementById("checkoutTotal").innerText = `₹${totals.finalTotal}`;
+// ─── Delivery Estimate ────────────────────────────────────────
+function checkDelivery() {
+  const pin = document.getElementById("pincode").value.trim();
+  const box = document.getElementById("deliveryEstimate");
+  if (pin.length === 6) {
+    const d = pin.charAt(0);
+    let est = ["1","2","3"].includes(d) ? "3–5 business days" : "5–7 business days";
+    box.style.display = "block";
+    box.innerHTML = `Estimated delivery: <strong>${est}</strong>.`;
+  } else {
+    box.style.display = "none";
+    box.innerHTML = "";
+  }
 }
 
-function checkDelivery(){
-const pin = document.getElementById("pincode").value.trim();
-const box = document.getElementById("deliveryEstimate");
-
-if(pin.length === 6){
-let estimate = "3–7 business days";
-const firstDigit = pin.charAt(0);
-
-if(["1","2","3"].includes(firstDigit)) estimate = "3–5 business days";
-if(["4","5","6","7","8"].includes(firstDigit)) estimate = "5–7 business days";
-
-box.style.display = "block";
-box.innerHTML = `Estimated delivery: <strong>${estimate}</strong>.`;
-}else{
-box.style.display = "none";
-box.innerHTML = "";
-}
+// ─── Payment Method Select ────────────────────────────────────
+function selectPayment(el, method) {
+  selectedPayment = method;
+  document.querySelectorAll(".payment-option").forEach(i => i.classList.remove("active"));
+  el.classList.add("active");
+  const input = el.querySelector('input[name="payment"]');
+  if (input) input.checked = true;
 }
 
-function selectPayment(el, method){
-selectedPayment = method;
-
-document.querySelectorAll(".payment-option").forEach(item => {
-item.classList.remove("active");
-});
-
-el.classList.add("active");
-
-const input = el.querySelector('input[name="payment"]');
-if(input) input.checked = true;
+// ─── Coupon ───────────────────────────────────────────────────
+function applyCoupon() {
+  const code = document.getElementById("couponInput").value.trim().toUpperCase();
+  const msg  = document.getElementById("couponMessage");
+  couponDiscount = 0;
+  if (!code)               msg.innerText = "Enter a coupon code.";
+  else if (code === "MELLORA20") msg.innerText = "Launch offer is already applied.";
+  else                     msg.innerText = "Invalid coupon code.";
+  renderCheckout();
 }
 
-function applyCoupon(){
-const code = document.getElementById("couponInput").value.trim().toUpperCase();
-const msg = document.getElementById("couponMessage");
-
-couponDiscount = 0;
-
-if(!code){
-msg.innerText = "Enter a coupon code.";
-}else if(code === "MELLORA20"){
-msg.innerText = "Launch offer is already applied.";
-}else{
-msg.innerText = "Invalid coupon code.";
+// ─── Order ID Generator ───────────────────────────────────────
+function makeOrderId() {
+  const d   = new Date();
+  const y   = d.getFullYear();
+  const m   = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const r   = Math.floor(1000 + Math.random() * 9000);
+  return `MX-${y}-${m}${day}-${r}`;
 }
 
-renderCheckout();
+// ─── Collect Order Data ───────────────────────────────────────
+function collectOrderData(status, paymentId) {
+  const t = getTotals();
+  return {
+    orderId  : makeOrderId(),
+    customer : {
+      name    : document.getElementById("fullName").value.trim(),
+      phone   : document.getElementById("phone").value.trim(),
+      email   : document.getElementById("email").value.trim(),
+      address : document.getElementById("address").value.trim(),
+      city    : document.getElementById("city").value.trim(),
+      pincode : document.getElementById("pincode").value.trim(),
+      state   : document.getElementById("state").value
+    },
+    items    : checkout,
+    subtotal : t.subtotal,
+    savings  : t.totalSavings,
+    shipping : "Free",
+    total    : t.finalTotal,
+    payment  : selectedPayment,
+    paymentId: paymentId || "",
+    status   : status
+  };
 }
 
-function makeOrderId(){
-const d = new Date();
-const y = d.getFullYear();
-const m = String(d.getMonth()+1).padStart(2,"0");
-const day = String(d.getDate()).padStart(2,"0");
-const r = Math.floor(1000 + Math.random()*9000);
-return `MX-${y}-${m}${day}-${r}`;
+// ─── Processing Overlay ───────────────────────────────────────
+function showProcessing(msg) {
+  document.getElementById("mxProcessingText").innerText = msg || "Processing your order...";
+  document.getElementById("mxProcessing").classList.add("show");
+}
+function hideProcessing() {
+  document.getElementById("mxProcessing").classList.remove("show");
 }
 
-function collectOrderData(status,paymentId){
-const totals = getTotals();
-
-return {
-orderId: makeOrderId(),
-customer:{
-name:document.getElementById("fullName").value.trim(),
-phone:document.getElementById("phone").value.trim(),
-email:document.getElementById("email").value.trim(),
-address:document.getElementById("address").value.trim(),
-city:document.getElementById("city").value.trim(),
-pincode:document.getElementById("pincode").value.trim(),
-state:document.getElementById("state").value
-},
-items:checkout,
-subtotal:totals.subtotal,
-savings:totals.totalSavings,
-shipping:"Free",
-total:totals.finalTotal,
-payment:selectedPayment,
-paymentId:paymentId || "",
-status:status
-};
+// ─── Save Order to Sheet via Apps Script ─────────────────────
+async function saveOrderToSheet(orderData) {
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method : "POST",
+      body   : JSON.stringify({ action: "saveOrder", ...orderData }),
+      headers: { "Content-Type": "text/plain" } // Apps Script CORS ke liye
+    });
+  } catch (err) {
+    console.warn("Sheet save error (non-blocking):", err);
+    // Sheet save fail ho bhi jaye toh user ko success dikhaenge
+  }
 }
 
-function showCODLoaderAndRedirect(){
-const loader = document.getElementById("mxCodLoader");
-const circle = document.getElementById("mxLoaderCircle");
-const title = document.getElementById("mxLoaderTitle");
-const text = document.getElementById("mxLoaderText");
-const confirmBtn = document.getElementById("mxCodConfirmBtn");
-
-if(loader) loader.classList.add("show");
-
-if(circle) circle.classList.remove("done");
-if(title) title.innerText = "Review COD Order";
-if(text) text.innerText = "Confirm your Cash on Delivery order to continue.";
-
-confirmBtn.innerText = "Confirm Order";
-confirmBtn.disabled = false;
-confirmBtn.style.opacity = "1";
-
-setTimeout(() => {
-if(circle) circle.classList.add("done");
-if(title) title.innerText = "Confirm COD Order";
-if(text) text.innerText = "Your order is ready. Tap confirm to place it.";
-confirmBtn.focus();
-}, 900);
-
-confirmBtn.onclick = function(){
-confirmBtn.innerText = "Placing Order...";
-confirmBtn.disabled = true;
-confirmBtn.style.opacity = ".7";
-
-setTimeout(() => {
-const orderData = collectOrderData("COD Pending","");
-localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-localStorage.removeItem("melloraxCheckout");
-localStorage.removeItem("melloraxCart");
-window.location.href = "success.html";
-}, 900);
-};
+// ─── Redirect After Order ─────────────────────────────────────
+function redirectToSuccess(orderData) {
+  localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
+  localStorage.removeItem("melloraxCheckout");
+  localStorage.removeItem("melloraxCart");
+  window.location.href = "success.html";
 }
 
-function closeCODLoader(){
-const loader = document.getElementById("mxCodLoader");
-const circle = document.getElementById("mxLoaderCircle");
+// ─── COD Flow ─────────────────────────────────────────────────
+function showCODLoader() {
+  const loader     = document.getElementById("mxCodLoader");
+  const circle     = document.getElementById("mxLoaderCircle");
+  const title      = document.getElementById("mxLoaderTitle");
+  const text       = document.getElementById("mxLoaderText");
+  const confirmBtn = document.getElementById("mxCodConfirmBtn");
 
-if(loader) loader.classList.remove("show");
-if(circle) circle.classList.remove("done");
+  circle.classList.remove("done");
+  title.innerText      = "Review COD Order";
+  text.innerText       = "Confirm your Cash on Delivery order to continue.";
+  confirmBtn.innerText = "Confirm Order";
+  confirmBtn.disabled  = false;
+  confirmBtn.style.opacity = "1";
+
+  loader.classList.add("show");
+
+  setTimeout(() => {
+    circle.classList.add("done");
+    title.innerText = "Confirm COD Order";
+    text.innerText  = "Your order is ready. Tap confirm to place it.";
+    confirmBtn.focus();
+  }, 900);
+
+  confirmBtn.onclick = async function () {
+    confirmBtn.innerText = "Placing Order...";
+    confirmBtn.disabled  = true;
+    confirmBtn.style.opacity = ".7";
+
+    const orderData = collectOrderData("COD Pending", "");
+    showProcessing("Saving your order...");
+    loader.classList.remove("show");
+
+    await saveOrderToSheet(orderData);
+    redirectToSuccess(orderData);
+  };
 }
 
-function startPayment(){
-const form = document.getElementById("checkoutForm");
-
-if(!checkout.length){
-alert("Your checkout is empty.");
-return;
+function closeCODLoader() {
+  document.getElementById("mxCodLoader").classList.remove("show");
+  document.getElementById("mxLoaderCircle").classList.remove("done");
 }
 
-if(!form.checkValidity()){
-form.reportValidity();
-return;
+// ─── Main Payment Function ────────────────────────────────────
+async function startPayment() {
+  const form = document.getElementById("checkoutForm");
+  const btn  = document.getElementById("payBtn");
+
+  if (!checkout.length) {
+    alert("Your checkout is empty.");
+    return;
+  }
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const checkedPayment = document.querySelector('input[name="payment"]:checked');
+  selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
+
+  // COD
+  if (selectedPayment === "COD") {
+    showCODLoader();
+    return;
+  }
+
+  // Online Payment — Razorpay ke liye Order ID banao
+  btn.disabled  = true;
+  btn.innerText = "Creating Order...";
+  showProcessing("Preparing payment...");
+
+  const totals = getTotals();
+
+  let razorpayOrderId = null;
+
+  try {
+    const resp = await fetch(APPS_SCRIPT_URL, {
+      method : "POST",
+      body   : JSON.stringify({
+        action : "createOrder",
+        amount : totals.finalTotal * 100, // paise mein
+        receipt: makeOrderId()
+      }),
+      headers: { "Content-Type": "text/plain" }
+    });
+
+    const result = await resp.json();
+
+    if (result.success && result.orderId) {
+      razorpayOrderId = result.orderId;
+    } else {
+      throw new Error(result.message || "Order ID creation failed");
+    }
+  } catch (err) {
+    hideProcessing();
+    btn.disabled  = false;
+    btn.innerText = "Continue to Payment";
+    alert("Could not initiate payment. Please try again.\n" + err.message);
+    return;
+  }
+
+  hideProcessing();
+
+  // Razorpay Checkout Open
+  const options = {
+    key         : RAZORPAY_KEY,
+    amount      : totals.finalTotal * 100,
+    currency    : "INR",
+    order_id    : razorpayOrderId, // ← Yeh Live mode ke liye zaroori tha
+    name        : "MelloraX",
+    description : "Secure Order Payment",
+    image       : "assets/logoraz.jpg",
+
+    prefill: {
+      name   : document.getElementById("fullName").value.trim(),
+      email  : document.getElementById("email").value.trim(),
+      contact: document.getElementById("phone").value.trim()
+    },
+
+    theme: { color: "#D4AF37" },
+
+    retry: { enabled: true, max_count: 2 },
+
+    handler: async function (response) {
+      showProcessing("Confirming payment...");
+
+      const orderData = collectOrderData("Paid", response.razorpay_payment_id);
+      // Razorpay order ID bhi save karo
+      orderData.razorpayOrderId = razorpayOrderId;
+
+      await saveOrderToSheet(orderData);
+      redirectToSuccess(orderData);
+    },
+
+    modal: {
+      ondismiss: function () {
+        btn.disabled  = false;
+        btn.innerText = "Continue to Payment";
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+
+  rzp.on("payment.failed", function (response) {
+    hideProcessing();
+    btn.disabled  = false;
+    btn.innerText = "Continue to Payment";
+    alert("Payment failed. Please try again or choose Cash on Delivery.\nReason: " + response.error.description);
+  });
+
+  rzp.open();
 }
 
-const checkedPayment = document.querySelector('input[name="payment"]:checked');
-selectedPayment = checkedPayment ? checkedPayment.value : "Online Payment";
-
-if(selectedPayment === "COD"){
-showCODLoaderAndRedirect();
-return;
-}
-
-const totals = getTotals();
-
-const options = {
-key: "rzp_test_SvGX6f6W5tDtf2",
-amount: totals.finalTotal * 100,
-currency: "INR",
-name: "MelloraX",
-description: "Secure Order Payment",
-image: "assets/logoraz.jpg",
-
-prefill: {
-name: document.getElementById("fullName").value.trim(),
-email: document.getElementById("email").value.trim(),
-contact: document.getElementById("phone").value.trim()
-},
-
-theme: {color:"#D4AF37"},
-
-retry:{
-enabled:true,
-max_count:2
-},
-
-handler: function(response){
-const orderData = collectOrderData("Paid",response.razorpay_payment_id);
-localStorage.setItem("melloraxOrder", JSON.stringify(orderData));
-localStorage.removeItem("melloraxCheckout");
-localStorage.removeItem("melloraxCart");
-window.location.href = "success.html";
-},
-
-modal: {
-ondismiss: function(){
-console.log("Payment popup closed");
-}
-}
-};
-
-const razorpay = new Razorpay(options);
-
-razorpay.on("payment.failed", function(response){
-alert("Payment failed. Please try again or choose Cash on Delivery.");
-console.log("Razorpay failed:", response.error);
-});
-
-razorpay.open();
-}
-
+// ─── Init ─────────────────────────────────────────────────────
 renderCheckout();
 </script>
 
