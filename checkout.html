@@ -30,6 +30,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .payment-option span{font-size:18px;font-weight:700}
 .payment-option small{display:block;color:#AFA79A;margin-top:8px;line-height:1.6}
 .payment-option input{display:none}
+.cod-charge-note{display:none;padding:12px 16px;border-radius:14px;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.18);color:#E6D49B;font-size:13px;line-height:1.6}
 .coupon-box{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
 .coupon-box input{padding:16px 18px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2}
 .coupon-box button{padding:0 22px;border-radius:18px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer}
@@ -49,73 +50,34 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-total strong{font-size:28px}
 .empty-checkout{color:#AFA79A;line-height:1.8}
 .secure-strip{margin-top:22px;color:#AFA79A;font-size:13px;line-height:1.6}
+#codChargeRow{display:none}
 
 /* COD CONFIRM LOADER */
-.mx-cod-loader{
-  position:fixed;inset:0;z-index:999999;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.84);backdrop-filter:blur(16px);
-  opacity:0;visibility:hidden;transition:.35s ease;
-}
+.mx-cod-loader{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.84);backdrop-filter:blur(16px);opacity:0;visibility:hidden;transition:.35s ease}
 .mx-cod-loader.show{opacity:1;visibility:visible}
-.mx-cod-loader-card{
-  width:min(380px,90%);padding:36px 28px;border-radius:32px;
-  background:linear-gradient(180deg,#151515,#0C0C0C);
-  border:1px solid rgba(212,175,55,.20);
-  text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55);
-}
-.mx-loader-circle{
-  width:82px;height:82px;margin:0 auto 22px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  background:rgba(212,175,55,.08);
-  border:1px solid rgba(212,175,55,.25);
-  box-shadow:0 18px 44px rgba(212,175,55,.14);
-}
-.mx-loader-circle span{
-  width:8px;height:8px;border-radius:50%;background:#D4AF37;
-  animation:mxDotPulse 1s infinite ease-in-out;
-}
+.mx-cod-loader-card{width:min(380px,90%);padding:36px 28px;border-radius:32px;background:linear-gradient(180deg,#151515,#0C0C0C);border:1px solid rgba(212,175,55,.20);text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55)}
+.mx-loader-circle{width:82px;height:82px;margin:0 auto 22px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);box-shadow:0 18px 44px rgba(212,175,55,.14)}
+.mx-loader-circle span{width:8px;height:8px;border-radius:50%;background:#D4AF37;animation:mxDotPulse 1s infinite ease-in-out}
 .mx-loader-circle span:nth-child(2){animation-delay:.15s}
 .mx-loader-circle span:nth-child(3){animation-delay:.30s}
-.mx-loader-circle.done{
-  background:linear-gradient(180deg,#D4AF37,#B9901F);
-  color:#0B0B0B;font-size:34px;font-weight:800;
-}
+.mx-loader-circle.done{background:linear-gradient(180deg,#D4AF37,#B9901F);color:#0B0B0B;font-size:34px;font-weight:800}
 .mx-loader-circle.done span{display:none}
-.mx-loader-circle.done::after{content:"✓";font-size:34px;font-weight:800;}
+.mx-loader-circle.done::after{content:"✓";font-size:34px;font-weight:800}
 .mx-cod-loader-card h3{margin:0 0 10px;font-family:serif;font-size:27px;color:#F9F7F2}
 .mx-cod-loader-card p{margin:0;color:#AFA79A;font-size:14px;line-height:1.6}
-.mx-cod-confirm-btn{
-  margin-top:22px;width:100%;padding:15px 22px;border:0;border-radius:999px;
-  background:linear-gradient(180deg,#D4AF37,#B9901F);
-  color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s ease;font-size:15px;
-}
+.mx-cod-confirm-btn{margin-top:22px;width:100%;padding:15px 22px;border:0;border-radius:999px;background:linear-gradient(180deg,#D4AF37,#B9901F);color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s ease;font-size:15px}
 .mx-cod-confirm-btn:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
 .mx-cod-confirm-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
-.mx-cod-cancel-btn{
-  margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:13px;
-}
+.mx-cod-cancel-btn{margin-top:12px;background:none;border:0;color:#AFA79A;cursor:pointer;font-size:13px}
 
 /* PROCESSING OVERLAY */
-.mx-processing{
-  position:fixed;inset:0;z-index:9999999;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.7);backdrop-filter:blur(10px);
-  opacity:0;visibility:hidden;transition:.3s ease;
-}
+.mx-processing{position:fixed;inset:0;z-index:9999999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.3s ease}
 .mx-processing.show{opacity:1;visibility:visible}
 .mx-processing p{color:#D4AF37;font-size:16px;font-weight:700;margin-top:16px}
 .mx-processing-inner{text-align:center}
-.mx-spin{
-  width:50px;height:50px;border:3px solid rgba(212,175,55,.2);
-  border-top-color:#D4AF37;border-radius:50%;
-  animation:mxSpin .8s linear infinite;margin:0 auto;
-}
+.mx-spin{width:50px;height:50px;border:3px solid rgba(212,175,55,.2);border-top-color:#D4AF37;border-radius:50%;animation:mxSpin .8s linear infinite;margin:0 auto}
 
-@keyframes mxDotPulse{
-  0%,80%,100%{opacity:.35;transform:scale(.65)}
-  40%{opacity:1;transform:scale(1)}
-}
+@keyframes mxDotPulse{0%,80%,100%{opacity:.35;transform:scale(.65)}40%{opacity:1;transform:scale(1)}}
 @keyframes mxSpin{to{transform:rotate(360deg)}}
 
 @media(max-width:900px){
@@ -194,6 +156,11 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
         </label>
       </div>
 
+      <!-- COD charge note -->
+      <div class="cod-charge-note" id="codChargeNote">
+        ₹59 COD handling charge per item will be added to your order total.
+      </div>
+
       <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
     </form>
 
@@ -212,6 +179,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
       <div class="summary-lines">
         <p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
         <p><span>Shipping</span><strong class="gold">Free</strong></p>
+        <p id="codChargeRow"><span>COD Charges</span><strong class="gold" id="codChargeAmt">₹0</strong></p>
         <p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
       </div>
 
@@ -255,7 +223,8 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrBNNCcIm0M2lqufZ_cB3q_Vva421lmanzP0q2MyCNlBtzGFijEu4TA9JWJ9f7Vqt5/exec";
-const RAZORPAY_KEY    = "rzp_live_SwIPgmcQO2J6N"; // Sirf tumhari Live Key ID yahan daalo
+const RAZORPAY_KEY    = "rzp_live_SwIPgmcQO2J6NH"; // Tumhari Live Key ID
+const COD_CHARGE_PER_QTY = 59; // COD charge per quantity
 // ──────────────────────────────────────────────────────────────
 
 let selectedPayment = "Online Payment";
@@ -265,14 +234,24 @@ const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "
 let checkout = checkoutSession && Array.isArray(checkoutSession.items) ? checkoutSession.items : [];
 
 // ─── Totals ───────────────────────────────────────────────────
+function getTotalQty() {
+  return checkout.reduce((s, i) => s + Number(i.qty || 0), 0);
+}
+
+function getCodCharge() {
+  if (selectedPayment !== "COD") return 0;
+  return getTotalQty() * COD_CHARGE_PER_QTY;
+}
+
 function getTotals() {
   const subtotal        = checkout.reduce((s, i) => s + Number(i.price) * Number(i.qty), 0);
   const mrpTotal        = checkout.reduce((s, i) => s + Number(i.mrp || i.price) * Number(i.qty), 0);
   const originalSavings = mrpTotal - subtotal;
-  const finalTotal      = Math.max(subtotal - couponDiscount, 0);
+  const codCharge       = getCodCharge();
+  const finalTotal      = Math.max(subtotal - couponDiscount, 0) + codCharge;
   const totalSavings    = originalSavings + couponDiscount;
   const discountPercent = mrpTotal > 0 ? Math.round((totalSavings / mrpTotal) * 100) : 0;
-  return { subtotal, mrpTotal, finalTotal, totalSavings, discountPercent };
+  return { subtotal, mrpTotal, finalTotal, totalSavings, discountPercent, codCharge };
 }
 
 // ─── Render ───────────────────────────────────────────────────
@@ -303,6 +282,16 @@ function renderCheckout() {
   document.getElementById("checkoutSubtotal").innerText = `₹${t.subtotal}`;
   document.getElementById("checkoutSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   document.getElementById("checkoutTotal").innerText    = `₹${t.finalTotal}`;
+
+  // COD charge row
+  const codRow = document.getElementById("codChargeRow");
+  const codAmt = document.getElementById("codChargeAmt");
+  if (t.codCharge > 0) {
+    codRow.style.display = "flex";
+    codAmt.innerText = `₹${t.codCharge}`;
+  } else {
+    codRow.style.display = "none";
+  }
 }
 
 // ─── Delivery Estimate ────────────────────────────────────────
@@ -327,6 +316,23 @@ function selectPayment(el, method) {
   el.classList.add("active");
   const input = el.querySelector('input[name="payment"]');
   if (input) input.checked = true;
+
+  // COD note show/hide
+  const note = document.getElementById("codChargeNote");
+  note.style.display = method === "COD" ? "block" : "none";
+
+  // Re-render totals with COD charge
+  renderCheckout();
+
+  // Button reset karo agar pehle se disable tha
+  resetPayBtn();
+}
+
+// ─── Button Reset ─────────────────────────────────────────────
+function resetPayBtn() {
+  const btn = document.getElementById("payBtn");
+  btn.disabled  = false;
+  btn.innerText = "Continue to Payment";
 }
 
 // ─── Coupon ───────────────────────────────────────────────────
@@ -334,9 +340,9 @@ function applyCoupon() {
   const code = document.getElementById("couponInput").value.trim().toUpperCase();
   const msg  = document.getElementById("couponMessage");
   couponDiscount = 0;
-  if (!code)               msg.innerText = "Enter a coupon code.";
+  if (!code)                    msg.innerText = "Enter a coupon code.";
   else if (code === "MELLORA20") msg.innerText = "Launch offer is already applied.";
-  else                     msg.innerText = "Invalid coupon code.";
+  else                          msg.innerText = "Invalid coupon code.";
   renderCheckout();
 }
 
@@ -367,6 +373,7 @@ function collectOrderData(status, paymentId) {
     items    : checkout,
     subtotal : t.subtotal,
     savings  : t.totalSavings,
+    codCharge: t.codCharge,
     shipping : "Free",
     total    : t.finalTotal,
     payment  : selectedPayment,
@@ -384,17 +391,16 @@ function hideProcessing() {
   document.getElementById("mxProcessing").classList.remove("show");
 }
 
-// ─── Save Order to Sheet via Apps Script ─────────────────────
+// ─── Save Order to Sheet ──────────────────────────────────────
 async function saveOrderToSheet(orderData) {
   try {
     await fetch(APPS_SCRIPT_URL, {
       method : "POST",
       body   : JSON.stringify({ action: "saveOrder", ...orderData }),
-      headers: { "Content-Type": "text/plain" } // Apps Script CORS ke liye
+      headers: { "Content-Type": "text/plain" }
     });
   } catch (err) {
     console.warn("Sheet save error (non-blocking):", err);
-    // Sheet save fail ho bhi jaye toh user ko success dikhaenge
   }
 }
 
@@ -414,9 +420,11 @@ function showCODLoader() {
   const text       = document.getElementById("mxLoaderText");
   const confirmBtn = document.getElementById("mxCodConfirmBtn");
 
+  const t = getTotals();
+
   circle.classList.remove("done");
   title.innerText      = "Review COD Order";
-  text.innerText       = "Confirm your Cash on Delivery order to continue.";
+  text.innerText       = `Total ₹${t.finalTotal} (incl. ₹${t.codCharge} COD charge). Confirm to place order.`;
   confirmBtn.innerText = "Confirm Order";
   confirmBtn.disabled  = false;
   confirmBtn.style.opacity = "1";
@@ -426,7 +434,6 @@ function showCODLoader() {
   setTimeout(() => {
     circle.classList.add("done");
     title.innerText = "Confirm COD Order";
-    text.innerText  = "Your order is ready. Tap confirm to place it.";
     confirmBtn.focus();
   }, 900);
 
@@ -447,6 +454,8 @@ function showCODLoader() {
 function closeCODLoader() {
   document.getElementById("mxCodLoader").classList.remove("show");
   document.getElementById("mxLoaderCircle").classList.remove("done");
+  // Button reset karo jab modal band ho
+  resetPayBtn();
 }
 
 // ─── Main Payment Function ────────────────────────────────────
@@ -473,13 +482,12 @@ async function startPayment() {
     return;
   }
 
-  // Online Payment — Razorpay ke liye Order ID banao
+  // Online Payment
   btn.disabled  = true;
   btn.innerText = "Creating Order...";
   showProcessing("Preparing payment...");
 
   const totals = getTotals();
-
   let razorpayOrderId = null;
 
   try {
@@ -487,7 +495,7 @@ async function startPayment() {
       method : "POST",
       body   : JSON.stringify({
         action : "createOrder",
-        amount : totals.finalTotal * 100, // paise mein
+        amount : totals.finalTotal * 100,
         receipt: makeOrderId()
       }),
       headers: { "Content-Type": "text/plain" }
@@ -502,20 +510,18 @@ async function startPayment() {
     }
   } catch (err) {
     hideProcessing();
-    btn.disabled  = false;
-    btn.innerText = "Continue to Payment";
+    resetPayBtn(); // Button reset
     alert("Could not initiate payment. Please try again.\n" + err.message);
     return;
   }
 
   hideProcessing();
 
-  // Razorpay Checkout Open
   const options = {
     key         : RAZORPAY_KEY,
     amount      : totals.finalTotal * 100,
     currency    : "INR",
-    order_id    : razorpayOrderId, // ← Yeh Live mode ke liye zaroori tha
+    order_id    : razorpayOrderId,
     name        : "MelloraX",
     description : "Secure Order Payment",
     image       : "assets/logoraz.jpg",
@@ -527,24 +533,19 @@ async function startPayment() {
     },
 
     theme: { color: "#D4AF37" },
-
     retry: { enabled: true, max_count: 2 },
 
     handler: async function (response) {
       showProcessing("Confirming payment...");
-
       const orderData = collectOrderData("Paid", response.razorpay_payment_id);
-      // Razorpay order ID bhi save karo
       orderData.razorpayOrderId = razorpayOrderId;
-
       await saveOrderToSheet(orderData);
       redirectToSuccess(orderData);
     },
 
     modal: {
       ondismiss: function () {
-        btn.disabled  = false;
-        btn.innerText = "Continue to Payment";
+        resetPayBtn(); // Modal band ho toh button reset
       }
     }
   };
@@ -553,8 +554,7 @@ async function startPayment() {
 
   rzp.on("payment.failed", function (response) {
     hideProcessing();
-    btn.disabled  = false;
-    btn.innerText = "Continue to Payment";
+    resetPayBtn(); // Payment fail ho toh button reset
     alert("Payment failed. Please try again or choose Cash on Delivery.\nReason: " + response.error.description);
   });
 
