@@ -165,7 +165,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
         <label class="input-label">Full Name *</label>
         <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana " autocomplete="name">
         <div class="field-hint">Enter your first and last name</div>
-        <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana)</div>
+        <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana )</div>
       </div>
 
       <!-- Phone -->
@@ -271,7 +271,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
       <div class="summary-lines">
         <p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
         <p><span>Shipping</span><strong class="gold">Free</strong></p>
-        <p id="codChargeRow"><span>COD Fee</span><strong style="color:#e07070" id="codChargeAmt">₹0</strong></p>
+        <p id="codChargeRow"><span>COD Fee</span><strong style="color:#D4AF37" id="codChargeAmt">₹0</strong></p>
         <p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
       </div>
       <hr>
@@ -303,7 +303,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
     <div style="display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:14px;color:#BEB6A8">
       <div style="display:flex;justify-content:space-between"><span>Subtotal</span><strong id="sheetSubtotal">₹0</strong></div>
       <div style="display:flex;justify-content:space-between"><span>Shipping</span><strong style="color:#D4AF37">Free</strong></div>
-      <div id="sheetCodRow" style="display:none;justify-content:space-between"><span>COD Fee</span><strong style="color:#e07070" id="sheetCodAmt">₹0</strong></div>
+      <div id="sheetCodRow" style="display:none;justify-content:space-between"><span>COD Fee</span><strong style="color:#D4AF37" id="sheetCodAmt">₹0</strong></div>
       <div style="display:flex;justify-content:space-between"><span>Savings</span><strong style="color:#D4AF37" id="sheetSavings">₹0</strong></div>
     </div>
     <hr style="border:0;border-top:1px solid rgba(212,175,55,.15);margin:14px 0">
@@ -645,7 +645,7 @@ function showCODLoader() {
     const od = collectOrderData("COD Pending", "");
     showProcessing("Saving your order...");
     loader.classList.remove("show");
-    await saveOrderToSheet(od);
+    await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
     redirectToSuccess(od);
   };
 }
@@ -711,7 +711,7 @@ async function startPayment() {
       showProcessing("Confirming payment...");
       const od = collectOrderData("Paid", response.razorpay_payment_id);
       od.razorpayOrderId = razorpayOrderId;
-      await saveOrderToSheet(od);
+      await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
       redirectToSuccess(od);
     },
     modal: { ondismiss: function() { resetPayBtn(); } }
