@@ -69,7 +69,8 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .mx-upi-app-btn{padding:14px 8px;border-radius:16px;border:2px solid rgba(212,175,55,.14);background:#111;cursor:pointer;transition:.25s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
 .mx-upi-app-btn:hover{border-color:rgba(212,175,55,.4);background:#181818;transform:translateY(-2px)}
 .mx-upi-app-btn.selected{border-color:#D4AF37;background:rgba(212,175,55,.08)}
-.mx-upi-app-btn img{width:36px;height:36px;border-radius:8px;object-fit:contain}
+.mx-upi-app-icon{width:36px;height:36px;border-radius:8px;object-fit:contain;display:flex;align-items:center;justify-content:center;font-size:20px;background:#1a1a1a}
+.mx-upi-app-icon img{width:36px;height:36px;border-radius:8px;object-fit:contain}
 .mx-upi-app-btn span{font-size:11px;color:#AFA79A;font-weight:600}
 .mx-upi-divider{text-align:center;color:#4A4440;font-size:11px;letter-spacing:1px;margin:16px 0;position:relative}
 .mx-upi-divider::before,.mx-upi-divider::after{content:"";position:absolute;top:50%;width:38%;height:1px;background:rgba(212,175,55,.1)}
@@ -77,16 +78,18 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .mx-upi-divider::after{right:0}
 .mx-upi-id-box{background:#0B0B0B;border:1px solid rgba(212,175,55,.16);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
 .mx-upi-id-box span{font-size:13px;color:#D4AF37;font-weight:700;letter-spacing:.3px}
-.mx-upi-copy-btn{padding:6px 14px;border-radius:999px;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.08);color:#D4AF37;font-size:11px;font-weight:700;cursor:pointer}
+.mx-upi-copy-btn{padding:6px 14px;border-radius:999px;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.08);color:#D4AF37;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .mx-upi-pay-now-btn{width:100%;padding:16px;border-radius:999px;border:0;background:linear-gradient(135deg,#D4AF37,#B8920A);color:#0B0B0B;font-weight:900;font-size:15px;cursor:pointer;transition:.3s;margin-bottom:10px}
 .mx-upi-pay-now-btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(212,175,55,.3)}
 .mx-upi-pay-now-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .mx-upi-paid-wrapper{text-align:center;margin-bottom:10px}
 .mx-upi-paid-btn{width:100%;padding:16px;border-radius:999px;border:0;background:linear-gradient(135deg,#1a7a1a,#0f5c0f);color:#fff;font-weight:900;font-size:15px;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(30,160,30,.3)}
 .mx-upi-paid-btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(30,160,30,.4)}
+.mx-upi-paid-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .mx-upi-countdown{margin-top:10px;font-size:12px;color:#8A8278}
 .mx-upi-countdown strong{color:#D4AF37}
 .mx-upi-cancel-btn{width:100%;padding:10px;border-radius:999px;border:0;background:none;color:#6A6460;font-size:13px;cursor:pointer}
+.mx-upi-hint{font-size:11px;color:#6A6460;text-align:center;margin-bottom:10px;line-height:1.6}
 
 /* Mobile sticky bar */
 .mx-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;background:linear-gradient(90deg,#1A1500,#0F0F0F);border-top:1px solid rgba(212,175,55,.22);padding:14px 20px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -8px 28px rgba(0,0,0,.5)}
@@ -298,7 +301,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
   </div>
 </div>
 
-<!-- UPI Payment Screen -->
+<!-- ─── UPI Payment Screen ─── -->
 <div class="mx-upi-screen" id="mxUpiScreen">
   <div class="mx-upi-card">
     <div class="mx-upi-header">
@@ -314,32 +317,67 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
         <strong id="upiAmount">₹0</strong>
       </div>
 
-      <!-- UPI App Selection -->
+      <!-- UPI App Buttons -->
       <div class="mx-upi-apps">
+
+        <!-- Google Pay -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('gpay',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/120px-Google_Pay_Logo.svg.png" alt="GPay">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/120px-Google_Pay_Logo.svg.png"
+                 alt="GPay"
+                 onerror="this.style.display='none';this.parentNode.textContent='G'">
+          </div>
           <span>Google Pay</span>
         </div>
+
+        <!-- PhonePe — using jsdelivr CDN (Wikipedia SVG broken) -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('phonepe',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PhonePe_Logo.svg/120px-PhonePe_Logo.svg.png" alt="PhonePe">
+          <div class="mx-upi-app-icon" id="phonePeIconBox"
+               style="background:#5f259f;border-radius:8px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;font-weight:900;color:#fff;font-size:14px;letter-spacing:-1px">
+            Pe
+          </div>
           <span>PhonePe</span>
         </div>
+
+        <!-- Paytm -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('paytm',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/120px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/120px-Paytm_Logo_%28standalone%29.svg.png"
+                 alt="Paytm"
+                 onerror="this.style.display='none';this.parentNode.textContent='Paytm'">
+          </div>
           <span>Paytm</span>
         </div>
+
+        <!-- BHIM — using styled fallback (Wikipedia SVG broken) -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('bhim',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/BHIM_Unified_Payment_Interface_Logo.svg/120px-BHIM_Unified_Payment_Interface_Logo.svg.png" alt="BHIM">
+          <div class="mx-upi-app-icon"
+               style="background:#00639b;border-radius:8px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;font-weight:900;color:#fff;font-size:13px;letter-spacing:0">
+            BHIM
+          </div>
           <span>BHIM</span>
         </div>
+
+        <!-- Amazon Pay -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('amazon',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/120px-Amazon_icon.svg.png" alt="Amazon Pay">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/120px-Amazon_icon.svg.png"
+                 alt="Amazon Pay"
+                 onerror="this.style.display='none';this.parentNode.textContent='A'">
+          </div>
           <span>Amazon Pay</span>
         </div>
+
+        <!-- Any UPI -->
         <div class="mx-upi-app-btn" onclick="selectUpiApp('upi',this)">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/120px-UPI-Logo-vector.svg.png" alt="Any UPI">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/120px-UPI-Logo-vector.svg.png"
+                 alt="UPI"
+                 onerror="this.style.display='none';this.parentNode.textContent='UPI'">
+          </div>
           <span>Any UPI</span>
         </div>
+
       </div>
 
       <div class="mx-upi-divider">OR PAY USING UPI ID</div>
@@ -350,17 +388,18 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
       </div>
 
       <!-- Pay Now Button -->
+      <div class="mx-upi-hint" id="upiHint">Select a UPI app above, then tap Pay Now</div>
       <button class="mx-upi-pay-now-btn" id="upiPayNowBtn" onclick="proceedToUpiApp()">
         Pay Now
       </button>
 
-      <!-- Paid Button (hidden initially) -->
+      <!-- "I have paid" button — shown after app redirect -->
       <div class="mx-upi-paid-wrapper" id="upiPaidWrapper" style="display:none">
         <button class="mx-upi-paid-btn" id="upiPaidBtn" onclick="confirmUpiPayment()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          Paid
+          I have Paid
         </button>
-        <div class="mx-upi-countdown" id="upiCountdown">Redirecting in <strong id="upiCountNum">5</strong>s...</div>
+        <div class="mx-upi-countdown" id="upiCountdown">Confirm only after payment is complete</div>
       </div>
 
       <button class="mx-upi-cancel-btn" onclick="closeUpiScreen()">Cancel</button>
@@ -379,7 +418,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
   </div>
 </div>
 
-<!-- Processing -->
+<!-- Processing Overlay -->
 <div class="mx-processing" id="mxProcessing">
   <div class="mx-processing-inner">
     <div class="mx-spin"></div>
@@ -393,14 +432,16 @@ const UPI_ID             = "Q138459744@ybl";
 const UPI_NAME           = "MelloraX";
 const COD_CHARGE_PER_QTY = 59;
 
-let selectedPayment = "UPI";
-let couponDiscount  = 0;
+let selectedPayment  = "UPI";
+let selectedUpiApp   = null;   // BUG FIX: track which app is selected
+let couponDiscount   = 0;
 let currentOrderData = null;
 
+// ─── Load checkout session ────────────────────────────────────
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
 let checkout = checkoutSession && Array.isArray(checkoutSession.items) ? checkoutSession.items : [];
 
-// ─── Validation ───────────────────────────────────────────────
+// ─── Validation helpers ───────────────────────────────────────
 function setFieldState(inputEl, errId, isError) {
   if (!inputEl) return;
   inputEl.classList.toggle("error", isError);
@@ -500,7 +541,7 @@ function getTotals() {
 function itemsHTML(items) {
   return items.map(item => `
     <div class="checkout-item">
-      <img src="${item.image}" alt="${item.name}">
+      <img src="${item.image}" alt="${item.name}" onerror="this.style.background='#1a1a1a'">
       <div><strong>${item.name}</strong><small>${item.variant||""}</small><span>Qty: ${item.qty}</span></div>
       <b>₹${Number(item.price)*Number(item.qty)}</b>
     </div>`).join("");
@@ -560,9 +601,9 @@ function applyCoupon() {
   const code = document.getElementById("couponInput").value.trim().toUpperCase();
   const msg  = document.getElementById("couponMessage");
   couponDiscount = 0;
-  if (!code)                     msg.innerText = "Enter a coupon code.";
-  else if (code==="MELLORA20")   msg.innerText = "Launch offer is already applied.";
-  else                           msg.innerText = "Invalid coupon code.";
+  if (!code)                   { msg.innerText = "Enter a coupon code."; }
+  else if (code==="MELLORA20") { msg.innerText = "Launch offer is already applied."; }
+  else                         { msg.innerText = "Invalid coupon code."; }
   renderCheckout();
 }
 
@@ -609,7 +650,7 @@ async function saveOrderToSheet(orderData) {
       body:JSON.stringify({action:"saveOrder",...orderData}),
       headers:{"Content-Type":"text/plain"}
     });
-  } catch(e) { console.warn("Sheet save:",e); }
+  } catch(e) { console.warn("Sheet save failed:",e); }
 }
 
 function redirectToSuccess(orderData) {
@@ -624,34 +665,27 @@ function openUpiScreen() {
   const t = getTotals();
   document.getElementById("upiAmount").innerText = `₹${t.finalTotal}`;
   document.getElementById("upiIdDisplay").innerText = UPI_ID;
+  // Reset state
+  selectedUpiApp = null;
+  document.querySelectorAll(".mx-upi-app-btn").forEach(b => b.classList.remove("selected"));
+  document.getElementById("upiPaidWrapper").style.display = "none";
+  document.getElementById("upiPayNowBtn").style.display   = "block";
+  document.getElementById("upiHint").style.display        = "block";
   document.getElementById("mxUpiScreen").classList.add("show");
 }
 
 function closeUpiScreen() {
   document.getElementById("mxUpiScreen").classList.remove("show");
+  selectedUpiApp = null;
   resetPayBtn();
 }
 
-function openUpiApp(app) {
-  const t      = getTotals();
-  const amount = t.finalTotal;
-  const note   = encodeURIComponent("MelloraX Order");
-  const name   = encodeURIComponent(UPI_NAME);
-  const upi    = encodeURIComponent(UPI_ID);
-
-  let url = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-
-  // App specific deep links
-  if (app === "gpay")   url = `gpay://upi/pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  if (app === "phonepe") url = `phonepe://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  if (app === "paytm")  url = `paytmmp://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-
-  window.location.href = url;
-
-  // Fallback — agar app nahi khuli toh generic UPI
-  setTimeout(() => {
-    window.location.href = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  }, 1500);
+// BUG FIX: selectUpiApp now properly stores which app was selected
+function selectUpiApp(appKey, el) {
+  selectedUpiApp = appKey;
+  document.querySelectorAll(".mx-upi-app-btn").forEach(b => b.classList.remove("selected"));
+  el.classList.add("selected");
+  document.getElementById("upiHint").style.display = "none";
 }
 
 function copyUpiId() {
@@ -659,13 +693,69 @@ function copyUpiId() {
     const btn = document.querySelector(".mx-upi-copy-btn");
     btn.innerText = "Copied!";
     setTimeout(() => btn.innerText = "Copy", 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement("textarea");
+    ta.value = UPI_ID;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    const btn = document.querySelector(".mx-upi-copy-btn");
+    btn.innerText = "Copied!";
+    setTimeout(() => btn.innerText = "Copy", 2000);
   });
+}
+
+// BUG FIX: proceedToUpiApp was completely missing — now implemented
+function proceedToUpiApp() {
+  const t      = getTotals();
+  const amount = t.finalTotal;
+  const note   = encodeURIComponent("MelloraX Order");
+  const name   = encodeURIComponent(UPI_NAME);
+  const upi    = encodeURIComponent(UPI_ID);
+
+  // Build deep link based on selected app
+  let deepLink = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+
+  if (selectedUpiApp === "gpay") {
+    deepLink = `gpay://upi/pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  } else if (selectedUpiApp === "phonepe") {
+    deepLink = `phonepe://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  } else if (selectedUpiApp === "paytm") {
+    deepLink = `paytmmp://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  } else if (selectedUpiApp === "bhim") {
+    deepLink = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}&app=bhim`;
+  } else if (selectedUpiApp === "amazon") {
+    deepLink = `amazonpay://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  }
+
+  // Open the UPI deep link
+  window.location.href = deepLink;
+
+  // After 2s show "I have Paid" button (app may have opened)
+  setTimeout(() => {
+    document.getElementById("upiPayNowBtn").style.display   = "none";
+    document.getElementById("upiHint").style.display        = "none";
+    document.getElementById("upiPaidWrapper").style.display = "block";
+  }, 2000);
+
+  // Fallback: if app didn't open, try generic UPI after 2.5s
+  setTimeout(() => {
+    // Only fallback if we tried a specific app
+    if (selectedUpiApp && selectedUpiApp !== "upi") {
+      const fallback = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+      const a = document.createElement("a");
+      a.href = fallback;
+      a.click();
+    }
+  }, 2500);
 }
 
 async function confirmUpiPayment() {
   const btn = document.getElementById("upiPaidBtn");
   btn.disabled  = true;
-  btn.innerText = "Saving order...";
+  btn.innerHTML = `<div class="mx-spin" style="width:20px;height:20px;border-width:2px;margin-right:8px"></div> Saving order...`;
 
   const od = collectOrderData("UPI Pending Verification", "");
   showProcessing("Confirming your order...");
@@ -692,8 +782,8 @@ function showCODLoader() {
   loader.classList.add("show");
   setTimeout(() => { circle.classList.add("done"); title.innerText = "Confirm COD Order"; btn.focus(); }, 900);
   btn.onclick = async function() {
-    btn.innerText = "Placing Order...";
-    btn.disabled  = true;
+    btn.innerText     = "Placing Order...";
+    btn.disabled      = true;
     btn.style.opacity = ".7";
     const od = collectOrderData("COD Pending", "");
     showProcessing("Saving your order...");
@@ -714,12 +804,12 @@ async function startPayment() {
   if (!checkout.length) { alert("Your checkout is empty."); return; }
   if (!validateForm()) return;
   const checkedPay = document.querySelector('input[name="payment"]:checked');
-  selectedPayment = checkedPay ? checkedPay.value : "UPI";
+  selectedPayment  = checkedPay ? checkedPay.value : "UPI";
   if (selectedPayment === "COD") { showCODLoader(); return; }
-  // UPI
   openUpiScreen();
 }
 
+// Init
 renderCheckout();
 </script>
 </body>
