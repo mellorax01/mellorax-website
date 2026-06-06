@@ -380,11 +380,59 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 
       </div>
 
-      <div class="mx-upi-divider">OR PAY USING UPI ID</div>
+      <div class="mx-upi-divider">SELECT YOUR UPI APP</div>
 
-      <div class="mx-upi-id-box">
-        <span id="upiIdDisplay">Q138459744@ybl</span>
-        <button class="mx-upi-copy-btn" onclick="copyUpiId()">Copy</button>
+      <!-- UPI App Buttons -->
+      <div class="mx-upi-apps">
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('gpay',this)">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/120px-Google_Pay_Logo.svg.png"
+                 alt="GPay" onerror="this.style.display='none';this.parentNode.textContent='G'">
+          </div>
+          <span>Google Pay</span>
+        </div>
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('phonepe',this)">
+          <div class="mx-upi-app-icon"
+               style="background:#5f259f;border-radius:8px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;font-weight:900;color:#fff;font-size:14px;letter-spacing:-1px">
+            Pe
+          </div>
+          <span>PhonePe</span>
+        </div>
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('paytm',this)">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/120px-Paytm_Logo_%28standalone%29.svg.png"
+                 alt="Paytm" onerror="this.style.display='none';this.parentNode.textContent='Paytm'">
+          </div>
+          <span>Paytm</span>
+        </div>
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('bhim',this)">
+          <div class="mx-upi-app-icon"
+               style="background:#00639b;border-radius:8px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;font-weight:900;color:#fff;font-size:13px;">
+            BHIM
+          </div>
+          <span>BHIM</span>
+        </div>
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('amazon',this)">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/120px-Amazon_icon.svg.png"
+                 alt="Amazon Pay" onerror="this.style.display='none';this.parentNode.textContent='A'">
+          </div>
+          <span>Amazon Pay</span>
+        </div>
+
+        <div class="mx-upi-app-btn" onclick="selectUpiApp('upi',this)">
+          <div class="mx-upi-app-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/120px-UPI-Logo-vector.svg.png"
+                 alt="UPI" onerror="this.style.display='none';this.parentNode.textContent='UPI'">
+          </div>
+          <span>Any UPI</span>
+        </div>
+
       </div>
 
       <!-- Pay Now Button -->
@@ -428,7 +476,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 
 <script>
 const APPS_SCRIPT_URL    = "https://script.google.com/macros/s/AKfycbxrBNNCcIm0M2lqufZ_cB3q_Vva421lmanzP0q2MyCNlBtzGFijEu4TA9JWJ9f7Vqt5/exec";
-const UPI_ID             = "Q138459744@ybl";
+const UPI_ID             = "gulbahar01up@ptyes";
 const UPI_NAME           = "MelloraX";
 const COD_CHARGE_PER_QTY = 59;
 
@@ -664,7 +712,6 @@ function redirectToSuccess(orderData) {
 function openUpiScreen() {
   const t = getTotals();
   document.getElementById("upiAmount").innerText = `₹${t.finalTotal}`;
-  document.getElementById("upiIdDisplay").innerText = UPI_ID;
   // Reset state
   selectedUpiApp = null;
   document.querySelectorAll(".mx-upi-app-btn").forEach(b => b.classList.remove("selected"));
@@ -707,7 +754,6 @@ function copyUpiId() {
   });
 }
 
-// BUG FIX: proceedToUpiApp was completely missing — now implemented
 function proceedToUpiApp() {
   const t      = getTotals();
   const amount = t.finalTotal;
@@ -715,38 +761,28 @@ function proceedToUpiApp() {
   const name   = encodeURIComponent(UPI_NAME);
   const upi    = encodeURIComponent(UPI_ID);
 
-  // Build deep link based on selected app
   let deepLink = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
 
-  if (selectedUpiApp === "gpay") {
-    deepLink = `gpay://upi/pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  } else if (selectedUpiApp === "phonepe") {
-    deepLink = `phonepe://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  } else if (selectedUpiApp === "paytm") {
-    deepLink = `paytmmp://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  } else if (selectedUpiApp === "bhim") {
-    deepLink = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}&app=bhim`;
-  } else if (selectedUpiApp === "amazon") {
-    deepLink = `amazonpay://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
-  }
+  if (selectedUpiApp === "gpay")    deepLink = `gpay://upi/pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  else if (selectedUpiApp === "phonepe") deepLink = `phonepe://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  else if (selectedUpiApp === "paytm")   deepLink = `paytmmp://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+  else if (selectedUpiApp === "bhim")    deepLink = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}&app=bhim`;
+  else if (selectedUpiApp === "amazon")  deepLink = `amazonpay://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
 
-  // Open the UPI deep link
   window.location.href = deepLink;
 
-  // After 2s show "I have Paid" button (app may have opened)
+  // After 2s show "I have Paid" button
   setTimeout(() => {
     document.getElementById("upiPayNowBtn").style.display   = "none";
     document.getElementById("upiHint").style.display        = "none";
     document.getElementById("upiPaidWrapper").style.display = "block";
   }, 2000);
 
-  // Fallback: if app didn't open, try generic UPI after 2.5s
+  // Fallback generic UPI after 2.5s if specific app didn't open
   setTimeout(() => {
-    // Only fallback if we tried a specific app
     if (selectedUpiApp && selectedUpiApp !== "upi") {
-      const fallback = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
       const a = document.createElement("a");
-      a.href = fallback;
+      a.href = `upi://pay?pa=${upi}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
       a.click();
     }
   }, 2500);
