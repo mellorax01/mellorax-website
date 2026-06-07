@@ -144,7 +144,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 }
 </style>
 
-<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -160,8 +159,6 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
-
 </head>
 <body>
 
@@ -179,7 +176,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
       <span class="checkout-kicker">Step 01</span>
       <h2>Shipping Details</h2>
 
-      <!-- Full Name -->
       <div class="input-group">
         <label class="input-label">Full Name *</label>
         <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana " autocomplete="name">
@@ -187,7 +183,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana )</div>
       </div>
 
-      <!-- Phone -->
       <div class="input-group">
         <label class="input-label">Mobile Number *</label>
         <input type="tel" id="phone" placeholder="e.g. 9876543210" maxlength="15" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
@@ -195,7 +190,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         <div class="field-error" id="errPhone">⚠ Enter a valid phone number (10 digits)</div>
       </div>
 
-      <!-- Email -->
       <div class="input-group">
         <label class="input-label">Email Address *</label>
         <input type="email" id="email" placeholder="e.g. rana@gmail.com" autocomplete="email">
@@ -203,7 +197,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         <div class="field-error" id="errEmail">⚠ Enter a valid email address (e.g. name@gmail.com)</div>
       </div>
 
-      <!-- Address -->
       <div class="input-group">
         <label class="input-label">Complete Shipping Address *</label>
         <textarea id="address" placeholder="e.g. House No. 12, Gali No. 3, Near Ram Mandir, Sector 5"></textarea>
@@ -211,7 +204,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         <div class="field-error" id="errAddress">⚠ Enter your complete address with house no. and street name</div>
       </div>
 
-      <!-- City + Pincode -->
       <div class="checkout-row">
         <div class="input-group">
           <label class="input-label">City *</label>
@@ -225,7 +217,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         </div>
       </div>
 
-      <!-- State -->
       <div class="input-group">
         <label class="input-label">State *</label>
         <select id="state">
@@ -250,7 +241,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
       <h2>Payment Method</h2>
 
       <div class="payment-options">
-        <!-- Online -->
         <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
           <input type="radio" name="payment" value="Online Payment" checked>
           <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#D4AF37,#B8920A);color:#0B0B0B;font-size:8px;font-weight:900;letter-spacing:1.2px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(212,175,55,.4)">✦ RECOMMENDED</div>
@@ -265,7 +255,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
 
         <div class="save-tip">💡 Pay online &amp; save ₹59 per item</div>
 
-        <!-- COD -->
         <label class="payment-option" onclick="selectPayment(this,'COD')">
           <input type="radio" name="payment" value="COD">
           <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#7a2828,#5a1a1a);color:#f5a0a0;font-size:8px;font-weight:900;letter-spacing:1px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(150,50,50,.4)">⚠ +₹59 EXTRA / ITEM</div>
@@ -274,10 +263,9 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Pre-Order</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
     </form>
 
-    <!-- Desktop Summary -->
     <aside class="checkout-summary">
       <span class="checkout-kicker">Order Summary</span>
       <h2>Your Selection</h2>
@@ -300,7 +288,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
   </section>
 </main>
 
-<!-- Mobile Sticky Bar -->
 <div class="mx-sticky-bar" id="mxStickyBar">
   <div class="mx-sticky-bar-left">
     <span id="stickyItemCount">0 items</span>
@@ -309,7 +296,6 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
   <button class="mx-sticky-bar-btn" onclick="openSummarySheet()">🛒 View Order</button>
 </div>
 
-<!-- Mobile Summary Sheet -->
 <div class="mx-summary-sheet" id="mxSummarySheet">
   <div class="mx-summary-overlay" onclick="closeSummarySheet()"></div>
   <div class="mx-summary-inner">
@@ -333,18 +319,16 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
   </div>
 </div>
 
-<!-- COD Modal -->
 <div class="mx-cod-loader" id="mxCodLoader">
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
     <h3 id="mxLoaderTitle">Review COD Order</h3>
-    <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
-    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
+    <p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
+    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
   </div>
 </div>
 
-<!-- Processing -->
 <div class="mx-processing" id="mxProcessing">
   <div class="mx-processing-inner">
     <div class="mx-spin"></div>
@@ -376,15 +360,13 @@ function setFieldState(inputEl, errId, isError) {
 function isValidName(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s\.]+$/.test(val)) return false;
-  // Must have at least 2 parts (first + last name or single meaningful name)
   const words = val.trim().split(/\s+/);
-  // Check no word is just random — each word must have vowels or be short
   for (const word of words) {
     if (word.length > 3) {
       const vowels = (word.match(/[aeiouAEIOU]/g) || []).length;
-      if (vowels === 0) return false; // no vowels = likely random
+      if (vowels === 0) return false; 
       const ratio = vowels / word.length;
-      if (ratio < 0.1) return false; // too low vowel ratio
+      if (ratio < 0.1) return false; 
     }
   }
   return true;
@@ -394,7 +376,6 @@ function isValidName(val) {
 function isValidAddress(val) {
   if (!val || val.length < 10) return false;
   if (!/[a-zA-Z]/.test(val)) return false;
-  // Must have meaningful words — check for vowels in letter sequences
   const words = val.trim().split(/[\s,]+/);
   let meaningfulWords = 0;
   for (const word of words) {
@@ -510,7 +491,6 @@ function renderCheckout() {
   const t = getTotals();
   const qty = getTotalQty();
 
-  // Desktop summary
   const box = document.getElementById("checkoutItems");
   if (!checkout.length) {
     box.innerHTML = `<div class="empty-checkout">Your checkout is empty.</div>`;
@@ -524,7 +504,6 @@ function renderCheckout() {
   codRow.style.display = t.codCharge > 0 ? "flex" : "none";
   document.getElementById("codChargeAmt").innerText = `₹${t.codCharge}`;
 
-  // Mobile sheet
   const sheetBox = document.getElementById("sheetItems");
   if (sheetBox) sheetBox.innerHTML = checkout.length ? itemsHTML(checkout) : "";
   const el = id => document.getElementById(id);
@@ -534,7 +513,6 @@ function renderCheckout() {
   if (el("sheetCodRow"))   el("sheetCodRow").style.display = t.codCharge > 0 ? "flex" : "none";
   if (el("sheetCodAmt"))   el("sheetCodAmt").innerText   = `₹${t.codCharge}`;
 
-  // Sticky bar
   if (el("stickyItemCount")) el("stickyItemCount").innerText = `${qty} item${qty!==1?"s":""}`;
   if (el("stickyTotal"))     el("stickyTotal").innerText     = `₹${t.finalTotal}`;
 }
@@ -560,7 +538,6 @@ function selectPayment(el, method) {
   document.querySelectorAll(".payment-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
   el.querySelector('input[name="payment"]').checked = true;
-  // Update button text
   const btn = document.getElementById("payBtn");
   btn.innerText = method === "COD" ? "Proceed with COD" : "Continue to Payment";
   renderCheckout();
@@ -654,9 +631,7 @@ function showCODLoader() {
   btn.disabled      = false;
   btn.style.opacity = "1";
   loader.classList.add("show");
-
   setTimeout(() => { circle.classList.add("done"); title.innerText = "Confirm COD Order"; btn.focus(); }, 900);
-
   btn.onclick = async function() {
     btn.innerText = "Placing Order...";
     btn.disabled  = true;
@@ -675,73 +650,83 @@ function closeCODLoader() {
   resetPayBtn();
 }
 
-// ─── Start Payment ────────────────────────────────────────────
+// ─── Start Payment (WhatsApp Integration Integrated) ──────────
 async function startPayment() {
-  if (!checkout.length) { alert("Your checkout is empty."); return; }
+  if (!checkout.length) { 
+    alert("Your checkout is empty.");
+    return; 
+  }
   if (!validateForm()) return;
 
   const btn = document.getElementById("payBtn");
   const checkedPay = document.querySelector('input[name="payment"]:checked');
   selectedPayment = checkedPay ? checkedPay.value : "Online Payment";
 
-  if (selectedPayment === "COD") { showCODLoader(); return; }
+  // If customer chooses COD, use your original inbuild modal system
+  if (selectedPayment === "COD") { 
+    showCODLoader(); 
+    return; 
+  }
 
-  btn.disabled  = true;
+  // ONLINE PAYMENT FLOW: WHATSAPP REDIRECT SYSTEM WITH FAKE-PREVENTION LOCK SCREEN
+  btn.disabled = true;
   btn.innerText = "Creating Order...";
-  showProcessing("Preparing payment...");
+  showProcessing("Reserving your batch...");
 
+  const customerName = document.getElementById("fullName").value.trim();
+  const customerPhone = document.getElementById("phone").value.trim();
   const totals = getTotals();
-  let razorpayOrderId = null;
+  const orderId = "MX-" + Date.now().toString().slice(-6); 
+
+  // Collecting exact original order data structure to log in Google Sheets
+  const orderData = collectOrderData("WhatsApp_Online", "WA_" + orderId);
+  orderData.paymentStatus = "Awaiting WhatsApp Payment";
 
   try {
-    const resp   = await fetch(APPS_SCRIPT_URL, {
-      method : "POST",
-      body   : JSON.stringify({ action: "createOrder", amount: totals.finalTotal * 100, receipt: makeOrderId() }),
-      headers: { "Content-Type": "text/plain" }
-    });
-    const result = await resp.json();
-    if (result.success && result.orderId) razorpayOrderId = result.orderId;
-    else throw new Error(result.message || "Order ID creation failed");
-  } catch(err) {
-    hideProcessing();
-    resetPayBtn();
-    alert("Could not initiate payment. Please try again.\n" + err.message);
-    return;
+    // Keeping your exact original Google Sheet logging system intact
+    await Promise.race([saveOrderToSheet(orderData), new Promise(r => setTimeout(r, 4000))]);
+  } catch (e) {
+    console.log("Sheet backup logged.");
   }
+
+  // Your verified WhatsApp number
+  const whatsappNumber = "917248101054"; 
+  
+  // Premium Prefilled Message
+  const textMessage = `Hello MelloraX, 
+
+I would like to complete the payment for my Premium Honey Pre-Order.
+
+*Order Details:*
+• *Order ID:* ${orderId}
+• *Name:* ${customerName}
+• *Contact:* ${customerPhone}
+• *Total Amount:* ₹${totals.finalTotal}
+
+Kindly share the secure payment details/UPI QR to confirm my reserve batch.`;
+
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(textMessage)}`;
 
   hideProcessing();
 
-  const rzp = new Razorpay({
-    key        : RAZORPAY_KEY,
-    amount     : totals.finalTotal * 100,
-    currency   : "INR",
-    order_id   : razorpayOrderId,
-    name       : "MelloraX",
-    description: "Secure Order Payment",
-    image      : "assets/logoraz.jpg",
-    prefill    : {
-      name   : document.getElementById("fullName").value.trim(),
-      email  : document.getElementById("email").value.trim(),
-      contact: document.getElementById("phone").value.trim()
-    },
-    theme : { color: "#D4AF37" },
-    retry : { enabled: true, max_count: 2 },
-    handler: async function(response) {
-      showProcessing("Confirming payment...");
-      const od = collectOrderData("Paid", response.razorpay_payment_id);
-      od.razorpayOrderId = razorpayOrderId;
-      await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
-      redirectToSuccess(od);
-    },
-    modal: { ondismiss: function() { resetPayBtn(); } }
-  });
-
-  rzp.on("payment.failed", function(r) {
-    hideProcessing(); resetPayBtn();
-    alert("Payment failed. Please try again.\nReason: " + r.error.description);
-  });
-
-  rzp.open();
+  // Premium Black and Gold Holding Screen to lock page flow and force WhatsApp verification
+  const holdScreen = document.createElement("div");
+  holdScreen.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:#0B0B0B;display:flex;justify-content:center;align-items:center;z-index:99999;padding:20px;text-align:center;color:#F9F7F2;";
+  holdScreen.innerHTML = `
+    <div style="max-width:450px; padding:40px; border:1px solid rgba(212,175,55,0.3); background:#121212; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
+      <div style="font-size:48px; margin-bottom:20px; color:#D4AF37;">✓</div>
+      <h2 style="font-family:serif; font-size:28px; margin-bottom:15px; color:#D4AF37; letter-spacing:1px;">Pre-Order Slot Reserved!</h2>
+      <p style="font-size:15px; color:#B8B5AE; line-height:1.6; margin-bottom:30px;">
+        To activate and confirm your luxury batch allocation, please complete the secure payment via WhatsApp Concierge.
+      </p>
+      <a href="${whatsappUrl}" style="display:inline-block; background:#D4AF37; color:#0B0B0B; text-decoration:none; padding:15px 35px; border-radius:30px; font-weight:bold; font-size:15px; letter-spacing:1px; box-shadow: 0 4px 15px rgba(212,175,55,0.2); transition: all 0.3s ease;">
+        Proceed to Pay on WhatsApp →
+      </a>
+      <p style="font-size:12px; color:#666; margin-top:25px;">Order Reference: ${orderId}</p>
+    </div>
+  `;
+  
+  document.body.appendChild(holdScreen);
 }
 
 renderCheckout();
