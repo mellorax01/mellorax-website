@@ -653,12 +653,7 @@ async function startPayment() {
     return; 
   }
   if (!validateForm()) return;
-  // Meta Pixel InitiateCheckout Tracking
-if (typeof fbq !== 'undefined') {
-  fbq('track', 'InitiateCheckout', {
-    value: totals.finalTotal,
-    currency: 'INR'
-  });
+
 }
 
   const btn = document.getElementById("payBtn");
