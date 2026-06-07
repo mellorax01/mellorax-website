@@ -263,7 +263,7 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Pre-Order </button>
     </form>
 
     <aside class="checkout-summary">
@@ -324,7 +324,7 @@ src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
     <h3 id="mxLoaderTitle">Review COD Order</h3>
     <p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
-    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Order</button>
+    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
   </div>
 </div>
@@ -356,7 +356,6 @@ function setFieldState(inputEl, errId, isError) {
   if (errEl) errEl.style.display = isError ? "block" : "none";
 }
 
-// Name: min 2 words, only letters/spaces/dots, no repeating chars like "aaaaa"
 function isValidName(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s\.]+$/.test(val)) return false;
@@ -372,7 +371,6 @@ function isValidName(val) {
   return true;
 }
 
-// Address: min 10 chars, must have at least one number AND letters, no pure gibberish
 function isValidAddress(val) {
   if (!val || val.length < 10) return false;
   if (!/[a-zA-Z]/.test(val)) return false;
@@ -390,7 +388,6 @@ function isValidAddress(val) {
   return meaningfulWords >= 2;
 }
 
-// City: only letters/spaces, min 3 chars, must have vowels
 function isValidCity(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s]+$/.test(val)) return false;
@@ -442,7 +439,6 @@ function validateForm() {
   return valid;
 }
 
-// Live validation on blur
 ["fullName","phone","email","address","city","pincode","state"].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -650,40 +646,46 @@ function closeCODLoader() {
   resetPayBtn();
 }
 
-// ─── Start Payment (WhatsApp Integration Integrated) ──────────
+// ─── Start Payment (WhatsApp Integration - Fully Updated) ────
 async function startPayment() {
   if (!checkout.length) { 
     alert("Your checkout is empty.");
     return; 
   }
   if (!validateForm()) return;
+  // Meta Pixel InitiateCheckout Tracking
+if (typeof fbq !== 'undefined') {
+  fbq('track', 'InitiateCheckout', {
+    value: totals.finalTotal,
+    currency: 'INR'
+  });
+}
 
   const btn = document.getElementById("payBtn");
   const checkedPay = document.querySelector('input[name="payment"]:checked');
   selectedPayment = checkedPay ? checkedPay.value : "Online Payment";
 
-  // If customer chooses COD, use your original inbuild modal system
   if (selectedPayment === "COD") { 
     showCODLoader(); 
     return; 
   }
 
-  // ONLINE PAYMENT FLOW: WHATSAPP REDIRECT SYSTEM WITH FAKE-PREVENTION LOCK SCREEN
   btn.disabled = true;
   btn.innerText = "Creating Order...";
-  showProcessing("Reserving your batch...");
+  showProcessing("Processing order details...");
 
   const customerName = document.getElementById("fullName").value.trim();
   const customerPhone = document.getElementById("phone").value.trim();
   const totals = getTotals();
-  const orderId = "MX-" + Date.now().toString().slice(-6); 
 
-  // Collecting exact original order data structure to log in Google Sheets
-  const orderData = collectOrderData("WhatsApp_Online", "WA_" + orderId);
+  // ACCURATE SYSTEM: Calling your explicit 'collectOrderData()' function to use your inbuild structure
+  const orderData = collectOrderData("WhatsApp_Online", "");
+  const currentOrderId = orderData.orderId; // Fetching your exact internal Order ID
+  orderData.paymentId = "WA_" + currentOrderId.replace("MX-", "");
   orderData.paymentStatus = "Awaiting WhatsApp Payment";
 
   try {
-    // Keeping your exact original Google Sheet logging system intact
+    // Preserving your original Google Sheet pipeline with exactly zero letter removed
     await Promise.race([saveOrderToSheet(orderData), new Promise(r => setTimeout(r, 4000))]);
   } catch (e) {
     console.log("Sheet backup logged.");
@@ -692,37 +694,37 @@ async function startPayment() {
   // Your verified WhatsApp number
   const whatsappNumber = "917248101054"; 
   
-  // Premium Prefilled Message
+  // Clean, Simple and Professional Prefilled Message Layout
   const textMessage = `Hello MelloraX, 
 
-I would like to complete the payment for my Premium Honey Pre-Order.
+I want to complete the online payment for my order.
 
 *Order Details:*
-• *Order ID:* ${orderId}
+• *Order ID:* ${currentOrderId}
 • *Name:* ${customerName}
 • *Contact:* ${customerPhone}
 • *Total Amount:* ₹${totals.finalTotal}
 
-Kindly share the secure payment details/UPI QR to confirm my reserve batch.`;
+Please send me the UPI QR code or secure payment link to complete my transfer.`;
 
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(textMessage)}`;
 
   hideProcessing();
 
-  // Premium Black and Gold Holding Screen to lock page flow and force WhatsApp verification
+  // Clean Screen explaining that payment happens on WhatsApp
   const holdScreen = document.createElement("div");
   holdScreen.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:#0B0B0B;display:flex;justify-content:center;align-items:center;z-index:99999;padding:20px;text-align:center;color:#F9F7F2;";
   holdScreen.innerHTML = `
     <div style="max-width:450px; padding:40px; border:1px solid rgba(212,175,55,0.3); background:#121212; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
       <div style="font-size:48px; margin-bottom:20px; color:#D4AF37;">✓</div>
-      <h2 style="font-family:serif; font-size:28px; margin-bottom:15px; color:#D4AF37; letter-spacing:1px;">Pre-Order Slot Reserved!</h2>
+      <h2 style="font-family:serif; font-size:26px; margin-bottom:15px; color:#D4AF37; letter-spacing:1px;">Order Registered!</h2>
       <p style="font-size:15px; color:#B8B5AE; line-height:1.6; margin-bottom:30px;">
-        To activate and confirm your luxury batch allocation, please complete the secure payment via WhatsApp Concierge.
+        To complete your online payment, please proceed to WhatsApp. Our team will instantly share the secure UPI details/QR code with you.
       </p>
       <a href="${whatsappUrl}" style="display:inline-block; background:#D4AF37; color:#0B0B0B; text-decoration:none; padding:15px 35px; border-radius:30px; font-weight:bold; font-size:15px; letter-spacing:1px; box-shadow: 0 4px 15px rgba(212,175,55,0.2); transition: all 0.3s ease;">
-        Proceed to Pay on WhatsApp →
+        Proceed to WhatsApp for Payment →
       </a>
-      <p style="font-size:12px; color:#666; margin-top:25px;">Order Reference: ${orderId}</p>
+      <p style="font-size:12px; color:#666; margin-top:25px;">Order ID: ${currentOrderId}</p>
     </div>
   `;
   
