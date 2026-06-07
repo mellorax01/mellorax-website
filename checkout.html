@@ -100,7 +100,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','959600376885178');fbq('track','PageView');
+fbq('init','959600376885178');fbq('track','initiateCheckout');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"/></noscript>
 </head>
@@ -207,7 +207,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue Pre-Order</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
     </form>
 
     <aside class="checkout-summary">
@@ -269,7 +269,7 @@ fbq('init','959600376885178');fbq('track','PageView');
 <div class="mx-cod-loader" id="mxCodLoader">
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
-    <h3 id="mxLoaderTitle">Review COD Order</h3>
+    <h3 id="mxLoaderTitle">Review COD Pre-Order</h3>
     <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
     <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
@@ -576,7 +576,7 @@ async function startPayment() {
   ).join("\n");
 
   const msg =
-`Hi MelloraX! 👋 Main order karna Chahta hu.
+`Hi MelloraX! 👋 Main order place kar Rha hu 
 
 🛒 *Order ID:* ${od.orderId}
 ━━━━━━━━━━━━━━━━━━
@@ -584,16 +584,13 @@ ${items}
 ━━━━━━━━━━━━━━━━━━
 💰 *Total:* ₹${t.finalTotal}
 
-Mujhe *payment details* chahiye. Please payments details  bhejein. `;
+Mujhe *payment details* chahiye. Please send payments details`;
 
-  const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
-
-  localStorage.setItem("melloraxOrder", JSON.stringify(od));
-  localStorage.removeItem("melloraxCheckout");
-  localStorage.removeItem("melloraxCart");
+  const waUrl = "https://wa.me/" +917248101054 "?text=" + encodeURIComponent(msg);
 
   window.open(waUrl, "_blank");
-  window.location.href = "success.html";
+  resetPayBtn();
+  // Koi page redirect nahi — customer WhatsApp pe payment kare
 }
 
 renderCheckout();
