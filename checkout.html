@@ -17,30 +17,49 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-form,.checkout-summary{padding:34px;border-radius:34px;background:linear-gradient(180deg,#151515,#0E0E0E);border:1px solid rgba(212,175,55,.15)}
 .checkout-form{display:grid;gap:16px}
 .checkout-form h2,.checkout-summary h2{font-family:serif;font-size:32px;margin:0 0 10px}
+
+/* Inputs */
 .input-group{display:flex;flex-direction:column;gap:6px}
 .input-label{font-size:11px;color:#8A8278;letter-spacing:.8px;text-transform:uppercase;padding-left:4px}
-.checkout-form input,.checkout-form textarea,.checkout-form select{width:100%;padding:15px 18px;border-radius:16px;border:1px solid rgba(212,175,55,.14);background:#111;color:#F9F7F2;outline:none;font-size:14px;transition:.2s}
-.checkout-form input:focus,.checkout-form textarea:focus,.checkout-form select:focus{border-color:rgba(212,175,55,.45);background:#131313}
-.checkout-form input.error,.checkout-form textarea.error,.checkout-form select.error{border-color:rgba(220,80,80,.55);background:rgba(220,80,80,.04)}
-.checkout-form input.valid,.checkout-form textarea.valid,.checkout-form select.valid{border-color:rgba(80,180,80,.35)}
+.checkout-form input,
+.checkout-form textarea,
+.checkout-form select{width:100%;padding:15px 18px;border-radius:16px;border:1px solid rgba(212,175,55,.14);background:#111;color:#F9F7F2;outline:none;font-size:14px;transition:.2s}
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.checkout-form select:focus{border-color:rgba(212,175,55,.45);background:#131313}
+.checkout-form input.error,
+.checkout-form textarea.error,
+.checkout-form select.error{border-color:rgba(220,80,80,.55);background:rgba(220,80,80,.04)}
+.checkout-form input.valid,
+.checkout-form textarea.valid,
+.checkout-form select.valid{border-color:rgba(80,180,80,.35)}
 .checkout-form textarea{min-height:100px;resize:none}
 .field-error{font-size:11.5px;color:#e07070;padding-left:4px;display:none;line-height:1.5}
 .field-hint{font-size:11px;color:#6A6460;padding-left:4px;line-height:1.5}
+
 .checkout-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .delivery-box{display:none;padding:13px 16px;border-radius:14px;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.16);color:#E6D49B;font-size:13px}
+
+/* Payment */
 .payment-options{display:grid;gap:16px;margin-top:4px}
 .payment-option{display:flex;align-items:center;justify-content:center;text-align:center;padding:18px 22px;border-radius:18px;border:1px solid rgba(212,175,55,.16);background:#0B0B0B;cursor:pointer;transition:.35s;position:relative;overflow:visible;flex-direction:column;gap:0}
 .payment-option.active{border-color:rgba(212,175,55,.52);background:rgba(212,175,55,.06)}
 .payment-option:hover{transform:translateY(-2px);border-color:rgba(212,175,55,.38)}
 .payment-option input{display:none}
 .save-tip{text-align:center;font-size:11px;color:#7A6820;font-weight:600;letter-spacing:.3px;padding:2px 0}
+
+/* Coupon */
 .coupon-box{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
 .coupon-box input{padding:14px 18px;border-radius:14px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2;font-size:14px;outline:none}
 .coupon-box button{padding:0 20px;border-radius:14px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer;font-size:14px}
 .coupon-message{margin-top:-6px;margin-bottom:14px;font-size:12px;color:#D4AF37;min-height:16px}
+
+/* Pay Button */
 .pay-btn{padding:17px 24px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s;font-size:15px;width:100%;margin-top:4px}
 .pay-btn:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
 .pay-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+
+/* Summary */
 .checkout-summary{position:sticky;top:28px}
 .checkout-item{display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(212,175,55,.1)}
 .checkout-item img{width:68px;height:68px;object-fit:contain;border-radius:14px;background:#080808}
@@ -54,17 +73,42 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .empty-checkout{color:#AFA79A;line-height:1.8;font-size:14px}
 .secure-strip{margin-top:20px;color:#6A6460;font-size:12px;line-height:1.7}
 #codChargeRow{display:none}
-.mx-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;background:linear-gradient(90deg,#1A1500,#0F0F0F);border-top:1px solid rgba(212,175,55,.22);padding:14px 20px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -8px 28px rgba(0,0,0,.5)}
+
+/* Mobile sticky bar */
+.mx-sticky-bar{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:9000;
+  background:linear-gradient(90deg,#1A1500,#0F0F0F);
+  border-top:1px solid rgba(212,175,55,.22);
+  padding:14px 20px;
+  align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 -8px 28px rgba(0,0,0,.5);
+}
 .mx-sticky-bar-left{display:flex;flex-direction:column;gap:2px}
 .mx-sticky-bar-left span{font-size:11px;color:#8A8278}
 .mx-sticky-bar-left strong{font-size:16px;color:#F9F7F2;font-weight:800}
 .mx-sticky-bar-btn{padding:10px 18px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap}
-.mx-summary-sheet{position:fixed;inset:0;z-index:9500;opacity:0;visibility:hidden;transition:.3s ease}
+
+/* Mobile summary slide-up */
+.mx-summary-sheet{
+  position:fixed;inset:0;z-index:9500;
+  opacity:0;visibility:hidden;transition:.3s ease;
+}
 .mx-summary-sheet.show{opacity:1;visibility:visible}
 .mx-summary-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)}
-.mx-summary-inner{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#191919,#0F0F0F);border-radius:28px 28px 0 0;border-top:1px solid rgba(212,175,55,.2);padding:24px 22px 40px;max-height:80vh;overflow-y:auto;transform:translateY(100%);transition:.35s ease}
+.mx-summary-inner{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(180deg,#191919,#0F0F0F);
+  border-radius:28px 28px 0 0;
+  border-top:1px solid rgba(212,175,55,.2);
+  padding:24px 22px 40px;
+  max-height:80vh;overflow-y:auto;
+  transform:translateY(100%);transition:.35s ease;
+}
 .mx-summary-sheet.show .mx-summary-inner{transform:translateY(0)}
 .mx-sheet-handle{width:40px;height:4px;border-radius:999px;background:rgba(212,175,55,.3);margin:0 auto 20px}
+
+/* Loaders */
 .mx-cod-loader{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.84);backdrop-filter:blur(16px);opacity:0;visibility:hidden;transition:.35s ease}
 .mx-cod-loader.show{opacity:1;visibility:visible}
 .mx-cod-loader-card{width:min(380px,90%);padding:36px 28px;border-radius:32px;background:linear-gradient(180deg,#151515,#0C0C0C);border:1px solid rgba(212,175,55,.20);text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55)}
@@ -85,8 +129,10 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .mx-processing p{color:#D4AF37;font-size:16px;font-weight:700;margin-top:16px}
 .mx-processing-inner{text-align:center}
 .mx-spin{width:50px;height:50px;border:3px solid rgba(212,175,55,.2);border-top-color:#D4AF37;border-radius:50%;animation:mxSpin .8s linear infinite;margin:0 auto}
+
 @keyframes mxDotPulse{0%,80%,100%{opacity:.35;transform:scale(.65)}40%{opacity:1;transform:scale(1)}}
 @keyframes mxSpin{to{transform:rotate(360deg)}}
+
 @media(max-width:900px){
   .mx-checkout-page{padding:92px 18px 100px}
   .checkout-layout,.checkout-row{grid-template-columns:1fr}
@@ -97,12 +143,25 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
   .mx-sticky-bar{display:flex}
 }
 </style>
+
 <!-- Meta Pixel Code -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','959600376885178');fbq('track','PageView');
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '959600376885178');
+fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"/></noscript>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
 </head>
 <body>
 
@@ -120,13 +179,15 @@ fbq('init','959600376885178');fbq('track','PageView');
       <span class="checkout-kicker">Step 01</span>
       <h2>Shipping Details</h2>
 
+      <!-- Full Name -->
       <div class="input-group">
         <label class="input-label">Full Name *</label>
-        <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana" autocomplete="name">
+        <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana " autocomplete="name">
         <div class="field-hint">Enter your first and last name</div>
-        <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana)</div>
+        <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana )</div>
       </div>
 
+      <!-- Phone -->
       <div class="input-group">
         <label class="input-label">Mobile Number *</label>
         <input type="tel" id="phone" placeholder="e.g. 9876543210" maxlength="15" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
@@ -134,6 +195,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         <div class="field-error" id="errPhone">⚠ Enter a valid phone number (10 digits)</div>
       </div>
 
+      <!-- Email -->
       <div class="input-group">
         <label class="input-label">Email Address *</label>
         <input type="email" id="email" placeholder="e.g. rana@gmail.com" autocomplete="email">
@@ -141,6 +203,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         <div class="field-error" id="errEmail">⚠ Enter a valid email address (e.g. name@gmail.com)</div>
       </div>
 
+      <!-- Address -->
       <div class="input-group">
         <label class="input-label">Complete Shipping Address *</label>
         <textarea id="address" placeholder="e.g. House No. 12, Gali No. 3, Near Ram Mandir, Sector 5"></textarea>
@@ -148,6 +211,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         <div class="field-error" id="errAddress">⚠ Enter your complete address with house no. and street name</div>
       </div>
 
+      <!-- City + Pincode -->
       <div class="checkout-row">
         <div class="input-group">
           <label class="input-label">City *</label>
@@ -161,6 +225,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         </div>
       </div>
 
+      <!-- State -->
       <div class="input-group">
         <label class="input-label">State *</label>
         <select id="state">
@@ -185,6 +250,7 @@ fbq('init','959600376885178');fbq('track','PageView');
       <h2>Payment Method</h2>
 
       <div class="payment-options">
+        <!-- Online -->
         <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
           <input type="radio" name="payment" value="Online Payment" checked>
           <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#D4AF37,#B8920A);color:#0B0B0B;font-size:8px;font-weight:900;letter-spacing:1.2px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(212,175,55,.4)">✦ RECOMMENDED</div>
@@ -199,6 +265,7 @@ fbq('init','959600376885178');fbq('track','PageView');
 
         <div class="save-tip">💡 Pay online &amp; save ₹59 per item</div>
 
+        <!-- COD -->
         <label class="payment-option" onclick="selectPayment(this,'COD')">
           <input type="radio" name="payment" value="COD">
           <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#7a2828,#5a1a1a);color:#f5a0a0;font-size:8px;font-weight:900;letter-spacing:1px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(150,50,50,.4)">⚠ +₹59 EXTRA / ITEM</div>
@@ -207,9 +274,10 @@ fbq('init','959600376885178');fbq('track','PageView');
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue Pre-Order</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Pre-Order</button>
     </form>
 
+    <!-- Desktop Summary -->
     <aside class="checkout-summary">
       <span class="checkout-kicker">Order Summary</span>
       <h2>Your Selection</h2>
@@ -286,7 +354,7 @@ fbq('init','959600376885178');fbq('track','PageView');
 
 <script>
 const APPS_SCRIPT_URL    = "https://script.google.com/macros/s/AKfycbxrBNNCcIm0M2lqufZ_cB3q_Vva421lmanzP0q2MyCNlBtzGFijEu4TA9JWJ9f7Vqt5/exec";
-const WHATSAPP_NUMBER    = "917248101054";
+const RAZORPAY_KEY       = "rzp_live_SwIPgmcQO2J6NH";
 const COD_CHARGE_PER_QTY = 59;
 
 let selectedPayment = "Online Payment";
@@ -295,6 +363,7 @@ let couponDiscount  = 0;
 const checkoutSession = JSON.parse(localStorage.getItem("melloraxCheckout") || "null");
 let checkout = checkoutSession && Array.isArray(checkoutSession.items) ? checkoutSession.items : [];
 
+// ─── Validation ───────────────────────────────────────────────
 function setFieldState(inputEl, errId, isError) {
   if (!inputEl) return;
   inputEl.classList.toggle("error", isError);
@@ -303,23 +372,29 @@ function setFieldState(inputEl, errId, isError) {
   if (errEl) errEl.style.display = isError ? "block" : "none";
 }
 
+// Name: min 2 words, only letters/spaces/dots, no repeating chars like "aaaaa"
 function isValidName(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s\.]+$/.test(val)) return false;
+  // Must have at least 2 parts (first + last name or single meaningful name)
   const words = val.trim().split(/\s+/);
+  // Check no word is just random — each word must have vowels or be short
   for (const word of words) {
     if (word.length > 3) {
       const vowels = (word.match(/[aeiouAEIOU]/g) || []).length;
-      if (vowels === 0) return false;
-      if (vowels / word.length < 0.1) return false;
+      if (vowels === 0) return false; // no vowels = likely random
+      const ratio = vowels / word.length;
+      if (ratio < 0.1) return false; // too low vowel ratio
     }
   }
   return true;
 }
 
+// Address: min 10 chars, must have at least one number AND letters, no pure gibberish
 function isValidAddress(val) {
   if (!val || val.length < 10) return false;
   if (!/[a-zA-Z]/.test(val)) return false;
+  // Must have meaningful words — check for vowels in letter sequences
   const words = val.trim().split(/[\s,]+/);
   let meaningfulWords = 0;
   for (const word of words) {
@@ -327,141 +402,189 @@ function isValidAddress(val) {
     if (letters.length >= 3) {
       const vowels = (letters.match(/[aeiouAEIOU]/g) || []).length;
       if (vowels > 0) meaningfulWords++;
-    } else if (letters.length > 0 || /\d/.test(word)) meaningfulWords++;
+    } else if (letters.length > 0 || /\d/.test(word)) {
+      meaningfulWords++;
+    }
   }
   return meaningfulWords >= 2;
 }
 
+// City: only letters/spaces, min 3 chars, must have vowels
 function isValidCity(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s]+$/.test(val)) return false;
-  return (val.match(/[aeiouAEIOU]/g) || []).length > 0;
+  const vowels = (val.match(/[aeiouAEIOU]/g) || []).length;
+  return vowels > 0;
 }
 
 function validateForm() {
-  let valid = true, firstError = null;
-  const nameEl  = document.getElementById("fullName");
+  let valid = true;
+  let firstError = null;
+
+  const nameEl = document.getElementById("fullName");
+  const nameOk = isValidName(nameEl.value.trim());
+  setFieldState(nameEl, "errName", !nameOk);
+  if (!nameOk) { valid = false; firstError = firstError || nameEl; }
+
   const phoneEl = document.getElementById("phone");
+  const phoneOk = /^\d{7,15}$/.test(phoneEl.value.trim());
+  setFieldState(phoneEl, "errPhone", !phoneOk);
+  if (!phoneOk) { valid = false; firstError = firstError || phoneEl; }
+
   const emailEl = document.getElementById("email");
-  const addrEl  = document.getElementById("address");
-  const cityEl  = document.getElementById("city");
-  const pinEl   = document.getElementById("pincode");
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim());
+  setFieldState(emailEl, "errEmail", !emailOk);
+  if (!emailOk) { valid = false; firstError = firstError || emailEl; }
+
+  const addrEl = document.getElementById("address");
+  const addrOk = isValidAddress(addrEl.value.trim());
+  setFieldState(addrEl, "errAddress", !addrOk);
+  if (!addrOk) { valid = false; firstError = firstError || addrEl; }
+
+  const cityEl = document.getElementById("city");
+  const cityOk = isValidCity(cityEl.value.trim());
+  setFieldState(cityEl, "errCity", !cityOk);
+  if (!cityOk) { valid = false; firstError = firstError || cityEl; }
+
+  const pinEl = document.getElementById("pincode");
+  const pinOk = /^\d{6}$/.test(pinEl.value.trim());
+  setFieldState(pinEl, "errPincode", !pinOk);
+  if (!pinOk) { valid = false; firstError = firstError || pinEl; }
+
   const stateEl = document.getElementById("state");
-
-  const checks = [
-    [nameEl,  "errName",    isValidName(nameEl.value.trim())],
-    [phoneEl, "errPhone",   /^\d{7,15}$/.test(phoneEl.value.trim())],
-    [emailEl, "errEmail",   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())],
-    [addrEl,  "errAddress", isValidAddress(addrEl.value.trim())],
-    [cityEl,  "errCity",    isValidCity(cityEl.value.trim())],
-    [pinEl,   "errPincode", /^\d{6}$/.test(pinEl.value.trim())],
-    [stateEl, "errState",   !!stateEl.value]
-  ];
-
-  checks.forEach(([el, errId, ok]) => {
-    setFieldState(el, errId, !ok);
-    if (!ok) { valid = false; firstError = firstError || el; }
-  });
+  const stateOk = !!stateEl.value;
+  setFieldState(stateEl, "errState", !stateOk);
+  if (!stateOk) { valid = false; firstError = firstError || stateEl; }
 
   if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+
   return valid;
 }
 
+// Live validation on blur
 ["fullName","phone","email","address","city","pincode","state"].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
   el.addEventListener("blur", () => {
     const v = el.value.trim();
     if (!v) return;
-    if (id==="fullName") setFieldState(el,"errName",   !isValidName(v));
-    if (id==="phone")    setFieldState(el,"errPhone",  !/^\d{7,15}$/.test(v));
-    if (id==="email")    setFieldState(el,"errEmail",  !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-    if (id==="address")  setFieldState(el,"errAddress",!isValidAddress(v));
-    if (id==="city")     setFieldState(el,"errCity",   !isValidCity(v));
-    if (id==="pincode")  setFieldState(el,"errPincode",!/^\d{6}$/.test(v));
-    if (id==="state")    setFieldState(el,"errState",  !el.value);
+    if (id === "fullName")  setFieldState(el, "errName",    !isValidName(v));
+    if (id === "phone")     setFieldState(el, "errPhone",   !/^\d{7,15}$/.test(v));
+    if (id === "email")     setFieldState(el, "errEmail",   !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    if (id === "address")   setFieldState(el, "errAddress", !isValidAddress(v));
+    if (id === "city")      setFieldState(el, "errCity",    !isValidCity(v));
+    if (id === "pincode")   setFieldState(el, "errPincode", !/^\d{6}$/.test(v));
+    if (id === "state")     setFieldState(el, "errState",   !el.value);
   });
 });
 
-function getTotalQty() { return checkout.reduce((s,i) => s+Number(i.qty||0), 0); }
-function getCodCharge() { return selectedPayment==="COD" ? getTotalQty()*COD_CHARGE_PER_QTY : 0; }
+// ─── Totals ───────────────────────────────────────────────────
+function getTotalQty() { return checkout.reduce((s,i) => s + Number(i.qty||0), 0); }
+function getCodCharge() { return selectedPayment === "COD" ? getTotalQty() * COD_CHARGE_PER_QTY : 0; }
 function getTotals() {
-  const subtotal        = checkout.reduce((s,i) => s+Number(i.price)*Number(i.qty), 0);
-  const mrpTotal        = checkout.reduce((s,i) => s+Number(i.mrp||i.price)*Number(i.qty), 0);
+  const subtotal        = checkout.reduce((s,i) => s + Number(i.price)*Number(i.qty), 0);
+  const mrpTotal        = checkout.reduce((s,i) => s + Number(i.mrp||i.price)*Number(i.qty), 0);
+  const originalSavings = mrpTotal - subtotal;
   const codCharge       = getCodCharge();
-  const finalTotal      = Math.max(subtotal-couponDiscount, 0)+codCharge;
-  const totalSavings    = (mrpTotal-subtotal)+couponDiscount;
-  const discountPercent = mrpTotal>0 ? Math.round((totalSavings/mrpTotal)*100) : 0;
+  const finalTotal      = Math.max(subtotal - couponDiscount, 0) + codCharge;
+  const totalSavings    = originalSavings + couponDiscount;
+  const discountPercent = mrpTotal > 0 ? Math.round((totalSavings/mrpTotal)*100) : 0;
   return { subtotal, finalTotal, totalSavings, discountPercent, codCharge };
 }
 
+// ─── Render ───────────────────────────────────────────────────
 function itemsHTML(items) {
   return items.map(item => `
     <div class="checkout-item">
       <img src="${item.image}" alt="${item.name}">
-      <div><strong>${item.name}</strong><small>${item.variant||""}</small><span>Qty: ${item.qty}</span></div>
+      <div>
+        <strong>${item.name}</strong>
+        <small>${item.variant||""}</small>
+        <span>Qty: ${item.qty}</span>
+      </div>
       <b>₹${Number(item.price)*Number(item.qty)}</b>
     </div>`).join("");
 }
 
 function renderCheckout() {
-  const t = getTotals(), qty = getTotalQty();
+  const t = getTotals();
+  const qty = getTotalQty();
+
+  // Desktop summary
   const box = document.getElementById("checkoutItems");
-  box.innerHTML = checkout.length ? itemsHTML(checkout) : `<div class="empty-checkout">Your checkout is empty.</div>`;
+  if (!checkout.length) {
+    box.innerHTML = `<div class="empty-checkout">Your checkout is empty.</div>`;
+  } else {
+    box.innerHTML = itemsHTML(checkout);
+  }
   document.getElementById("checkoutSubtotal").innerText = `₹${t.subtotal}`;
   document.getElementById("checkoutSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   document.getElementById("checkoutTotal").innerText    = `₹${t.finalTotal}`;
-  document.getElementById("codChargeRow").style.display = t.codCharge>0 ? "flex" : "none";
+  const codRow = document.getElementById("codChargeRow");
+  codRow.style.display = t.codCharge > 0 ? "flex" : "none";
   document.getElementById("codChargeAmt").innerText = `₹${t.codCharge}`;
-  const g = id => document.getElementById(id);
-  if(g("sheetItems"))    g("sheetItems").innerHTML    = checkout.length ? itemsHTML(checkout) : "";
-  if(g("sheetSubtotal")) g("sheetSubtotal").innerText = `₹${t.subtotal}`;
-  if(g("sheetSavings"))  g("sheetSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
-  if(g("sheetTotal"))    g("sheetTotal").innerText    = `₹${t.finalTotal}`;
-  if(g("sheetCodRow"))   g("sheetCodRow").style.display = t.codCharge>0 ? "flex" : "none";
-  if(g("sheetCodAmt"))   g("sheetCodAmt").innerText   = `₹${t.codCharge}`;
-  if(g("stickyItemCount")) g("stickyItemCount").innerText = `${qty} item${qty!==1?"s":""}`;
-  if(g("stickyTotal"))     g("stickyTotal").innerText     = `₹${t.finalTotal}`;
+
+  // Mobile sheet
+  const sheetBox = document.getElementById("sheetItems");
+  if (sheetBox) sheetBox.innerHTML = checkout.length ? itemsHTML(checkout) : "";
+  const el = id => document.getElementById(id);
+  if (el("sheetSubtotal")) el("sheetSubtotal").innerText = `₹${t.subtotal}`;
+  if (el("sheetSavings"))  el("sheetSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
+  if (el("sheetTotal"))    el("sheetTotal").innerText    = `₹${t.finalTotal}`;
+  if (el("sheetCodRow"))   el("sheetCodRow").style.display = t.codCharge > 0 ? "flex" : "none";
+  if (el("sheetCodAmt"))   el("sheetCodAmt").innerText   = `₹${t.codCharge}`;
+
+  // Sticky bar
+  if (el("stickyItemCount")) el("stickyItemCount").innerText = `${qty} item${qty!==1?"s":""}`;
+  if (el("stickyTotal"))     el("stickyTotal").innerText     = `₹${t.finalTotal}`;
 }
 
+// ─── Mobile Sheet ─────────────────────────────────────────────
 function openSummarySheet()  { document.getElementById("mxSummarySheet").classList.add("show"); }
 function closeSummarySheet() { document.getElementById("mxSummarySheet").classList.remove("show"); }
 
+// ─── Delivery ─────────────────────────────────────────────────
 function checkDelivery() {
   const pin = document.getElementById("pincode").value.trim();
   const box = document.getElementById("deliveryEstimate");
-  if (pin.length===6) {
+  if (pin.length === 6) {
     const est = ["1","2","3"].includes(pin[0]) ? "3–5 business days" : "5–7 business days";
     box.style.display = "block";
     box.innerHTML = `📦 Estimated delivery: <strong>${est}</strong>`;
   } else { box.style.display = "none"; }
 }
 
+// ─── Payment ──────────────────────────────────────────────────
 function selectPayment(el, method) {
   selectedPayment = method;
   document.querySelectorAll(".payment-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
   el.querySelector('input[name="payment"]').checked = true;
+  // Update button text
+  const btn = document.getElementById("payBtn");
+  btn.innerText = method === "COD" ? "Proceed with COD" : "Continue to Payment";
   renderCheckout();
   resetPayBtn();
 }
 
 function resetPayBtn() {
   const btn = document.getElementById("payBtn");
-  btn.disabled  = false;
-  btn.innerText = selectedPayment==="COD" ? "Proceed with COD" : "Continue to Payment";
+  btn.disabled = false;
+  btn.innerText = selectedPayment === "COD" ? "Proceed with COD" : "Continue to Payment";
 }
 
+// ─── Coupon ───────────────────────────────────────────────────
 function applyCoupon() {
   const code = document.getElementById("couponInput").value.trim().toUpperCase();
   const msg  = document.getElementById("couponMessage");
   couponDiscount = 0;
   if (!code)                     msg.innerText = "Enter a coupon code.";
-  else if (code==="MELLORA20")   msg.innerText = "Launch offer is already applied.";
+  else if (code === "MELLORA20") msg.innerText = "Launch offer is already applied.";
   else                           msg.innerText = "Invalid coupon code.";
   renderCheckout();
 }
 
+// ─── Order ID ─────────────────────────────────────────────────
 function makeOrderId() {
   const d = new Date();
   return `MX-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-${Math.floor(1000+Math.random()*9000)}`;
@@ -487,13 +610,13 @@ function collectOrderData(status, paymentId) {
     shipping : "Free",
     total    : t.finalTotal,
     payment  : selectedPayment,
-    paymentId: paymentId||"",
+    paymentId: paymentId || "",
     status   : status
   };
 }
 
 function showProcessing(msg) {
-  document.getElementById("mxProcessingText").innerText = msg||"Processing...";
+  document.getElementById("mxProcessingText").innerText = msg || "Processing...";
   document.getElementById("mxProcessing").classList.add("show");
 }
 function hideProcessing() { document.getElementById("mxProcessing").classList.remove("show"); }
@@ -501,11 +624,11 @@ function hideProcessing() { document.getElementById("mxProcessing").classList.re
 async function saveOrderToSheet(orderData) {
   try {
     await fetch(APPS_SCRIPT_URL, {
-      method:"POST",
-      body:JSON.stringify({action:"saveOrder",...orderData}),
-      headers:{"Content-Type":"text/plain"}
+      method : "POST",
+      body   : JSON.stringify({ action: "saveOrder", ...orderData }),
+      headers: { "Content-Type": "text/plain" }
     });
-  } catch(e) { console.warn("Sheet save:",e); }
+  } catch(e) { console.warn("Sheet save:", e); }
 }
 
 function redirectToSuccess(orderData) {
@@ -523,6 +646,7 @@ function showCODLoader() {
   const text   = document.getElementById("mxLoaderText");
   const btn    = document.getElementById("mxCodConfirmBtn");
   const t      = getTotals();
+
   circle.classList.remove("done");
   title.innerText   = "Review COD Order";
   text.innerText    = `Total ₹${t.finalTotal} (incl. ₹${t.codCharge} COD fee). Tap confirm to place your order.`;
@@ -530,7 +654,9 @@ function showCODLoader() {
   btn.disabled      = false;
   btn.style.opacity = "1";
   loader.classList.add("show");
+
   setTimeout(() => { circle.classList.add("done"); title.innerText = "Confirm COD Order"; btn.focus(); }, 900);
+
   btn.onclick = async function() {
     btn.innerText = "Placing Order...";
     btn.disabled  = true;
@@ -560,40 +686,62 @@ async function startPayment() {
 
   if (selectedPayment === "COD") { showCODLoader(); return; }
 
-  // ─── WhatsApp Payment Redirect ────────────────────────────
   btn.disabled  = true;
-  btn.innerText = "Please wait...";
-  showProcessing("Saving your order...");
+  btn.innerText = "Creating Order...";
+  showProcessing("Preparing payment...");
 
-  const od = collectOrderData("Payment Pending", "");
-  await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
+  const totals = getTotals();
+  let razorpayOrderId = null;
+
+  try {
+    const resp   = await fetch(APPS_SCRIPT_URL, {
+      method : "POST",
+      body   : JSON.stringify({ action: "createOrder", amount: totals.finalTotal * 100, receipt: makeOrderId() }),
+      headers: { "Content-Type": "text/plain" }
+    });
+    const result = await resp.json();
+    if (result.success && result.orderId) razorpayOrderId = result.orderId;
+    else throw new Error(result.message || "Order ID creation failed");
+  } catch(err) {
+    hideProcessing();
+    resetPayBtn();
+    alert("Could not initiate payment. Please try again.\n" + err.message);
+    return;
+  }
 
   hideProcessing();
 
-  const t     = getTotals();
-  const items = checkout.map(i =>
-    `• ${i.name}${i.variant ? " (" + i.variant + ")" : ""} × ${i.qty}  ₹${Number(i.price)*Number(i.qty)}`
-  ).join("\n");
+  const rzp = new Razorpay({
+    key        : RAZORPAY_KEY,
+    amount     : totals.finalTotal * 100,
+    currency   : "INR",
+    order_id   : razorpayOrderId,
+    name       : "MelloraX",
+    description: "Secure Order Payment",
+    image      : "assets/logoraz.jpg",
+    prefill    : {
+      name   : document.getElementById("fullName").value.trim(),
+      email  : document.getElementById("email").value.trim(),
+      contact: document.getElementById("phone").value.trim()
+    },
+    theme : { color: "#D4AF37" },
+    retry : { enabled: true, max_count: 2 },
+    handler: async function(response) {
+      showProcessing("Confirming payment...");
+      const od = collectOrderData("Paid", response.razorpay_payment_id);
+      od.razorpayOrderId = razorpayOrderId;
+      await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
+      redirectToSuccess(od);
+    },
+    modal: { ondismiss: function() { resetPayBtn(); } }
+  });
 
-  const msg =
-`Hi MelloraX! 👋 Main order place karna Chahta hu.
+  rzp.on("payment.failed", function(r) {
+    hideProcessing(); resetPayBtn();
+    alert("Payment failed. Please try again.\nReason: " + r.error.description);
+  });
 
-🛒 *Order ID:* ${od.orderId}
-━━━━━━━━━━━━━━━━━━
-${items}
-━━━━━━━━━━━━━━━━━━
-💰 *Total:* ₹${t.finalTotal}
-
-Mujhe *payment details* chahiye. Please send payments details `;
-
-  const waUrl = "https://wa.me/" +917248101054 "?text=" + encodeURIComponent(msg);
-
-  localStorage.setItem("melloraxOrder", JSON.stringify(od));
-  localStorage.removeItem("melloraxCheckout");
-  localStorage.removeItem("melloraxCart");
-
-  window.open(waUrl, "_blank");
-  window.location.href = "success.html";
+  rzp.open();
 }
 
 renderCheckout();
