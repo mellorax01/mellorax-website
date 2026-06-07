@@ -347,6 +347,7 @@ function validateForm() {
   const cityEl  = document.getElementById("city");
   const pinEl   = document.getElementById("pincode");
   const stateEl = document.getElementById("state");
+
   const checks = [
     [nameEl,  "errName",    isValidName(nameEl.value.trim())],
     [phoneEl, "errPhone",   /^\d{7,15}$/.test(phoneEl.value.trim())],
@@ -356,10 +357,12 @@ function validateForm() {
     [pinEl,   "errPincode", /^\d{6}$/.test(pinEl.value.trim())],
     [stateEl, "errState",   !!stateEl.value]
   ];
+
   checks.forEach(([el, errId, ok]) => {
     setFieldState(el, errId, !ok);
     if (!ok) { valid = false; firstError = firstError || el; }
   });
+
   if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
   return valid;
 }
@@ -453,9 +456,9 @@ function applyCoupon() {
   const code = document.getElementById("couponInput").value.trim().toUpperCase();
   const msg  = document.getElementById("couponMessage");
   couponDiscount = 0;
-  if (!code)                   msg.innerText = "Enter a coupon code.";
-  else if (code==="MELLORA20") msg.innerText = "Launch offer is already applied.";
-  else                         msg.innerText = "Invalid coupon code.";
+  if (!code)                     msg.innerText = "Enter a coupon code.";
+  else if (code==="MELLORA20")   msg.innerText = "Launch offer is already applied.";
+  else                           msg.innerText = "Invalid coupon code.";
   renderCheckout();
 }
 
@@ -523,7 +526,7 @@ function showCODLoader() {
   circle.classList.remove("done");
   title.innerText   = "Review COD Order";
   text.innerText    = `Total ₹${t.finalTotal} (incl. ₹${t.codCharge} COD fee). Tap confirm to place your order.`;
-  btn.innerText     = "Confirm Pre-Order";
+  btn.innerText     = "Confirm Order";
   btn.disabled      = false;
   btn.style.opacity = "1";
   loader.classList.add("show");
@@ -555,10 +558,9 @@ async function startPayment() {
   const checkedPay = document.querySelector('input[name="payment"]:checked');
   selectedPayment = checkedPay ? checkedPay.value : "Online Payment";
 
-  // COD → success page
   if (selectedPayment === "COD") { showCODLoader(); return; }
 
-  // Online Payment → WhatsApp only, no success page
+  // ─── WhatsApp Payment Redirect ────────────────────────────
   btn.disabled  = true;
   btn.innerText = "Please wait...";
   showProcessing("Saving your order...");
@@ -584,15 +586,15 @@ ${items}
 
 Mujhe *payment details* chahiye. Please send payments details `;
 
-  const waUrl = "https://wa.me/" +917248101054"?text=" + encodeURIComponent(msg);
+  const waUrl = "https://wa.me/" +917248101054 "?text=" + encodeURIComponent(msg);
 
-  // Sirf WhatsApp khulega — koi success page nahi
+  localStorage.setItem("melloraxOrder", JSON.stringify(od));
+  localStorage.removeItem("melloraxCheckout");
+  localStorage.removeItem("melloraxCart");
+
   window.open(waUrl, "_blank");
-  resetPayBtn();
+ resetPayBtn();
 }
-
-// Meta Pixel — InitiateCheckout
-fbq('track', 'InitiateCheckout');
 
 renderCheckout();
 </script>
