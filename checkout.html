@@ -100,7 +100,7 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','959600376885178');fbq('track','initiateCheckout');
+fbq('init','959600376885178');fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"/></noscript>
 </head>
@@ -207,7 +207,7 @@ fbq('init','959600376885178');fbq('track','initiateCheckout');
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue Pre-Order</button>
     </form>
 
     <aside class="checkout-summary">
@@ -269,7 +269,7 @@ fbq('init','959600376885178');fbq('track','initiateCheckout');
 <div class="mx-cod-loader" id="mxCodLoader">
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
-    <h3 id="mxLoaderTitle">Review COD Pre-Order</h3>
+    <h3 id="mxLoaderTitle">Review COD Order</h3>
     <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
     <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
@@ -347,7 +347,6 @@ function validateForm() {
   const cityEl  = document.getElementById("city");
   const pinEl   = document.getElementById("pincode");
   const stateEl = document.getElementById("state");
-
   const checks = [
     [nameEl,  "errName",    isValidName(nameEl.value.trim())],
     [phoneEl, "errPhone",   /^\d{7,15}$/.test(phoneEl.value.trim())],
@@ -357,12 +356,10 @@ function validateForm() {
     [pinEl,   "errPincode", /^\d{6}$/.test(pinEl.value.trim())],
     [stateEl, "errState",   !!stateEl.value]
   ];
-
   checks.forEach(([el, errId, ok]) => {
     setFieldState(el, errId, !ok);
     if (!ok) { valid = false; firstError = firstError || el; }
   });
-
   if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
   return valid;
 }
@@ -456,9 +453,9 @@ function applyCoupon() {
   const code = document.getElementById("couponInput").value.trim().toUpperCase();
   const msg  = document.getElementById("couponMessage");
   couponDiscount = 0;
-  if (!code)                     msg.innerText = "Enter a coupon code.";
-  else if (code==="MELLORA20")   msg.innerText = "Launch offer is already applied.";
-  else                           msg.innerText = "Invalid coupon code.";
+  if (!code)                   msg.innerText = "Enter a coupon code.";
+  else if (code==="MELLORA20") msg.innerText = "Launch offer is already applied.";
+  else                         msg.innerText = "Invalid coupon code.";
   renderCheckout();
 }
 
@@ -526,7 +523,7 @@ function showCODLoader() {
   circle.classList.remove("done");
   title.innerText   = "Review COD Order";
   text.innerText    = `Total ₹${t.finalTotal} (incl. ₹${t.codCharge} COD fee). Tap confirm to place your order.`;
-  btn.innerText     = "Confirm Order";
+  btn.innerText     = "Confirm Pre-Order";
   btn.disabled      = false;
   btn.style.opacity = "1";
   loader.classList.add("show");
@@ -558,9 +555,10 @@ async function startPayment() {
   const checkedPay = document.querySelector('input[name="payment"]:checked');
   selectedPayment = checkedPay ? checkedPay.value : "Online Payment";
 
+  // COD → success page
   if (selectedPayment === "COD") { showCODLoader(); return; }
 
-  // ─── WhatsApp Payment Redirect ────────────────────────────
+  // Online Payment → WhatsApp only, no success page
   btn.disabled  = true;
   btn.innerText = "Please wait...";
   showProcessing("Saving your order...");
@@ -576,7 +574,7 @@ async function startPayment() {
   ).join("\n");
 
   const msg =
-`Hi MelloraX! 👋 Main order place kar Rha hu 
+`Hi MelloraX! 👋 Main order place karna Chahta hu.
 
 🛒 *Order ID:* ${od.orderId}
 ━━━━━━━━━━━━━━━━━━
@@ -584,14 +582,17 @@ ${items}
 ━━━━━━━━━━━━━━━━━━
 💰 *Total:* ₹${t.finalTotal}
 
-Mujhe *payment details* chahiye. Please send payments details`;
+Mujhe *payment details* chahiye. Please send payments details `;
 
-  const waUrl = "https://wa.me/" +917248101054 "?text=" + encodeURIComponent(msg);
+  const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
 
+  // Sirf WhatsApp khulega — koi success page nahi
   window.open(waUrl, "_blank");
   resetPayBtn();
-  // Koi page redirect nahi — customer WhatsApp pe payment kare
 }
+
+// Meta Pixel — InitiateCheckout
+fbq('track', 'InitiateCheckout');
 
 renderCheckout();
 </script>
