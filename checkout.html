@@ -207,7 +207,7 @@ fbq('init','959600376885178');fbq('track','PageView');
         </label>
       </div>
 
-      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue to Payment</button>
+      <button type="button" class="pay-btn" id="payBtn" onclick="startPayment()">Continue Pre-Order</button>
     </form>
 
     <aside class="checkout-summary">
@@ -270,8 +270,8 @@ fbq('init','959600376885178');fbq('track','PageView');
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
     <h3 id="mxLoaderTitle">Review COD Order</h3>
-    <p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
-    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Order</button>
+    <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
+    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
   </div>
 </div>
@@ -576,7 +576,7 @@ async function startPayment() {
   ).join("\n");
 
   const msg =
-`Hi MelloraX! 👋 Maine order place kiya hai.
+`Hi MelloraX! 👋 Main order karna Chahta hu.
 
 🛒 *Order ID:* ${od.orderId}
 ━━━━━━━━━━━━━━━━━━
@@ -584,7 +584,7 @@ ${items}
 ━━━━━━━━━━━━━━━━━━
 💰 *Total:* ₹${t.finalTotal}
 
-Mujhe *payment details* chahiye. Please UPI ID ya QR bhejein. 🙏`;
+Mujhe *payment details* chahiye. Please payments details  bhejein. `;
 
   const waUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
 
@@ -593,7 +593,7 @@ Mujhe *payment details* chahiye. Please UPI ID ya QR bhejein. 🙏`;
   localStorage.removeItem("melloraxCart");
 
   window.open(waUrl, "_blank");
-  window.location.href = "order-received.html";
+  window.location.href = "success.html";
 }
 
 renderCheckout();
