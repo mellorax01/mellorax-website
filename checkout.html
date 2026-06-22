@@ -79,7 +79,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-total strong{font-size:26px}
 .empty-checkout{color:#AFA79A;line-height:1.8;font-size:14px}
 .secure-strip{margin-top:20px;color:#6A6460;font-size:12px;line-height:1.7}
-#codChargeRow{display:none}
 
 /* Mobile sticky bar */
 .mx-sticky-bar{
@@ -274,12 +273,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </label>
 
-        <div class="save-tip">💡 Pay online &amp; save ₹59 per item</div>
+        <div class="save-tip">💡 Pay online for a faster & smoother experience</div>
 
         <!-- COD -->
         <label class="payment-option" onclick="selectPayment(this,'COD')">
           <input type="radio" name="payment" value="COD">
-          <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#7a2828,#5a1a1a);color:#f5a0a0;font-size:8px;font-weight:900;letter-spacing:1px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(150,50,50,.4)">⚠ +₹59 EXTRA / ITEM</div>
+          <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);color:#AFA79A;font-size:8px;font-weight:900;letter-spacing:1px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.4)">PAY ON DELIVERY</div>
           <div style="font-size:15px;font-weight:800;color:#F9F7F2;margin-bottom:5px">Cash on Delivery</div>
           <div style="font-size:11px;color:#8A8278;letter-spacing:.3px">Pay in cash when your order arrives</div>
         </label>
@@ -301,7 +300,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="summary-lines">
         <p><span>Subtotal</span><strong id="checkoutSubtotal">₹0</strong></p>
         <p><span>Shipping</span><strong class="gold">Free</strong></p>
-        <p id="codChargeRow"><span>COD Fee</span><strong style="color:#D4AF37" id="codChargeAmt">₹0</strong></p>
         <p><span>Savings</span><strong class="gold" id="checkoutSavings">₹0 (0% OFF)</strong></p>
       </div>
       <hr>
@@ -333,7 +331,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:14px;color:#BEB6A8">
       <div style="display:flex;justify-content:space-between"><span>Subtotal</span><strong id="sheetSubtotal">₹0</strong></div>
       <div style="display:flex;justify-content:space-between"><span>Shipping</span><strong style="color:#D4AF37">Free</strong></div>
-      <div id="sheetCodRow" style="display:none;justify-content:space-between"><span>COD Fee</span><strong style="color:#D4AF37" id="sheetCodAmt">₹0</strong></div>
       <div style="display:flex;justify-content:space-between"><span>Savings</span><strong style="color:#D4AF37" id="sheetSavings">₹0</strong></div>
     </div>
     <hr style="border:0;border-top:1px solid rgba(212,175,55,.15);margin:14px 0">
@@ -349,7 +346,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
     <h3 id="mxLoaderTitle">Review COD Order</h3>
-    <p id="mxLoaderText">Confirm your Cash on DeliveryPre-order to continue.</p>
+    <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
     <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
   </div>
@@ -364,9 +361,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-const APPS_SCRIPT_URL    = "https://script.google.com/macros/s/AKfycbzTSu6D44qh7b9zAq6y7r-CgN5ufTK7yzJrpSe4CRNsTAJ2LzGoNnXfJzUZ_bqvEXi_/exec";
-const RAZORPAY_KEY       = "rzp_live_T1wwrizUJfkCZp";
-const COD_CHARGE_PER_QTY = 59;
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx6QvzTQAzEqrHmXo0leGA2dGpfGpygAgf2r6EbyhsZTuyJnLT24WAkhd39hJlqg14D/exec";
+const RAZORPAY_KEY    = "rzp_live_T1wwrizUJfkCZp";
 
 let selectedPayment = "Online Payment";
 let couponDiscount  = 0;
@@ -383,29 +379,24 @@ function setFieldState(inputEl, errId, isError) {
   if (errEl) errEl.style.display = isError ? "block" : "none";
 }
 
-// Name: min 2 words, only letters/spaces/dots, no repeating chars like "aaaaa"
 function isValidName(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s\.]+$/.test(val)) return false;
-  // Must have at least 2 parts (first + last name or single meaningful name)
   const words = val.trim().split(/\s+/);
-  // Check no word is just random — each word must have vowels or be short
   for (const word of words) {
     if (word.length > 3) {
       const vowels = (word.match(/[aeiouAEIOU]/g) || []).length;
-      if (vowels === 0) return false; // no vowels = likely random
+      if (vowels === 0) return false;
       const ratio = vowels / word.length;
-      if (ratio < 0.1) return false; // too low vowel ratio
+      if (ratio < 0.1) return false;
     }
   }
   return true;
 }
 
-// Address: min 10 chars, must have at least one number AND letters, no pure gibberish
 function isValidAddress(val) {
   if (!val || val.length < 10) return false;
   if (!/[a-zA-Z]/.test(val)) return false;
-  // Must have meaningful words — check for vowels in letter sequences
   const words = val.trim().split(/[\s,]+/);
   let meaningfulWords = 0;
   for (const word of words) {
@@ -420,7 +411,6 @@ function isValidAddress(val) {
   return meaningfulWords >= 2;
 }
 
-// City: only letters/spaces, min 3 chars, must have vowels
 function isValidCity(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s]+$/.test(val)) return false;
@@ -472,7 +462,6 @@ function validateForm() {
   return valid;
 }
 
-// Live validation on blur
 ["fullName","phone","email","address","city","pincode","state"].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
@@ -490,17 +479,14 @@ function validateForm() {
 });
 
 // ─── Totals ───────────────────────────────────────────────────
-function getTotalQty() { return checkout.reduce((s,i) => s + Number(i.qty||0), 0); }
-function getCodCharge() { return selectedPayment === "COD" ? getTotalQty() * COD_CHARGE_PER_QTY : 0; }
 function getTotals() {
   const subtotal        = checkout.reduce((s,i) => s + Number(i.price)*Number(i.qty), 0);
   const mrpTotal        = checkout.reduce((s,i) => s + Number(i.mrp||i.price)*Number(i.qty), 0);
   const originalSavings = mrpTotal - subtotal;
-  const codCharge       = getCodCharge();
-  const finalTotal      = Math.max(subtotal - couponDiscount, 0) + codCharge;
+  const finalTotal      = Math.max(subtotal - couponDiscount, 0);
   const totalSavings    = originalSavings + couponDiscount;
   const discountPercent = mrpTotal > 0 ? Math.round((totalSavings/mrpTotal)*100) : 0;
-  return { subtotal, finalTotal, totalSavings, discountPercent, codCharge };
+  return { subtotal, finalTotal, totalSavings, discountPercent };
 }
 
 // ─── Render ───────────────────────────────────────────────────
@@ -518,10 +504,9 @@ function itemsHTML(items) {
 }
 
 function renderCheckout() {
-  const t = getTotals();
-  const qty = getTotalQty();
+  const t   = getTotals();
+  const qty = checkout.reduce((s,i) => s + Number(i.qty||0), 0);
 
-  // Desktop summary
   const box = document.getElementById("checkoutItems");
   if (!checkout.length) {
     box.innerHTML = `<div class="empty-checkout">Your checkout is empty.</div>`;
@@ -531,21 +516,14 @@ function renderCheckout() {
   document.getElementById("checkoutSubtotal").innerText = `₹${t.subtotal}`;
   document.getElementById("checkoutSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   document.getElementById("checkoutTotal").innerText    = `₹${t.finalTotal}`;
-  const codRow = document.getElementById("codChargeRow");
-  codRow.style.display = t.codCharge > 0 ? "flex" : "none";
-  document.getElementById("codChargeAmt").innerText = `₹${t.codCharge}`;
 
-  // Mobile sheet
   const sheetBox = document.getElementById("sheetItems");
   if (sheetBox) sheetBox.innerHTML = checkout.length ? itemsHTML(checkout) : "";
   const el = id => document.getElementById(id);
   if (el("sheetSubtotal")) el("sheetSubtotal").innerText = `₹${t.subtotal}`;
   if (el("sheetSavings"))  el("sheetSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   if (el("sheetTotal"))    el("sheetTotal").innerText    = `₹${t.finalTotal}`;
-  if (el("sheetCodRow"))   el("sheetCodRow").style.display = t.codCharge > 0 ? "flex" : "none";
-  if (el("sheetCodAmt"))   el("sheetCodAmt").innerText   = `₹${t.codCharge}`;
 
-  // Sticky bar
   if (el("stickyItemCount")) el("stickyItemCount").innerText = `${qty} item${qty!==1?"s":""}`;
   if (el("stickyTotal"))     el("stickyTotal").innerText     = `₹${t.finalTotal}`;
 }
@@ -571,7 +549,6 @@ function selectPayment(el, method) {
   document.querySelectorAll(".payment-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
   el.querySelector('input[name="payment"]').checked = true;
-  // Update button text
   const btn = document.getElementById("payBtn");
   btn.innerText = method === "COD" ? "Proceed with COD" : "Continue to Payment";
   renderCheckout();
@@ -617,7 +594,6 @@ function collectOrderData(status, paymentId) {
     items    : checkout,
     subtotal : t.subtotal,
     savings  : t.totalSavings,
-    codCharge: t.codCharge,
     shipping : "Free",
     total    : t.finalTotal,
     payment  : selectedPayment,
@@ -660,7 +636,7 @@ function showCODLoader() {
 
   circle.classList.remove("done");
   title.innerText   = "Review COD Order";
-  text.innerText    = `Total ₹${t.finalTotal} (incl. ₹${t.codCharge} COD fee). Tap confirm to place your order.`;
+  text.innerText    = `Total ₹${t.finalTotal}. Tap confirm to place your order.`;
   btn.innerText     = "Confirm Order";
   btn.disabled      = false;
   btn.style.opacity = "1";
@@ -668,10 +644,12 @@ function showCODLoader() {
 
   setTimeout(() => { circle.classList.add("done"); title.innerText = "Confirm COD Order"; btn.focus(); }, 900);
 
-  btn.onclick = async function() {
-    btn.innerText = "Placing Order...";
-    btn.disabled  = true;
-    btn.style.opacity = ".7";
+  const freshBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(freshBtn, btn);
+  freshBtn.onclick = async function() {
+    freshBtn.innerText = "Placing Order...";
+    freshBtn.disabled  = true;
+    freshBtn.style.opacity = ".7";
     const od = collectOrderData("COD Pending", "");
     showProcessing("Saving your order...");
     loader.classList.remove("show");
@@ -740,6 +718,7 @@ async function startPayment() {
     handler: async function(response) {
       showProcessing("Confirming payment...");
       const od = collectOrderData("Paid", response.razorpay_payment_id);
+      od.razorpaySignature = response.razorpay_signature;
       od.razorpayOrderId = razorpayOrderId;
       await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
       redirectToSuccess(od);
