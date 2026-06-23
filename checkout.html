@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -24,8 +24,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-form,.checkout-summary{padding:34px;border-radius:34px;background:linear-gradient(180deg,#151515,#0E0E0E);border:1px solid rgba(212,175,55,.15)}
 .checkout-form{display:grid;gap:16px}
 .checkout-form h2,.checkout-summary h2{font-family:serif;font-size:32px;margin:0 0 10px}
-
-/* Inputs */
 .input-group{display:flex;flex-direction:column;gap:6px}
 .input-label{font-size:11px;color:#8A8278;letter-spacing:.8px;text-transform:uppercase;padding-left:4px}
 .checkout-form input,
@@ -43,30 +41,21 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-form textarea{min-height:100px;resize:none}
 .field-error{font-size:11.5px;color:#e07070;padding-left:4px;display:none;line-height:1.5}
 .field-hint{font-size:11px;color:#6A6460;padding-left:4px;line-height:1.5}
-
 .checkout-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .delivery-box{display:none;padding:13px 16px;border-radius:14px;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.16);color:#E6D49B;font-size:13px}
-
-/* Payment */
 .payment-options{display:grid;gap:16px;margin-top:4px}
 .payment-option{display:flex;align-items:center;justify-content:center;text-align:center;padding:18px 22px;border-radius:18px;border:1px solid rgba(212,175,55,.16);background:#0B0B0B;cursor:pointer;transition:.35s;position:relative;overflow:visible;flex-direction:column;gap:0}
 .payment-option.active{border-color:rgba(212,175,55,.52);background:rgba(212,175,55,.06)}
 .payment-option:hover{transform:translateY(-2px);border-color:rgba(212,175,55,.38)}
 .payment-option input{display:none}
 .save-tip{text-align:center;font-size:11px;color:#7A6820;font-weight:600;letter-spacing:.3px;padding:2px 0}
-
-/* Coupon */
 .coupon-box{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
 .coupon-box input{padding:14px 18px;border-radius:14px;border:1px solid rgba(212,175,55,.14);background:#0B0B0B;color:#F9F7F2;font-size:14px;outline:none}
 .coupon-box button{padding:0 20px;border-radius:14px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.08);color:#D4AF37;font-weight:700;cursor:pointer;font-size:14px}
 .coupon-message{margin-top:-6px;margin-bottom:14px;font-size:12px;color:#D4AF37;min-height:16px}
-
-/* Pay Button */
 .pay-btn{padding:17px 24px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;cursor:pointer;transition:.35s;font-size:15px;width:100%;margin-top:4px}
 .pay-btn:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(212,175,55,.28)}
 .pay-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
-
-/* Summary */
 .checkout-summary{position:sticky;top:28px}
 .checkout-item{display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(212,175,55,.1)}
 .checkout-item img{width:68px;height:68px;object-fit:contain;border-radius:14px;background:#080808}
@@ -79,42 +68,17 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .checkout-total strong{font-size:26px}
 .empty-checkout{color:#AFA79A;line-height:1.8;font-size:14px}
 .secure-strip{margin-top:20px;color:#6A6460;font-size:12px;line-height:1.7}
-
-/* Mobile sticky bar */
-.mx-sticky-bar{
-  display:none;
-  position:fixed;bottom:0;left:0;right:0;z-index:9000;
-  background:linear-gradient(90deg,#1A1500,#0F0F0F);
-  border-top:1px solid rgba(212,175,55,.22);
-  padding:14px 20px;
-  align-items:center;justify-content:space-between;gap:12px;
-  box-shadow:0 -8px 28px rgba(0,0,0,.5);
-}
+.mx-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;background:linear-gradient(90deg,#1A1500,#0F0F0F);border-top:1px solid rgba(212,175,55,.22);padding:14px 20px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -8px 28px rgba(0,0,0,.5)}
 .mx-sticky-bar-left{display:flex;flex-direction:column;gap:2px}
 .mx-sticky-bar-left span{font-size:11px;color:#8A8278}
 .mx-sticky-bar-left strong{font-size:16px;color:#F9F7F2;font-weight:800}
 .mx-sticky-bar-btn{padding:10px 18px;border-radius:999px;border:0;background:#D4AF37;color:#0B0B0B;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap}
-
-/* Mobile summary slide-up */
-.mx-summary-sheet{
-  position:fixed;inset:0;z-index:9500;
-  opacity:0;visibility:hidden;transition:.3s ease;
-}
+.mx-summary-sheet{position:fixed;inset:0;z-index:9500;opacity:0;visibility:hidden;transition:.3s ease}
 .mx-summary-sheet.show{opacity:1;visibility:visible}
 .mx-summary-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)}
-.mx-summary-inner{
-  position:absolute;bottom:0;left:0;right:0;
-  background:linear-gradient(180deg,#191919,#0F0F0F);
-  border-radius:28px 28px 0 0;
-  border-top:1px solid rgba(212,175,55,.2);
-  padding:24px 22px 40px;
-  max-height:80vh;overflow-y:auto;
-  transform:translateY(100%);transition:.35s ease;
-}
+.mx-summary-inner{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#191919,#0F0F0F);border-radius:28px 28px 0 0;border-top:1px solid rgba(212,175,55,.2);padding:24px 22px 40px;max-height:80vh;overflow-y:auto;transform:translateY(100%);transition:.35s ease}
 .mx-summary-sheet.show .mx-summary-inner{transform:translateY(0)}
 .mx-sheet-handle{width:40px;height:4px;border-radius:999px;background:rgba(212,175,55,.3);margin:0 auto 20px}
-
-/* Loaders */
 .mx-cod-loader{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.84);backdrop-filter:blur(16px);opacity:0;visibility:hidden;transition:.35s ease}
 .mx-cod-loader.show{opacity:1;visibility:visible}
 .mx-cod-loader-card{width:min(380px,90%);padding:36px 28px;border-radius:32px;background:linear-gradient(180deg,#151515,#0C0C0C);border:1px solid rgba(212,175,55,.20);text-align:center;box-shadow:0 34px 90px rgba(0,0,0,.55)}
@@ -135,10 +99,8 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
 .mx-processing p{color:#D4AF37;font-size:16px;font-weight:700;margin-top:16px}
 .mx-processing-inner{text-align:center}
 .mx-spin{width:50px;height:50px;border:3px solid rgba(212,175,55,.2);border-top-color:#D4AF37;border-radius:50%;animation:mxSpin .8s linear infinite;margin:0 auto}
-
 @keyframes mxDotPulse{0%,80%,100%{opacity:.35;transform:scale(.65)}40%{opacity:1;transform:scale(1)}}
 @keyframes mxSpin{to{transform:rotate(360deg)}}
-
 @media(max-width:900px){
   .mx-checkout-page{padding:92px 18px 100px}
   .checkout-layout,.checkout-row{grid-template-columns:1fr}
@@ -149,7 +111,6 @@ body{margin:0;background:#0B0B0B;color:#F9F7F2;font-family:Arial,sans-serif}
   .mx-sticky-bar{display:flex}
 }
 </style>
-
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -167,10 +128,9 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=959600376885178&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THMJGZNJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -189,56 +149,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="checkout-kicker">Step 01</span>
       <h2>Shipping Details</h2>
 
-      <!-- Full Name -->
       <div class="input-group">
         <label class="input-label">Full Name *</label>
-        <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana " autocomplete="name">
+        <input type="text" id="fullName" placeholder="e.g. Gulbahar Rana" autocomplete="name">
         <div class="field-hint">Enter your first and last name</div>
-        <div class="field-error" id="errName">⚠ Please enter a valid full name (e.g. Gulbahar Rana )</div>
+        <div class="field-error" id="errName">Please enter a valid full name</div>
       </div>
 
-      <!-- Phone -->
       <div class="input-group">
         <label class="input-label">Mobile Number *</label>
         <input type="tel" id="phone" placeholder="e.g. 9876543210" maxlength="15" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
         <div class="field-hint">Enter your active mobile number for order updates</div>
-        <div class="field-error" id="errPhone">⚠ Enter a valid phone number (10 digits)</div>
+        <div class="field-error" id="errPhone">Enter a valid phone number (10 digits)</div>
       </div>
 
-      <!-- Email -->
       <div class="input-group">
         <label class="input-label">Email Address *</label>
         <input type="email" id="email" placeholder="e.g. rana@gmail.com" autocomplete="email">
         <div class="field-hint">Order confirmation will be sent here</div>
-        <div class="field-error" id="errEmail">⚠ Enter a valid email address (e.g. name@gmail.com)</div>
+        <div class="field-error" id="errEmail">Enter a valid email address</div>
       </div>
 
-      <!-- Address -->
       <div class="input-group">
         <label class="input-label">Complete Shipping Address *</label>
         <textarea id="address" placeholder="e.g. House No. 12, Gali No. 3, Near Ram Mandir, Sector 5"></textarea>
         <div class="field-hint">Include house number, street name and nearby landmark</div>
-        <div class="field-error" id="errAddress">⚠ Enter your complete address with house no. and street name</div>
+        <div class="field-error" id="errAddress">Enter your complete address with house no. and street name</div>
       </div>
 
-      <!-- City + Pincode -->
       <div class="checkout-row">
         <div class="input-group">
           <label class="input-label">City *</label>
           <input type="text" id="city" placeholder="e.g. Shamli" autocomplete="address-level2">
-          <div class="field-error" id="errCity">⚠ Enter a valid city name</div>
+          <div class="field-error" id="errCity">Enter a valid city name</div>
         </div>
         <div class="input-group">
           <label class="input-label">Pincode *</label>
           <input type="text" id="pincode" placeholder="e.g. 247776" maxlength="6" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'');checkDelivery()">
-          <div class="field-error" id="errPincode">⚠ Enter a valid 6-digit pincode</div>
+          <div class="field-error" id="errPincode">Enter a valid 6-digit pincode</div>
         </div>
       </div>
 
-      <!-- State -->
       <div class="input-group">
         <label class="input-label">State *</label>
-        <select id="state">
+        <select id="state" autocomplete="address-level1">
           <option value="">Select your state</option>
           <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option>
           <option>Chhattisgarh</option><option>Goa</option><option>Gujarat</option><option>Haryana</option>
@@ -251,7 +205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option>
           <option>Jammu and Kashmir</option><option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
         </select>
-        <div class="field-error" id="errState">⚠ Please select your state</div>
+        <div class="field-error" id="errState">Please select your state</div>
       </div>
 
       <div class="delivery-box" id="deliveryEstimate"></div>
@@ -260,22 +214,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>Payment Method</h2>
 
       <div class="payment-options">
-        <!-- Online -->
         <label class="payment-option active" onclick="selectPayment(this,'Online Payment')">
           <input type="radio" name="payment" value="Online Payment" checked>
-          <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#D4AF37,#B8920A);color:#0B0B0B;font-size:8px;font-weight:900;letter-spacing:1.2px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(212,175,55,.4)">✦ RECOMMENDED</div>
+          <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#D4AF37,#B8920A);color:#0B0B0B;font-size:8px;font-weight:900;letter-spacing:1.2px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(212,175,55,.4)">RECOMMENDED</div>
           <div style="font-size:15px;font-weight:800;color:#F9F7F2;margin-bottom:5px">Secure Online Payment</div>
           <div style="font-size:11px;color:#8A8278;margin-bottom:7px;letter-spacing:.3px">UPI &nbsp;·&nbsp; Cards &nbsp;·&nbsp; Wallets &nbsp;·&nbsp; Net Banking</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
-            <span style="font-size:10.5px;color:#C9A227;font-weight:700">✓ Fast Shipping</span>
+            <span style="font-size:10.5px;color:#C9A227;font-weight:700">Fast Shipping</span>
             <span style="color:rgba(212,175,55,.2)">|</span>
-            <span style="font-size:10.5px;color:#C9A227;font-weight:700">✓ 100% Secure</span>
+            <span style="font-size:10.5px;color:#C9A227;font-weight:700">100% Secure</span>
           </div>
         </label>
 
-        <div class="save-tip">💡 Pay online for a faster & smoother experience</div>
+        <div class="save-tip">Pay online for a faster and smoother experience</div>
 
-        <!-- COD -->
         <label class="payment-option" onclick="selectPayment(this,'COD')">
           <input type="radio" name="payment" value="COD">
           <div style="position:absolute;top:-11px;right:10px;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);color:#AFA79A;font-size:8px;font-weight:900;letter-spacing:1px;padding:3px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.4)">PAY ON DELIVERY</div>
@@ -304,7 +256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <hr>
       <p class="checkout-total"><span>Total</span><strong id="checkoutTotal">₹0</strong></p>
-      <div class="secure-strip">🔒 Secure payment &nbsp;·&nbsp; Premium packaging &nbsp;·&nbsp; Careful handling</div>
+      <div class="secure-strip">Secure payment &nbsp;·&nbsp; Premium packaging &nbsp;·&nbsp; Careful handling</div>
     </aside>
   </section>
 </main>
@@ -315,7 +267,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span id="stickyItemCount">0 items</span>
     <strong id="stickyTotal">₹0</strong>
   </div>
-  <button class="mx-sticky-bar-btn" onclick="openSummarySheet()">🛒 View Order</button>
+  <button class="mx-sticky-bar-btn" onclick="openSummarySheet()">View Order</button>
 </div>
 
 <!-- Mobile Summary Sheet -->
@@ -325,7 +277,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="mx-sheet-handle"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
       <span style="font-size:11px;color:#D4AF37;letter-spacing:2px;text-transform:uppercase">Order Summary</span>
-      <button onclick="closeSummarySheet()" style="background:none;border:0;color:#8A8278;cursor:pointer;font-size:18px">✕</button>
+      <button onclick="closeSummarySheet()" style="background:none;border:0;color:#8A8278;cursor:pointer;font-size:18px">X</button>
     </div>
     <div id="sheetItems"></div>
     <div style="display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:14px;color:#BEB6A8">
@@ -346,8 +298,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="mx-cod-loader-card">
     <div class="mx-loader-circle" id="mxLoaderCircle"><span></span><span></span><span></span></div>
     <h3 id="mxLoaderTitle">Review COD Order</h3>
-    <p id="mxLoaderText">Confirm your Cash on Delivery Pre-order to continue.</p>
-    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Pre-Order</button>
+    <p id="mxLoaderText">Confirm your Cash on Delivery order to continue.</p>
+    <button type="button" class="mx-cod-confirm-btn" id="mxCodConfirmBtn">Confirm Order</button>
     <button type="button" class="mx-cod-cancel-btn" onclick="closeCODLoader()">Cancel</button>
   </div>
 </div>
@@ -361,7 +313,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxuTfdWlomJbu8CfK8X_x-eepgX1ti2QXHuVdyHNrC1rW4msH9hz8yes1LtK1up3Sv/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxinKMjIBbmi-LekSxBHiPDBdCldTFfBgcMG1Oje6gUUMep-zf0bGKk7Ar_-qdSX2Rl/exec";
 const RAZORPAY_KEY    = "rzp_live_T1wwrizUJfkCZp";
 
 let selectedPayment = "Online Payment";
@@ -387,8 +339,7 @@ function isValidName(val) {
     if (word.length > 3) {
       const vowels = (word.match(/[aeiouAEIOU]/g) || []).length;
       if (vowels === 0) return false;
-      const ratio = vowels / word.length;
-      if (ratio < 0.1) return false;
+      if (vowels / word.length < 0.1) return false;
     }
   }
   return true;
@@ -414,8 +365,7 @@ function isValidAddress(val) {
 function isValidCity(val) {
   if (!val || val.length < 3) return false;
   if (!/^[a-zA-Z\s]+$/.test(val)) return false;
-  const vowels = (val.match(/[aeiouAEIOU]/g) || []).length;
-  return vowels > 0;
+  return (val.match(/[aeiouAEIOU]/g) || []).length > 0;
 }
 
 function validateForm() {
@@ -458,7 +408,6 @@ function validateForm() {
   if (!stateOk) { valid = false; firstError = firstError || stateEl; }
 
   if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-
   return valid;
 }
 
@@ -508,11 +457,8 @@ function renderCheckout() {
   const qty = checkout.reduce((s,i) => s + Number(i.qty||0), 0);
 
   const box = document.getElementById("checkoutItems");
-  if (!checkout.length) {
-    box.innerHTML = `<div class="empty-checkout">Your checkout is empty.</div>`;
-  } else {
-    box.innerHTML = itemsHTML(checkout);
-  }
+  box.innerHTML = checkout.length ? itemsHTML(checkout) : `<div class="empty-checkout">Your checkout is empty.</div>`;
+
   document.getElementById("checkoutSubtotal").innerText = `₹${t.subtotal}`;
   document.getElementById("checkoutSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   document.getElementById("checkoutTotal").innerText    = `₹${t.finalTotal}`;
@@ -523,7 +469,6 @@ function renderCheckout() {
   if (el("sheetSubtotal")) el("sheetSubtotal").innerText = `₹${t.subtotal}`;
   if (el("sheetSavings"))  el("sheetSavings").innerText  = `₹${t.totalSavings} (${t.discountPercent}% OFF)`;
   if (el("sheetTotal"))    el("sheetTotal").innerText    = `₹${t.finalTotal}`;
-
   if (el("stickyItemCount")) el("stickyItemCount").innerText = `${qty} item${qty!==1?"s":""}`;
   if (el("stickyTotal"))     el("stickyTotal").innerText     = `₹${t.finalTotal}`;
 }
@@ -539,7 +484,7 @@ function checkDelivery() {
   if (pin.length === 6) {
     const est = ["1","2","3"].includes(pin[0]) ? "3–5 business days" : "5–7 business days";
     box.style.display = "block";
-    box.innerHTML = `📦 Estimated delivery: <strong>${est}</strong>`;
+    box.innerHTML = `Estimated delivery: <strong>${est}</strong>`;
   } else { box.style.display = "none"; }
 }
 
@@ -549,8 +494,7 @@ function selectPayment(el, method) {
   document.querySelectorAll(".payment-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
   el.querySelector('input[name="payment"]').checked = true;
-  const btn = document.getElementById("payBtn");
-  btn.innerText = method === "COD" ? "Proceed with COD" : "Continue to Payment";
+  document.getElementById("payBtn").innerText = method === "COD" ? "Proceed with COD" : "Continue to Payment";
   renderCheckout();
   resetPayBtn();
 }
@@ -575,7 +519,7 @@ function applyCoupon() {
 // ─── Order ID ─────────────────────────────────────────────────
 function makeOrderId() {
   const d = new Date();
-  return `MX-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-${Math.floor(1000+Math.random()*9000)}`;
+  return `MX${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}${Math.floor(1000+Math.random()*9000)}`;
 }
 
 function collectOrderData(status, paymentId) {
@@ -636,7 +580,7 @@ function showCODLoader() {
 
   circle.classList.remove("done");
   title.innerText   = "Review COD Order";
-  text.innerText    = `Total ₹${t.finalTotal}. Tap confirm to place your order.`;
+  text.innerText    = `Total Rs.${t.finalTotal}. Tap confirm to place your order.`;
   btn.innerText     = "Confirm Order";
   btn.disabled      = false;
   btn.style.opacity = "1";
@@ -644,11 +588,12 @@ function showCODLoader() {
 
   setTimeout(() => { circle.classList.add("done"); title.innerText = "Confirm COD Order"; btn.focus(); }, 900);
 
+  // COD double submit fix
   const freshBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(freshBtn, btn);
   freshBtn.onclick = async function() {
-    freshBtn.innerText = "Placing Order...";
-    freshBtn.disabled  = true;
+    freshBtn.innerText    = "Placing Order...";
+    freshBtn.disabled     = true;
     freshBtn.style.opacity = ".7";
     const od = collectOrderData("COD Pending", "");
     showProcessing("Saving your order...");
@@ -718,8 +663,8 @@ async function startPayment() {
     handler: async function(response) {
       showProcessing("Confirming payment...");
       const od = collectOrderData("Paid", response.razorpay_payment_id);
+      od.razorpayOrderId  = razorpayOrderId;
       od.razorpaySignature = response.razorpay_signature;
-      od.razorpayOrderId = razorpayOrderId;
       await Promise.race([saveOrderToSheet(od), new Promise(r => setTimeout(r, 5000))]);
       redirectToSuccess(od);
     },
